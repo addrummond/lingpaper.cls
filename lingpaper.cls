@@ -18,6 +18,13 @@
   January\or February\or March\or April\or May\or June\or
   July\or August\or September\or October\or November\or December\fi
   \space\number\day, \number\year}
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
 
 %
 % Misc. definitions.
@@ -77,8 +84,6 @@
 \fancyfootoffset{0.75in}
 
 \pagestyle{fancyplain}
-\newcommand{\sl}{\slshape}
-\newcommand{\rm}{\rmfamily}
 %\renewcommand\headrulewidth{0pt}
 \lhead{\@pagenumfontsize\textit{\ifdefined\@shorttitle\@shorttitle\else\@title\fi}}
 \chead{}
@@ -197,5 +202,10 @@
   \topsep 9.5pt plus 3pt minus 5pt
   \itemsep 5pt plus 3pt minus 2pt
 }
+
+%
+% Blocks.
+%
+\newcommand\newblock{\hskip .11em plus .33em plus .07em}
 
 \ProcessOptions
