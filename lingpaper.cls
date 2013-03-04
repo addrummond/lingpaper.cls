@@ -58,7 +58,6 @@
 %
 % Set up fancyhdr package with sensible defaults.
 %
-\def\@shorttitle{}
 \newcommand\shorttitle[1]{%
   \def\@shorttitle{#1}}
 
@@ -66,7 +65,7 @@
 \newcommand{\sl}{\slshape}
 \newcommand{\rm}{\rmfamily}
 \renewcommand\headrulewidth{0pt}
-\lhead{\@pagenumfontsize\textit{\@title}}
+\lhead{\@pagenumfontsize\textit{\ifdefined\@shorttitle\@shorttitle\else\@title\fi}}
 \chead{}
 \rhead{\@pagenumfontsize\textit{\@author}}
 \lfoot{}
