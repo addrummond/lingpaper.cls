@@ -45,21 +45,24 @@
 \setlength\topmargin{-0.5in}
 \setlength\headheight{24pt}
 \setlength\headsep{12.13pt}
-\setlength\footskip{24pt}
+\setlength\footskip{0.75in}
 
-\setlength\oddsidemargin{1in}
-\setlength\evensidemargin{1in}
+\setlength\oddsidemargin{0.75in}
+\setlength\evensidemargin{0.75in}
 
 \setlength\topskip{\@nfs}
 
-\setlength{\textwidth}{4.5in}
-\setlength{\textheight}{8in}
+\setlength{\textwidth}{5in}
+\setlength{\textheight}{8.5in}
 
 %
 % Set up fancyhdr package with sensible defaults.
 %
 \newcommand\shorttitle[1]{%
   \def\@shorttitle{#1}}
+
+\fancyheadoffset{0.75in}
+\fancyfootoffset{0.75in}
 
 \pagestyle{fancyplain}
 \newcommand{\sl}{\slshape}
