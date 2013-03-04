@@ -29,7 +29,7 @@
 %
 \newcommand\@fancyfont{%
   \usepackage{fontspec}
-  \setmainfont[Ligatures=TeX,Mapping=tex-text]{Times New Roman}}
+  \setmainfont[Ligatures=TeX,Mapping=tex-text]{Linux Libertine O}}
 \ifxetex
   \@fancyfont
 \else\ifluatex
