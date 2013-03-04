@@ -38,11 +38,11 @@
 \usepackage{mathptmx} % Times
 
 \def\@nfs{12pt}
-\def\@nfsskip{10pt}
+\def\@nfsskip{14pt}
 
 % Sometimes useful to have old value in bits that are never double-spaced.
 %\global\let\@@nfsskip\@nfsskip
-\def\@@nfsskip{10pt}
+\let\@@nfsskip\@nfsskip
 
 \DeclareOption{doublespace}{\def\@nfsskip{24pt}}
 
@@ -119,7 +119,7 @@
 \def\subsection{\@ifnextchar\bgroup{\subsection@one}{\subsection@two}}
 
 \newcommand\start@section{\@startsection{section}{1}{0pt}{24pt}{12pt}{\sectionfont}}
-\newcommand\start@subsection{\@startsection{subsection}{2}{0pt}{12pt}{6pt}{\subsectionfont}}
+\newcommand\start@subsection{\@startsection{subsection}{2}{0pt}{18pt}{6pt}{\subsectionfont}}
 
 \newcommand\@secttail{\@afterindentfalse}
 
@@ -208,6 +208,35 @@
   \topsep 9.5pt plus 3pt minus 5pt
   \itemsep 5pt plus 3pt minus 2pt
 }
+
+\setlength\leftmargini{2.5em}
+\setlength\leftmarginii{2.2em}
+\setlength\leftmarginiii{1.87em}
+\setlength\leftmarginiv{1.7em}
+\setlength\leftmarginv{1em}
+\setlength\leftmarginvi{1em}
+
+\setlength\labelwidth{\leftmargini}
+\setlength\labelsep{.5em}
+\addtolength\labelwidth{-\labelsep}
+
+\leftmargin\leftmargini
+
+\renewcommand\theenumi{\@arabic\c@enumi}
+\renewcommand\theenumii{\@alph\c@enumii}
+\renewcommand\theenumiii{\@roman\c@enumiii}
+\renewcommand\theenumiv{\@Alph\c@enumiv}
+\newcommand\labelenumi{\theenumi.}
+\newcommand\labelenumii{(\theenumii)}
+\newcommand\labelenumiii{\theenumiii.}
+\newcommand\labelenumiv{\theenumiv.}
+\renewcommand\p@enumii{\theenumi}
+\renewcommand\p@enumiii{\theenumi(\theenumii)}
+\renewcommand\p@enumiv{\p@enumiii\theenumiii}
+\newcommand\labelitemi{\textbullet}
+\newcommand\labelitemii{\normalfont\bfseries \textendash}
+\newcommand\labelitemiii{\textasteriskcentered}
+\newcommand\labelitemiv{\textperiodcentered}
 
 %
 % Blocks.
