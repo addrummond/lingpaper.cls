@@ -1,6 +1,5 @@
 \ProvidesClass{lingpaper}[2013/03/02 Linguistics papers]
 \NeedsTeXFormat{LaTeX2e}
-\RequirePackage[utf8]{inputenc}
 \RequirePackage{endnotes}
 \RequirePackage{fancyhdr}
 \RequirePackage{ifxetex,ifluatex}
@@ -38,7 +37,7 @@
 \else
   \usepackage{tgtermes}
   \usepackage[T1]{fontenc}
-\fi
+\fi\fi
 
 \def\@nfs{12pt}
 \def\@nfsskip{14pt}
