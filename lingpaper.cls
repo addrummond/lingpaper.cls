@@ -116,7 +116,7 @@
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
 \newcommand\subsubsection{\@ifnextchar*{\subsubsection@two}{\subsection@one}}
 
-\newcommand\start@section{\@startsection{section}{1}{0pt}{24pt}{12pt}{\sectionfont}}
+\newcommand\start@section{\@startsection{section}{1}{0pt}{24pt}{6pt}{\sectionfont}}
 \newcommand\start@subsection{\@startsection{subsection}{2}{0pt}{18pt}{6pt}{\subsectionfont}}
 \newcommand\start@subsubsection{\@startsection{subsubsection}{2}{0pt}{18pt}{6pt}{\subsubsectionfont}}
 
@@ -133,24 +133,27 @@
 % Footnotes/endnotes.
 %
 \newif\if@endnotes
-\DeclareOption{endnotes}{\@endnotestrue}
+\DeclareOption{endnotes}{%
+  \@endnotestrue}
 
-\if@endnotes
-  % Endnotes.
-  \renewcommand\footnote{\endnote}
-\else
-  % Footnotes.
-  \renewcommand\theendnotes{}
-  \setlength\footnotesep{12pt}
-  \renewcommand\footnoterule{%
-    \kern-3\p@
-    \hrule\@width.4\columnwidth
-    \kern2.6\p@}
-  \newcommand\@makefntext[1]{%
-      \parindent 1em%
-      \noindent
-      \hb@xt@1.8em{\hss\@makefnmark}#1}
-\fi
+\AtBeginDocument{%
+  \if@endnotes
+    % Endnotes.
+    \renewcommand\footnote{\endnote}
+  \else
+    % Footnotes.
+    \renewcommand\theendnotes{}
+  \fi}
+
+\setlength\footnotesep{12pt}
+\renewcommand\footnoterule{%
+  \kern-3\p@
+  \hrule\@width.4\columnwidth
+  \kern2.6\p@}
+\newcommand\@makefntext[1]{%
+    \parindent 1em%
+    \noindent
+    \hb@xt@1.8em{\hss\@makefnmark}#1}
 
 % Handle \thanks within \title
 \newcounter{@oldfn}
