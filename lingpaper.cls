@@ -82,7 +82,7 @@
 %\renewcommand\headrulewidth{0pt}
 \lhead{\@pagenumfontsize\textit{\ifdefined\@shorttitle\@shorttitle\else\@title\fi}}
 \chead{}
-\rhead{\@pagenumfontsize\textit{\@author}}
+\rhead{\@pagenumfontsize\@author}
 \lfoot{}
 \cfoot{}
 \rfoot{\@pagenumfontsize\thepage}
