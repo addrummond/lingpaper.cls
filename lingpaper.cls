@@ -5,13 +5,6 @@
 \RequirePackage{fancyhdr}
 
 %
-% Common packages used in linguistics papers.
-%
-\RequirePackage{tikz}
-\RequirePackage{tikz-qtree}
-\RequirePackage{linguex}
-
-%
 % Some basic definitions copied from article.tex.
 %
 \def\today{\ifcase\month\or
@@ -48,6 +41,8 @@
 
 \renewcommand{\normalsize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
 \newcommand{\footnotesize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
+\newcommand{\small}{\fontsize{10pt}{10pt}\selectfont}
+\newcommand{\tiny}{\fontsize{8pt}{8pt}\selectfont}
 
 \newcommand{\normaltext}{\fontseries{m}\fontshape{n}\normalsize}
 
@@ -111,15 +106,19 @@
 \setcounter{secnumdepth}{3}
 \newcounter{section}
 \newcounter{subsection}[section]
+\newcounter{subsubsection}[subsection]
 
 \renewcommand\thesection{\arabic{section}.}
 \renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
+\renewcommand\thesubsubsection{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
 
-\def\section{\@ifnextchar\bgroup{\section@one}{\section@two}}
-\def\subsection{\@ifnextchar\bgroup{\subsection@one}{\subsection@two}}
+\newcommand\section{\@ifnextchar*{\section@two}{\section@one}}
+\newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
+\newcommand\subsubsection{\@ifnextchar*{\subsubsection@two}{\subsection@one}}
 
 \newcommand\start@section{\@startsection{section}{1}{0pt}{24pt}{12pt}{\sectionfont}}
 \newcommand\start@subsection{\@startsection{subsection}{2}{0pt}{18pt}{6pt}{\subsectionfont}}
+\newcommand\start@subsubsection{\@startsection{subsubsection}{2}{0pt}{18pt}{6pt}{\subsubsectionfont}}
 
 \newcommand\@secttail{\@afterindentfalse}
 
@@ -127,6 +126,8 @@
 \newcommand\section@two[2]{\start@section#1{#2}\@secttail}
 \newcommand\subsection@one[1]{\expandafter\start@subsection{#1}\@secttail}
 \newcommand\subsection@two[2]{\expandafter\start@subsection#1{#2}\@secttail}
+\newcommand\subsubsection@one[1]{\expandafter\start@subsubsection{#1}\@secttail}
+\newcommand\subsubsection@two[2]{\expandafter\start@subsubsection#1{#2}\@secttail}
 
 %
 % Footnotes/endnotes.
@@ -239,14 +240,24 @@
 \newcommand\labelitemiv{\textperiodcentered}
 
 %
+% Quotations (from article.cls)
+%
+\newenvironment{quotation}
+               {\list{}{\listparindent 1.5em%
+                        \itemindent    \listparindent
+                        \rightmargin   \leftmargin
+                        \parsep        \z@ \@plus\p@}%
+                \item\relax}
+               {\endlist}
+\newenvironment{quote}
+               {\list{}{\rightmargin\leftmargin}%
+                \item\relax}
+               {\endlist}
+
+%
 % Blocks.
 %
 \newcommand\newblock{\hskip .11em plus .33em plus .07em}
 
-
-\def\testc{\@ifnextchar\bgroup{\testc@simple}{\testc@complex}}
-\newcommand\testc@simple[1]{going: `#1'}
-\newcommand\testc@complex[2]{%
-  \section#1#2}
 
 \ProcessOptions
