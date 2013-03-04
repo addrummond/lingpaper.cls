@@ -125,10 +125,10 @@
 
 \newcommand\section@one[1]{\start@section{#1}\@secttail}
 \newcommand\section@two[2]{\start@section#1{#2}\@secttail}
-\newcommand\subsection@one[1]{\expandafter\start@subsection{#1}\@secttail}
-\newcommand\subsection@two[2]{\expandafter\start@subsection#1{#2}\@secttail}
-\newcommand\subsubsection@one[1]{\expandafter\start@subsubsection{#1}\@secttail}
-\newcommand\subsubsection@two[2]{\expandafter\start@subsubsection#1{#2}\@secttail}
+\newcommand\subsection@one[1]{\start@subsection{#1}\@secttail}
+\newcommand\subsection@two[2]{\start@subsection#1{#2}\@secttail}
+\newcommand\subsubsection@one[1]{\start@subsubsection{#1}\@secttail}
+\newcommand\subsubsection@two[2]{\start@subsubsection#1{#2}\@secttail}
 
 %
 % Footnotes/endnotes.
