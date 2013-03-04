@@ -56,10 +56,10 @@
 \setlength\paperheight{11in}
 \setlength\paperwidth{8.5in}
 
-\setlength\topmargin{-0.5in}
+\setlength\topmargin{-62.27pt}
 \setlength\headheight{24pt}
-\setlength\headsep{12.13pt}
-\setlength\footskip{0.75in}
+\setlength\headsep{38.27pt}
+\setlength\footskip{38.27pt}
 
 \setlength\oddsidemargin{0.75in}
 \setlength\evensidemargin{0.75in}
@@ -67,7 +67,7 @@
 \setlength\topskip{\@nfs}
 
 \setlength{\textwidth}{5in}
-\setlength{\textheight}{8.5in}
+\setlength{\textheight}{9in}
 
 %
 % Set up fancyhdr package with sensible defaults.
