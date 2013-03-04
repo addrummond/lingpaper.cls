@@ -109,9 +109,24 @@
 \newcounter{subsection}[section]
 \newcounter{subsubsection}[subsection]
 
-\renewcommand\thesection{\arabic{section}.}
-\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
-\renewcommand\thesubsubsection{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}
+\renewcommand\thesection{\arabic{section}}
+\renewcommand\thesubsection{\arabic{section}.\arabic{subsection}}
+\renewcommand\thesubsubsection{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}}
+
+% Hack to add period after section number without this appearing in references
+% to section.
+\newif\if@sectionperiods
+\@sectionperiodstrue
+\DeclareOption{nosectionperiods}{\@sectionperiodsfalse}
+\AtBeginDocument{%
+  \if@sectionperiods{%
+    \let\@@startsection\@startsection
+    \let\@@thesection\thesection
+    \renewcommand\@startsection{%
+      \def\@new{\@@thesection.}%
+      \let\thesection\@new%
+      \@@startsection}}
+  \fi}
 
 \newcommand\section{\@ifnextchar*{\section@two}{\section@one}}
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
