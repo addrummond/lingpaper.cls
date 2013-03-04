@@ -1,7 +1,15 @@
 \ProvidesClass{lingpaper}[2013/03/02 Linguistics papers]
 \NeedsTeXFormat{LaTeX2e}
+\RequirePackage[utf8]{inputenc}
 \RequirePackage{endnotes}
 \RequirePackage{fancyhdr}
+
+%
+% Common packages used in linguistics papers.
+%
+\RequirePackage{tikz}
+\RequirePackage{tikz-qtree}
+\RequirePackage{linguex}
 
 %
 % Some basic definitions copied from article.tex.
@@ -132,6 +140,7 @@
       \hb@xt@1.8em{\hss\@makefnmark}#1}
 \fi
 
+% Handle \thanks within \title
 \newcounter{@oldfn}
 \def\@star{*}
 \renewcommand\thanks[1]{%
@@ -157,5 +166,36 @@
   \thispagestyle{empty}%
 }
 
+%
+% Bibliography environment (copied from article.cls)
+%
+\newenvironment{thebibliography}[1]
+     {\section*{\refname}%
+      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `thebibliography' environment}}%
+      \endlist}
+
+%
+% Lists.
+%
+\def\@listi{%
+  \parsep 5pt plus 3pt minus 2pt
+  \topsep 9.5pt plus 3pt minus 5pt
+  \itemsep 5pt plus 3pt minus 2pt
+}
 
 \ProcessOptions
