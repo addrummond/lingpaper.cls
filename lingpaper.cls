@@ -71,7 +71,7 @@
 \pagestyle{fancyplain}
 \newcommand{\sl}{\slshape}
 \newcommand{\rm}{\rmfamily}
-\renewcommand\headrulewidth{0pt}
+%\renewcommand\headrulewidth{0pt}
 \lhead{\@pagenumfontsize\textit{\ifdefined\@shorttitle\@shorttitle\else\@title\fi}}
 \chead{}
 \rhead{\@pagenumfontsize\textit{\@author}}
@@ -148,12 +148,10 @@
   \let\@n\@nfsskip
   \let\@nfsskip\@@nfsskip
   \normaltext%
-  \noindent\textbf{\@title}\vspace{6pt}%
-  \newline%
-  \@author\vspace{6pt}%
-  \newline%
-  \@date\vspace{\@n}
-  \par%
+  \begin{center}%
+  \textbf{\@title}\vspace{6pt}\\\@author\vspace{6pt}\\\@date\\
+  \end{center}%
+  \vspace{\@n}%
   \endgroup%
   \normaltext%
   \thispagestyle{empty}%
