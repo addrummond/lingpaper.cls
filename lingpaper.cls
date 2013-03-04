@@ -115,12 +115,18 @@
 \renewcommand\thesection{\arabic{section}.}
 \renewcommand\thesubsection{\arabic{section}.\arabic{subsection}.}
 
-\newcommand\section[1]{%
-  \@startsection {section}{1}{0pt}{24pt}{12pt}{\sectionfont}{#1}%
-  \@afterindentfalse}
-\newcommand\subsection[1]{%
-  \@startsection {subsection}{2}{0pt}{12pt}{6pt}{\subsectionfont}{#1}%
-  \@afterindentfalse}
+\def\section{\@ifnextchar\bgroup{\section@one}{\section@two}}
+\def\subsection{\@ifnextchar\bgroup{\subsection@one}{\subsection@two}}
+
+\newcommand\start@section{\@startsection{section}{1}{0pt}{24pt}{12pt}{\sectionfont}}
+\newcommand\start@subsection{\@startsection{subsection}{2}{0pt}{12pt}{6pt}{\subsectionfont}}
+
+\newcommand\@secttail{\@afterindentfalse}
+
+\newcommand\section@one[1]{\start@section{#1}\@secttail}
+\newcommand\section@two[2]{\start@section#1{#2}\@secttail}
+\newcommand\subsection@one[1]{\expandafter\start@subsection#1\@secttail}
+\newcommand\subsection@two[2]{\expandafter\start@subsection#1#2\@secttail}
 
 %
 % Footnotes/endnotes.
@@ -207,5 +213,11 @@
 % Blocks.
 %
 \newcommand\newblock{\hskip .11em plus .33em plus .07em}
+
+
+\def\testc{\@ifnextchar\bgroup{\testc@simple}{\testc@complex}}
+\newcommand\testc@simple[1]{going: `#1'}
+\newcommand\testc@complex[2]{%
+  \section#1#2}
 
 \ProcessOptions
