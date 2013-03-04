@@ -11,6 +11,10 @@
   July\or August\or September\or October\or November\or December\fi
   \space\number\day, \number\year}
 
+%
+% Misc. definitions.
+%
+\newcommand{\thepage}{\arabic{page}}
 
 %
 % Basic font setup.
@@ -88,7 +92,6 @@
 \newdimen\subsectionfontsize
 \setlength\subsectionfontsize{12pt}
 
-\newcommand{\thepage}{1}
 \newcommand{\sectionfont}{\fontseries{b}\fontshape{n}\fontsize{\sectionfontsize}{\sectionfontsize}\selectfont}
 \newcommand{\subsectionfont}{\fontseries{m}\fontshape{it}\fontsize{\subsectionfontsize}{\subsectionfontsize}\selectfont}
 
