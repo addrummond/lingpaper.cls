@@ -126,7 +126,7 @@
 \newcommand\section@one[1]{\start@section{#1}\@secttail}
 \newcommand\section@two[2]{\start@section#1{#2}\@secttail}
 \newcommand\subsection@one[1]{\expandafter\start@subsection#1\@secttail}
-\newcommand\subsection@two[2]{\expandafter\start@subsection#1#2\@secttail}
+\newcommand\subsection@two[2]{\expandafter\start@subsection#1{#2}\@secttail}
 
 %
 % Footnotes/endnotes.
