@@ -3,6 +3,7 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage{endnotes}
 \RequirePackage{fancyhdr}
+\RequirePackage{ifxetex,ifluatex}
 
 %
 % Some basic definitions copied from article.tex.
@@ -27,8 +28,17 @@
 %
 % Basic font setup.
 %
-\usepackage[T1]{fontenc}
-\usepackage{mathptmx} % Times
+\newcommand\@fancyfont{%
+  \usepackage{fontspec}
+  \setmainfont[Ligatures=TeX]{Times New Roman}}
+\ifxetex
+  \@fancyfont
+\else\ifluatex
+  \@fancyfont
+\else
+  \usepackage{tgtermes}
+  \usepackage[T1]{fontenc}
+\fi
 
 \def\@nfs{12pt}
 \def\@nfsskip{14pt}
@@ -100,7 +110,7 @@
 \newdimen\subsectionfontsize
 \setlength\subsectionfontsize{12pt}
 
-\newcommand{\sectionfont}{\fontseries{b}\fontshape{n}\fontsize{\sectionfontsize}{\sectionfontsize}\selectfont}
+\newcommand{\sectionfont}{\bfseries\fontshape{n}\fontsize{\sectionfontsize}{\sectionfontsize}\selectfont}
 \newcommand{\subsectionfont}{\fontseries{m}\fontshape{it}\fontsize{\subsectionfontsize}{\subsectionfontsize}\selectfont}
 \newcommand{\subsubsectionfont}{\fontseries{m}\fontshape{it}\fontsize{\subsectionfontsize}{\subsectionfontsize}\selectfont}
 
