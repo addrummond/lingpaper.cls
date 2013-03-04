@@ -102,6 +102,7 @@
 
 \newcommand{\sectionfont}{\fontseries{b}\fontshape{n}\fontsize{\sectionfontsize}{\sectionfontsize}\selectfont}
 \newcommand{\subsectionfont}{\fontseries{m}\fontshape{it}\fontsize{\subsectionfontsize}{\subsectionfontsize}\selectfont}
+\newcommand{\subsubsectionfont}{\fontseries{m}\fontshape{it}\fontsize{\subsectionfontsize}{\subsectionfontsize}\selectfont}
 
 \setcounter{secnumdepth}{3}
 \newcounter{section}
