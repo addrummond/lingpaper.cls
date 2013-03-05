@@ -26,9 +26,6 @@
 %
 % Basic font setup.
 %
-\usepackage{tgtermes}
-\usepackage[T1]{fontenc}
-
 \newcommand\@nfssskip{13pt}
 \newcommand\@fnfssskip{\@nfsdskip}
 \newcommand\@sfssskip{11pt}
