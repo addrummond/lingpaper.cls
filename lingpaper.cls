@@ -165,8 +165,6 @@
    \setlength\evensidemargin{-15.4mm}
    \setlength\textwidth{180mm}}
 
-\newif\if@chapter
-
 \let\@@outputpage\@outputpage
 \DeclareOption{handout}{
    % To make sure this is evaluated after 'handout' option sets if@afoursize to true.
@@ -186,14 +184,6 @@
 
    \renewcommand\@outputpage{%
      \ifodd\value{page}{\gdef\headrulewidth{0pt}}\else{\gdef\headrulewidth{\@headrulewidth}}\fi%
-     \if@chapter%
-        \@chapterfalse%
-        \fancyhead{}%
-     \else%
-        \fancyhead[LE]{\leftheader}%
-        \fancyhead[RE]{\rightheader}%
-        \fancyhead[CE]{\centerheader}%
-     \fi
      \@@outputpage}
 
    \renewcommand\@fnfs{11pt}
@@ -243,11 +233,11 @@
 \renewcommand\@seccntformat[1]{\csname the#1\endcsname\if@nosectionperiods\else.\fi\quad}
 
 \newcommand\chapter[1]{%
-  \@chaptertrue%
   \chapterfont%
   \addtocounter{chapter}{1}%
   \newpage%
-  {\chapterfont\noindent Chapter \arabic{chapter}\vspace{8pt}\newline\chapternamefont#1\vspace{32pt}}\par\normaltext\noindent}
+  \thispagestyle{empty}%
+  {\chapterfont\noindent Chapter \arabic{chapter}\vspace{8pt}\newline\chapternamefont#1\vspace{32pt}}\newline\normaltext\noindent}
 
 \newcommand\section{\@ifnextchar*{\section@two}{\section@one}}
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
