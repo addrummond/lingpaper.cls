@@ -18,3 +18,24 @@ Package options:
 * `[handout]` Narrow asymmetric margins for 2x2 printing.
 * `[nosectionperiods]` By default there is a period after the section number in section headings. This option removes it.
 * `[endnotes]` Endnotes instead of footnotes (notes are still specified using the `footnote` command). You may specify position of endnotes using `\theendnotes`.
+
+Example:
+
+    \documentclass[doublespace,endnotes]{lingpaper}
+    \usepackage{linguex}
+
+    \begin{document}
+    \author{Joe Linguist}
+    \title{My Analysis of Phenomenon X With a Long Title}
+    \shorttitle{The Short Title}
+    
+    \maketitle
+
+    \section{First section}
+    Some text here...
+
+    \ex. First example.
+
+    ...More discussion...
+
+    \end{document}
