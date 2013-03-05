@@ -78,7 +78,7 @@
   \setlength\topmargin{-62.27pt}
   \setlength\headheight{24pt}
   \setlength\headsep{38.27pt}
-  \setlength\footskip{52.27pt}
+  \setlength\footskip{34pt}
   \setlength\oddsidemargin{0.6in}
   \setlength\evensidemargin{0.6in}
   \setlength\textwidth{5.3in}
@@ -91,7 +91,7 @@
   \setlength\topmargin{-61.123pt}
   \setlength\headheight{24pt}
   \setlength\headsep{37.124pt}
-  \setlength\footskip{51.124pt}
+  \setlength\footskip{34pt}
   \setlength\oddsidemargin{9.24mm} % 24.64mm - 1inch
   \setlength\evensidemargin{9.24mm}
   \setlength\textwidth{140.72mm}
