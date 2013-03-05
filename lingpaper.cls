@@ -89,12 +89,12 @@
 \setlength\headsep{38.27pt}
 \setlength\footskip{52.27pt}
 
-\setlength\oddsidemargin{0.75in}
-\setlength\evensidemargin{0.75in}
+\setlength\oddsidemargin{0.6in}
+\setlength\evensidemargin{0.6in}
 
 \setlength\topskip{\@nfs}
 
-\setlength\textwidth{5in}
+\setlength\textwidth{5.3in}
 \setlength\textheight{9in}
 
 %
