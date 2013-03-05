@@ -2,7 +2,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \RequirePackage{endnotes}
 \RequirePackage{fancyhdr}
-\RequirePackage{ifxetex,ifluatex}
 
 %
 % Some basic definitions copied from article.tex.
@@ -27,17 +26,8 @@
 %
 % Basic font setup.
 %
-\newcommand\@fancyfont{%
-  \usepackage{fontspec}
-  \setmainfont[Ligatures=TeX,Mapping=tex-text]{Linux Libertine O}}
-\ifxetex
-  \@fancyfont
-\else\ifluatex
-  \@fancyfont
-\else
-  \usepackage{tgtermes}
-  \usepackage[T1]{fontenc}
-\fi\fi
+\usepackage{tgtermes}
+\usepackage[T1]{fontenc}
 
 \newcommand\@nfssskip{13pt}
 \newcommand\@fnfssskip{\@nfsdskip}
