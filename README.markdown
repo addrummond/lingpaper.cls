@@ -6,7 +6,7 @@ LaTeX features which you want to use.
 
 The basic features are as follows:
 
-*Fixed 12pt font size for main text and section headings.
+* Fixed 12pt font size for main text and section headings.
 * Wide margins.
 * "handout" option narrows margins and numbers pages on the assumption that handout will be printed 2 pages per page.
 * Footnotes same size as main text draft papers but size 11 in "handout" mode.
