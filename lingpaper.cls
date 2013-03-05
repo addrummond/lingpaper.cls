@@ -434,5 +434,13 @@
 %
 \newcommand\newblock{\hskip .11em plus .33em plus .07em}
 
+%
+% Some misc. utilities.
+%
+\newcommand\usexitsfonts{%
+  \usepackage{unicode-math}
+  \setmainfont[Mapping=tex-text]{XITS}
+  \setmathfont{XITS Math}}
+
 
 \ProcessOptions

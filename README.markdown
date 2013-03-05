@@ -24,6 +24,7 @@ Package options:
 Commands:
 
 * `\begin{singlesp}` Single-space environment. Ignored if `[doublespace]` option is not set.
+* `\usexitsfonts` Utility for loading the XITS and XITSMath fonts for use with XeLaTeX/LuaTeX (http://ctan.org/tex-archive/fonts/xits/).
 
 Example:
 
