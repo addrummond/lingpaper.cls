@@ -20,6 +20,10 @@ Package options:
 * `[nosectionperiods]` By default there is a period after the section number in section headings. This option removes it.
 * `[endnotes]` Endnotes instead of footnotes (notes are still specified using the `footnote` command). You may specify position of endnotes using `\theendnotes`.
 
+Commands:
+
+* `\begin{singlesp}' Single-space environment. Ignored if `[doublespace]` option is not set.
+
 Example:
 
     \documentclass[doublespace,endnotes]{lingpaper}
@@ -38,5 +42,9 @@ Example:
     \ex. First example.
 
     ...More discussion...
+
+    \begin{singlesp}
+    Some single-spaced text here.
+    \end{singlesp}
 
     \end{document}
