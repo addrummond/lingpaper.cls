@@ -26,25 +26,37 @@
 %
 % Basic font setup.
 %
-\newcommand\@nfssskip{13pt}
+\newcommand\@tfssskip{9pt}
+\newcommand\@scfssskip{10pt}
 \newcommand\@fnfssskip{\@nfsdskip}
 \newcommand\@sfssskip{11pt}
-\newcommand\@tfssskip{9pt}
+\newcommand\@nfssskip{13pt}
+\newcommand\@lfssskip{15pt}
+\newcommand\@Lfssskip{17pt}
 
-\newcommand\@nfsdskip{22pt}
+\newcommand\@tfsdskip{16pt}
+\newcommand\@scfsdskip{18pt}
 \newcommand\@fnfsdskip{\@nfsdskip}
 \newcommand\@sfsdskip{20pt}
-\newcommand\@tfsdskip{16pt}
+\newcommand\@nfsdskip{22pt}
+\newcommand\@lfsdskip{28pt}
+\newcommand\@Lfsdskip{32pt}
 
-\newcommand\@nfs{12pt}
-\newcommand\@sfs{10pt}
-\newcommand\@fnfs{\@nfs}
 \newcommand\@tfs{8pt}
+\newcommand\@scfs{9pt}
+\newcommand\@fnfs{\@nfs}
+\newcommand\@sfs{10pt}
+\newcommand\@nfs{12pt}
+\newcommand\@lfs{14pt}
+\newcommand\@Lfs{16pt}
 
-\newcommand\@nfsskip{\@nfssskip}
-\newcommand\@sfsskip{\@sfssskip}
-\newcommand\@fnfsskip{\@nfssskip}
 \newcommand\@tfsskip{\@tfsskip}
+\newcommand\@scfsskip{\@scfssskip}
+\newcommand\@fnfsskip{\@nfssskip}
+\newcommand\@sfsskip{\@sfssskip}
+\newcommand\@nfsskip{\@nfssskip}
+\newcommand\@lfsskip{\@lfssskip}
+\newcommand\@Lfsskip{\@Lfssskip}
 
 \DeclareOption{smallfootnotes}{%
   \gdef\@fnfs{11pt}
@@ -56,16 +68,22 @@
 \DeclareOption{doublespace}{%
   % To ensure this is evaluated after the above.
   \AtEndOfPackage{%
-    \gdef\@nfsskip{\@nfsdskip}
-    \gdef\@sfsskip{\@sfsdskip}
-    \gdef\@fnfsskip{\@fnfsdskip}
     \gdef\@tfsskip{\@tfsdskip}
+    \gdef\@scfsskip{\@scfsdskip}
+    \gdef\@fnfsskip{\@fnfsdskip}
+    \gdef\@sfsskip{\@sfsdskip}
+    \gdef\@nfsskip{\@nfsdskip}
+    \gdef\@lfsskip{\@lfsdskip}
+    \gdef\@Lfsskip{\@Lfsdskip}
     \@doublespacetrue}}
 
-\renewcommand{\normalsize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
+\newcommand{\tiny}{\fontsize{\@tfs}{\@tfsskip}\selectfont}
+\newcommand{\scriptsize}{\fontsize{\@scfs}{\@scfsskip}\selectfont}
 \newcommand{\footnotesize}{\fontsize{\@fnfs}{\@fnfsskip}\selectfont}
 \newcommand{\small}{\fontsize{\@sfs}{\@sfsskip}\selectfont}
-\newcommand{\tiny}{\fontsize{\@tfs}{\@tfsskip}\selectfont}
+\renewcommand{\normalsize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
+\newcommand{\large}{\fontsize{\@lfs}{\@lfsskip}\selectfont}
+\newcommand{\Large}{\fontsize{\@Lfs}{\@Lfsskip}\selectfont}
 
 \newcommand{\normaltext}{\fontseries{m}\fontshape{n}\normalsize}
 
@@ -357,36 +375,54 @@
 %
 \newcommand\start@singlesp{%
   \if@doublespace%
-    \gdef\@nfsskip{\@nfssskip}%
-    \gdef\@sfsskip{\@sfssskip}%
-    \gdef\@fnfsskip{\@fnfssskip}%
     \gdef\@tfsskip{\@tfssskip}%
-    \ifdim \f@size pt = \@nfs%
-      \fontsize{\@nfs}{\@nfssskip}%
+    \gdef\@scfsskip{\@scfssskip}%
+    \gdef\@fnfsskip{\@fnfssskip}%
+    \gdef\@sfsskip{\@sfssskip}%
+    \gdef\@nfsskip{\@nfssskip}%
+    \gdef\@lfsskip{\@lfssskip}%
+    \gdef\@Lfsskip{\@Lfssskip}%
+    \ifdim \f@size pt = \@tfs%
+      \fontsize{\@tfs}{\@tfssskip}%
+    \else\ifdim \f@size pt = \@scfs%
+      \fontsize{\@scfs}{\@scfssskip}%
     \else\ifdim \f@size pt = \@fnfs%
       \fontsize{\@fnfs}{\@fnfssskip}%
     \else\ifdim \f@size pt = \@sfs%
       \fontsize{\@sfs}{\@sfssskip}%
-    \else\ifdim \f@size pt = \@tfs%
-      \fontsize{\@tfs}{\@tfssskip}%
-    \fi\fi\fi\fi%
+    \else\ifdim \f@size pt = \@nfs%
+      \fontsize{\@nfs}{\@nfssskip}%
+    \else\ifdim \f@size pt = \@lfs%
+      \fontsize{\@lfs}{\@lfssskip}%
+    \else\ifdim \f@size pt = \@Lfs%
+      \fontsize{\@Lfs}{\@Lfssskip}%
+    \fi\fi\fi\fi\fi\fi\fi%
     \selectfont%
   \fi}
 \newcommand\en@singlesp{%
   \if@doublespace%
     \par%
-    \gdef\@nfsskip{\@nfsdskip}%
-    \gdef\@sfsskip{\@sfsdskip}%
-    \gdef\@fnfsskip{\@fnfsdskip}%
     \gdef\@tfsskip{\@tfsdskip}%
-    \ifdim \f@size pt = \@nfs%
-      \fontsize{\@nfs}{\@nfsdskip}%
+    \gdef\@scfsskip{\@scfsdskip}%
+    \gdef\@fnfsskip{\@fnfsdskip}%
+    \gdef\@sfsskip{\@sfsdskip}%
+    \gdef\@nfsskip{\@nfsdskip}%
+    \gdef\@lfsskip{\@lfsdskip}%
+    \gdef\@Lfsskip{\@Lfsdskip}%
+    \ifdim \f@size pt = \@tfs%
+      \fontsize{\@tfs}{\@tfsdskip}%
+    \else\ifdim \f@size pt = \@scfs%
+      \fontsize{\@scfs}{\@scfsdskip}%
     \else\ifdim \f@size pt = \@fnfs%
       \fontsize{\@fnfs}{\@fnfsdskip}%
     \else\ifdim \f@size pt = \@sfs%
       \fontsize{\@sfs}{\@sfsdskip}%
-    \else\ifdim \f@size pt = \@tfs%
-      \fontsize{\@tfs}{\@tfsdskip}%
+    \else\ifdim \f@size pt = \@nfs%
+      \fontsize{\@nfs}{\@nfsdskip}%
+    \else\ifdim \f@size pt = \@lfs%
+      \fontsize{\@lfs}{\@lfsdskip}%
+    \else\ifdim \f@size pt = \@Lfs%
+      \fontsize{\@Lfs}{\@Lfsdskip}%
     \fi\fi\fi\fi%
     \selectfont%
   \fi}
