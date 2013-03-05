@@ -39,22 +39,32 @@
   \usepackage[T1]{fontenc}
 \fi\fi
 
-\newcommand\@nfs{12pt}
-\newcommand\@nfsskip{14pt}
-\newcommand\@sfs{10pt}
-\newcommand\@sfsskip{11pt}
-\newcommand\@fnfs{\@nfs}
-\newcommand\@fnfsskip{\@nfsskip}
-\newcommand\@tfs{8pt}
-\newcommand\@tfsskip{9pt}
+\newcommand\@nfssskip{13pt}
+\newcommand\@fnfssskip{\@nfsdskip}
+\newcommand\@sfssskip{11pt}
+\newcommand\@tfssskip{9pt}
 
-% Sometimes useful to have old value in bits that are never double-spaced.
-%\global\let\@@nfsskip\@nfsskip
-\let\@@nfsskip\@nfsskip
+\newcommand\@nfsdskip{22pt}
+\newcommand\@fnfsdskip{\@nfsdskip}
+\newcommand\@sfsdskip{20pt}
+\newcommand\@tfsdskip{16pt}
+
+\newcommand\@nfs{12pt}
+\newcommand\@sfs{10pt}
+\newcommand\@fnfs{\@nfs}
+\newcommand\@tfs{8pt}
+
+\newcommand\@nfsskip{\@nfssskip}
+\newcommand\@sfsskip{\@sfssskip}
+\newcommand\@fnfsskip{\@nfssskip}
+\newcommand\@tfsskip{\@tfsskip}
 
 \newif\if@doublespace
 \DeclareOption{doublespace}{%
-  \def\@nfsskip{24pt}
+  \gdef\@nfsskip{\@nfsdskip}
+  \gdef\@sfsskip{\@sfsdskip}
+  \gdef\@fnfsskip{\@fnfsdskip}
+  \gdef\@tfsskip{\@tfsdskip}
   \@doublespacetrue}
 
 \renewcommand{\normalsize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
@@ -236,7 +246,7 @@
 \newcommand\maketitle{%
   \begingroup
   \let\@n\@nfsskip
-  \let\@nfsskip\@@nfsskip
+  \let\@nfsskip\@nfssskip
   \normaltext%
   \begin{center}%
   \textbf{\@title}\vspace{6pt}\\\@author\vspace{6pt}\\\@date\\
@@ -322,6 +332,28 @@
                {\list{}{\rightmargin\leftmargin}%
                 \item\relax}
                {\endlist}
+
+%
+% A single space environment.
+%
+\newcommand\start@singlesp{%
+  \gdef\@nfsskip{\@nfssskip}%
+  \gdef\@sfsskip{\@sfssskip}%
+  \gdef\@fnfsskip{\@fnfssskip}%
+  \gdef\@tfsskip{\@tfssskip}%
+  \fontsize{\@nfs}{\@nfssskip}%
+  \selectfont}
+\newcommand\en@singlesp{%
+  \if@doublespace%
+    \par%
+    \gdef\@nfsskip{\@nfsdskip}%
+    \gdef\@sfsskip{\@sfsdskip}%
+    \gdef\@fnfsskip{\@fnfsdskip}%
+    \gdef\@tfsskip{\@tfsdskip}%
+    \fontsize{\@nfs}{\@nfsdskip}%
+    \selectfont
+  \fi}
+\newenvironment{singlesp}{\start@singlesp}{\en@singlesp}
 
 %
 % Blocks.
