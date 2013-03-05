@@ -10,7 +10,6 @@ The basic features are as follows:
 * Wide margins.
 * Footnotes same size as main text draft papers but size 11 in "handout" mode.
 * "handout" option narrows margins.
-* Footnotes normally are same size as main text, but shrink to 11pt in "handout" mode.
 * Easy to switch betwen double/single spacing and footnotes/endnotes.
 
 Package options:
