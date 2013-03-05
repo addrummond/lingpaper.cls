@@ -196,7 +196,8 @@
 %
 % Layout.
 %
-\setlength\parindent{2em}
+\AtBeginDocument{%
+  \setlength\parindent{2em}}
 
 %
 % Sections.
