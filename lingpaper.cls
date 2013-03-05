@@ -72,7 +72,7 @@
 \setlength\topmargin{-62.27pt}
 \setlength\headheight{24pt}
 \setlength\headsep{38.27pt}
-\setlength\footskip{38.27pt}
+\setlength\footskip{52.27pt}
 
 \setlength\oddsidemargin{0.75in}
 \setlength\evensidemargin{0.75in}
@@ -81,13 +81,6 @@
 
 \setlength\textwidth{5in}
 \setlength\textheight{9in}
-
-\DeclareOption{handout}{
-    \@twosidetrue
-    \setlength\oddsidemargin{0in}
-    \setlength\evensidemargin{-0.5in}
-    \setlength\textwidth{7in}
-}
 
 %
 % Set up fancyhdr package with sensible defaults.
@@ -106,6 +99,33 @@
 \lfoot{}
 \cfoot{}
 \rfoot{\@pagenumfontsize\thepage}
+
+%
+% Handout variant.
+%
+\let\@@outputpage\@outputpage
+\newif\if@evenpage
+\DeclareOption{handout}{
+   \@twosidetrue
+   \setlength\oddsidemargin{0in}
+   \setlength\evensidemargin{-0.5in}
+   \setlength\textwidth{7in}
+
+   \fancyheadoffset{0in}
+   \fancyfootoffset{0in}
+
+   \renewcommand\@outputpage{%
+     \if@evenpage\@evenpagefalse\@evenpagetrue\fi%
+     \if@evenpage%
+       \@evenpagefalse%
+       \gdef\thepage{}%
+     \else%
+       \@evenpagetrue%
+       \addtocounter{page}{-1}%
+       \gdef\thepage{\arabic{page}}%
+     \fi%
+     \@@outputpage}
+}
 
 %
 % Layout.
