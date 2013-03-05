@@ -14,6 +14,7 @@ The basic features are as follows:
 
 Package options:
 
+* `[letterpaper]` (default) and `[a4paper]`.
 * `[doublespace]` Main text and footnotes are double-spaced if this is specified.
 * `[handout]` Narrow asymmetric margins for 2x2 printing.
 * `[nosectionperiods]` By default there is a period after the section number in section headings. This option removes it.

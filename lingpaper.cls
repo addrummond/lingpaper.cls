@@ -81,21 +81,40 @@
 % See http://amath.colorado.edu/documentation/LaTeX/reference/layout.html
 % for a helpful diagram.
 %
-\setlength\paperheight{11in}
-\setlength\paperwidth{8.5in}
+\newcommand\@draftlettersizesettings{%
+  \special{papersize=8.5in,11in}
+  \setlength\paperheight{11in}
+  \setlength\paperwidth{8.5in}
+  \setlength\topmargin{-62.27pt}
+  \setlength\headheight{24pt}
+  \setlength\headsep{38.27pt}
+  \setlength\footskip{52.27pt}
+  \setlength\oddsidemargin{0.6in}
+  \setlength\evensidemargin{0.6in}
+  \setlength\textwidth{5.3in}
+  \setlength\textheight{9in}}
+\newcommand\@draftafoursettings{%
+  % 1 LaTeX point = 0.3515mm
+  \special{papersize=210mm,297mm}
+  \setlength\paperheight{297mm}
+  \setlength\paperwidth{210mm}
+  \setlength\topmargin{-61.123pt}
+  \setlength\headheight{24pt}
+  \setlength\headsep{37.124pt}
+  \setlength\footskip{51.124pt}
+  \setlength\oddsidemargin{9.24mm} % 24.64mm - 1inch
+  \setlength\evensidemargin{9.24mm}
+  \setlength\textwidth{140.72mm}
+  \setlength\textheight{247mm}}
+\newcommand\@handoutlettersizesettings{}
+\newcommand\@handoutafoursettings{}
 
-\setlength\topmargin{-62.27pt}
-\setlength\headheight{24pt}
-\setlength\headsep{38.27pt}
-\setlength\footskip{52.27pt}
-
-\setlength\oddsidemargin{0.6in}
-\setlength\evensidemargin{0.6in}
+\newif\if@afoursize
+\@draftlettersizesettings
+\DeclareOption{a4paper}{\@afoursizetrue\@draftafoursettings}
+\DeclareOption{letterpaper}{\@afoursizefalse\@draftlettersizesettings}
 
 \setlength\topskip{\@nfs}
-
-\setlength\textwidth{5.3in}
-\setlength\textheight{9in}
 
 %
 % Set up fancyhdr package with sensible defaults.
@@ -124,12 +143,26 @@
 %
 % Handout variant.
 %
-\let\@@outputpage\@outputpage
-\DeclareOption{handout}{
-   \@twosidetrue
+\newcommand\@modifylettersizeforhandout{%
    \setlength\oddsidemargin{0in}
    \setlength\evensidemargin{-0.5in}
-   \setlength\textwidth{7in}
+   \setlength\textwidth{7in}}
+\newcommand\@modifyafourforhandout{%
+   \setlength\oddsidemargin{-5.4mm}
+   \setlength\evensidemargin{-15.4mm}
+   \setlength\textwidth{180mm}}
+
+\let\@@outputpage\@outputpage
+\DeclareOption{handout}{
+   % To make sure this is evaluated after 'handout' option sets if@afoursize to true.
+   \AtEndOfPackage{%
+     \@twosidetrue
+     \if@afoursize
+       \@modifyafourforhandout
+     \else
+       \@modifylettersizeforhandout
+     \fi
+   }
 
    \fancyheadoffset{0in}
    \fancyfootoffset{0in}
