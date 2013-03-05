@@ -22,7 +22,7 @@ Package options:
 
 Commands:
 
-* `\begin{singlesp}' Single-space environment. Ignored if `[doublespace]` option is not set.
+* `\begin{singlesp}` Single-space environment. Ignored if `[doublespace]` option is not set.
 
 Example:
 
