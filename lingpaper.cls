@@ -208,18 +208,17 @@
 
 % Hack to add period after section number without this appearing in references
 % to section.
-\newif\if@sectionperiods
-\@sectionperiodstrue
-\DeclareOption{nosectionperiods}{\@sectionperiodsfalse}
-\AtBeginDocument{%
-  \if@sectionperiods%
-    \let\@@startsection\@startsection%
-    \let\@@thesection\thesection%
-    \gdef\@startsection{%
-      \def\@new{\@@thesection.}%
-      \let\thesection\@new%
-      \@@startsection}%
-  \fi}
+%\newif\if@sectionperiods
+%\@sectionperiodstrue
+%\DeclareOption{nosectionperiods}{\@sectionperiodsfalse}
+%\AtEndOfPackage{%
+%  \if@sectionperiods%
+%    \let\@@startsection\@startsection%
+%    \let\@@thesection\thesection
+%    \def\@startsection{%
+%      \def\thesection{\@@thesection.}%
+%      \@@startsection}
+%  \fi}
 
 \newcommand\section{\@ifnextchar*{\section@two}{\section@one}}
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
