@@ -98,20 +98,23 @@
 
 \pagestyle{fancyplain}
 %\renewcommand\headrulewidth{0pt}
-\lhead{\@pagenumfontsize\textit{\ifdefined\@shorttitle\@shorttitle\else\@title\fi}}
+\newcommand\leftheader{\@pagenumfontsize\textit{\ifdefined\@shorttitle\@shorttitle\else\@title\fi}}
+\newcommand\rightheader{\@pagenumfontsize\@author}
+\newcommand\centerheader{}
+\lhead{\leftheader}
 \chead{}
-\rhead{\@pagenumfontsize\@author}
+\rhead{\rightheader}
 \lfoot{}
 \cfoot{}
 \rfoot{\@pagenumfontsize\thepage}
+
+\newcommand\@headrulewidth{1pt}
+\renewcommand{\headrulewidth}{\@headrulewidth}
 
 %
 % Handout variant.
 %
 \let\@@outputpage\@outputpage
-\newif\if@evenpage
-\newcounter{@mypage}
-\setcounter{@mypage}{0}
 \DeclareOption{handout}{
    \@twosidetrue
    \setlength\oddsidemargin{0in}
@@ -121,10 +124,13 @@
    \fancyheadoffset{0in}
    \fancyfootoffset{0in}
 
-   \renewcommand\thepage{\arabic{@mypage}}
+   \fancyhead{}
+   \fancyhead[LE]{\leftheader}
+   \fancyhead[RE]{\rightheader}
+   \fancyhead[CE]{\centerheader}
 
    \renewcommand\@outputpage{%
-     \ifodd\value{page}{\thispagestyle{empty}}\else\stepcounter{@mypage}\fi
+     \ifodd\value{page}{\gdef\headrulewidth{0pt}}\else{\gdef\headrulewidth{\@headrulewidth}}\fi%
      \@@outputpage}
 
    \renewcommand\@fnfs{11pt}
