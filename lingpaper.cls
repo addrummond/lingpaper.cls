@@ -41,6 +41,10 @@
 
 \def\@nfs{12pt}
 \def\@nfsskip{14pt}
+\def\@sfs{10pt}
+\def\@sfsskip{11pt}
+\def\@tfs{8pt}
+\def\@tfsskip{9pt}
 
 % Sometimes useful to have old value in bits that are never double-spaced.
 %\global\let\@@nfsskip\@nfsskip
@@ -50,8 +54,8 @@
 
 \renewcommand{\normalsize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
 \newcommand{\footnotesize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
-\newcommand{\small}{\fontsize{10pt}{10pt}\selectfont}
-\newcommand{\tiny}{\fontsize{8pt}{8pt}\selectfont}
+\newcommand{\small}{\fontsize{\@sfs}{\@sfsskip}\selectfont}
+\newcommand{\tiny}{\fontsize{\@tfs}{\@tfsskip}\selectfont}
 
 \newcommand{\normaltext}{\fontseries{m}\fontshape{n}\normalsize}
 
@@ -75,8 +79,15 @@
 
 \setlength\topskip{\@nfs}
 
-\setlength{\textwidth}{5in}
-\setlength{\textheight}{9in}
+\setlength\textwidth{5in}
+\setlength\textheight{9in}
+
+\DeclareOption{handout}{
+    \@twosidetrue
+    \setlength\oddsidemargin{0in}
+    \setlength\evensidemargin{-0.5in}
+    \setlength\textwidth{7in}
+}
 
 %
 % Set up fancyhdr package with sensible defaults.
