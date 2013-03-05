@@ -208,17 +208,9 @@
 
 % Hack to add period after section number without this appearing in references
 % to section.
-%\newif\if@sectionperiods
-%\@sectionperiodstrue
-%\DeclareOption{nosectionperiods}{\@sectionperiodsfalse}
-%\AtEndOfPackage{%
-%  \if@sectionperiods%
-%    \let\@@startsection\@startsection%
-%    \let\@@thesection\thesection
-%    \def\@startsection{%
-%      \def\thesection{\@@thesection.}%
-%      \@@startsection}
-%  \fi}
+\newif\if@nosectionperiods
+\DeclareOption{nosectionperiods}{\@nosectionperiodstrue}
+\renewcommand\@seccntformat[1]{\csname the#1\endcsname\if@nosectionperiods\else.\fi\quad}
 
 \newcommand\section{\@ifnextchar*{\section@two}{\section@one}}
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
