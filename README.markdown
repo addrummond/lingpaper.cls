@@ -9,7 +9,7 @@ The basic features are as follows:
 * Fixed 12pt font size for main text and section headings.
 * Wide margins.
 * "handout" option narrows margins and numbers pages on the assumption that handout will be printed 2 pages per page.
-* Footnotes same size as main text draft papers but size 11 in "handout" mode.
+* Footnotes normally are same size as main text, but shrink to 11pt in "handout" mode.
 * Easy to switch betwen double/single spacing and footnotes/endnotes.
 
 Package options:
