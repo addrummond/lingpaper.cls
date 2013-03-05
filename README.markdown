@@ -26,6 +26,10 @@ Commands:
 * `\begin{singlesp}` Single-space environment. Ignored if `[doublespace]` option is not set.
 * `\usexitsfonts` Utility for loading the XITS and XITSMath fonts for use with XeLaTeX/LuaTeX (http://ctan.org/tex-archive/fonts/xits/).
 
+Commands that can be redefined:
+
+* `\leftheader`, `\rightheader` and `\centerheader` can be redefined to make simple adjustments to the content of the page headers. The headers are set using the fancyhdr package, so you can override them using fancyhdr directly.
+
 Example:
 
     \documentclass[doublespace,endnotes]{lingpaper}
