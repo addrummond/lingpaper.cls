@@ -105,6 +105,8 @@
 %
 \let\@@outputpage\@outputpage
 \newif\if@evenpage
+\newcounter{@mypage}
+\setcounter{@mypage}{0}
 \DeclareOption{handout}{
    \@twosidetrue
    \setlength\oddsidemargin{0in}
@@ -114,16 +116,10 @@
    \fancyheadoffset{0in}
    \fancyfootoffset{0in}
 
+   \renewcommand\thepage{\arabic{@mypage}}
+
    \renewcommand\@outputpage{%
-     \if@evenpage\@evenpagefalse\@evenpagetrue\fi%
-     \if@evenpage%
-       \@evenpagefalse%
-       \gdef\thepage{}%
-     \else%
-       \@evenpagetrue%
-       \addtocounter{page}{-1}%
-       \gdef\thepage{\arabic{page}}%
-     \fi%
+     \ifodd\value{page}{\thispagestyle{empty}}\else\stepcounter{@mypage}\fi
      \@@outputpage}
 }
 
