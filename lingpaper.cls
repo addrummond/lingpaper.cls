@@ -337,12 +337,14 @@
 % A single space environment.
 %
 \newcommand\start@singlesp{%
-  \gdef\@nfsskip{\@nfssskip}%
-  \gdef\@sfsskip{\@sfssskip}%
-  \gdef\@fnfsskip{\@fnfssskip}%
-  \gdef\@tfsskip{\@tfssskip}%
-  \fontsize{\@nfs}{\@nfssskip}%
-  \selectfont}
+  \if@doublespace%
+    \gdef\@nfsskip{\@nfssskip}%
+    \gdef\@sfsskip{\@sfssskip}%
+    \gdef\@fnfsskip{\@fnfssskip}%
+    \gdef\@tfsskip{\@tfssskip}%
+    \fontsize{\@nfs}{\@nfssskip}%
+    \selectfont
+  \fi}
 \newcommand\en@singlesp{%
   \if@doublespace%
     \par%
