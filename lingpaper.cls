@@ -201,6 +201,8 @@
 %
 % Sections and chapters.
 %
+\newdimen\bigtitlefontsize
+\setlength\bigtitlefontsize{20pt}
 \newdimen\chapterfontsize
 \setlength\chapterfontsize{16pt}
 \newdimen\sectionfontsize
@@ -210,9 +212,10 @@
 \newdimen\subsubsectionfontsize
 \setlength\subsubsectionfontsize{\subsectionfontsize}
 
-\newcommand{\chapterfont}{\bfseries\fontshape{n}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
+\newcommand{\bigtitlefont}{\fontshape{m}\fontsize{\bigtitlefontsize}{\bigtitlefontsize}\selectfont}
+\newcommand{\chapterfont}{\bfseries\fontshape{m}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
 \newcommand{\chapternamefont}{\fontseries{m}\fontshape{n}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
-\newcommand{\sectionfont}{\bfseries\fontshape{n}\fontsize{\sectionfontsize}{\sectionfontsize}\selectfont}
+\newcommand{\sectionfont}{\bfseries\fontshape{m}\fontsize{\sectionfontsize}{\sectionfontsize}\selectfont}
 \newcommand{\subsectionfont}{\fontseries{m}\itshape\fontsize{\subsectionfontsize}{\subsectionfontsize}\selectfont}
 \newcommand{\subsubsectionfont}{\fontseries{m}\itshape\fontsize{\subsubsectionfontsize}{\subsubsectionfontsize}\selectfont}
 
@@ -294,11 +297,14 @@
 %
 % The title.
 %
+\newif\if@bigtitle
+\DeclareOption{bigtitle}{\@bigtitletrue}
+
 \newcommand\maketitle{%
   \begingroup
   \let\@n\@nfsskip
   \let\@nfsskip\@nfssskip
-  \normaltext%
+  \if@bigtitle\bigtitlefont\else\normaltext\fi
   \begin{center}%
   \textbf{\@title}\vspace{6pt}\\\@author\vspace{6pt}\\\@date\\
   \end{center}%

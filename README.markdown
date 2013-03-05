@@ -20,6 +20,7 @@ Package options:
 * `[nosectionperiods]` By default there is a period after the section number in section headings. This option removes it.
 * `[endnotes]` Endnotes instead of footnotes (notes are still specified using the `footnote` command). You may specify position of endnotes using `\theendnotes`.
 * `[smallfootnotes]` Makes footnotes small (redundant in handout mode).
+* `[bigtitle]` Makes paper/book title big (might want this for book drafts).
 
 Commands:
 
