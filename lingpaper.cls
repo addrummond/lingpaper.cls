@@ -49,13 +49,21 @@
 \newcommand\@fnfsskip{\@nfssskip}
 \newcommand\@tfsskip{\@tfsskip}
 
+\DeclareOption{smallfootnotes}{%
+  \gdef\@fnfs{11pt}
+  \gdef\@fnfssskip{12pt}
+  \gdef\@fnfsdskip{22pt}
+  \gdef\@fnfsskip{\@fnfssskip}}
+
 \newif\if@doublespace
 \DeclareOption{doublespace}{%
-  \gdef\@nfsskip{\@nfsdskip}
-  \gdef\@sfsskip{\@sfsdskip}
-  \gdef\@fnfsskip{\@fnfsdskip}
-  \gdef\@tfsskip{\@tfsdskip}
-  \@doublespacetrue}
+  % To ensure this is evaluated after the above.
+  \AtEndOfPackage{%
+    \gdef\@nfsskip{\@nfsdskip}
+    \gdef\@sfsskip{\@sfsdskip}
+    \gdef\@fnfsskip{\@fnfsdskip}
+    \gdef\@tfsskip{\@tfsdskip}
+    \@doublespacetrue}}
 
 \renewcommand{\normalsize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
 \newcommand{\footnotesize}{\fontsize{\@fnfs}{\@fnfsskip}\selectfont}
