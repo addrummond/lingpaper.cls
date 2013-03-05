@@ -337,7 +337,7 @@
 \setlength\labelsep{.5em}
 \addtolength\labelwidth{-\labelsep}
 
-\leftmargin\leftmargini
+\AtBeginDocument{\leftmargin\leftmargini}
 
 \renewcommand\theenumi{\@arabic\c@enumi}
 \renewcommand\theenumii{\@alph\c@enumii}
