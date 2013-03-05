@@ -39,21 +39,26 @@
   \usepackage[T1]{fontenc}
 \fi\fi
 
-\def\@nfs{12pt}
-\def\@nfsskip{14pt}
-\def\@sfs{10pt}
-\def\@sfsskip{11pt}
-\def\@tfs{8pt}
-\def\@tfsskip{9pt}
+\newcommand\@nfs{12pt}
+\newcommand\@nfsskip{14pt}
+\newcommand\@sfs{10pt}
+\newcommand\@sfsskip{11pt}
+\newcommand\@fnfs{\@nfs}
+\newcommand\@fnfsskip{\@nfssskip}
+\newcommand\@tfs{8pt}
+\newcommand\@tfsskip{9pt}
 
 % Sometimes useful to have old value in bits that are never double-spaced.
 %\global\let\@@nfsskip\@nfsskip
 \let\@@nfsskip\@nfsskip
 
-\DeclareOption{doublespace}{\def\@nfsskip{24pt}}
+\newif\if@doublespace
+\DeclareOption{doublespace}{%
+  \def\@nfsskip{24pt}
+  \@doublespacetrue}
 
 \renewcommand{\normalsize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
-\newcommand{\footnotesize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
+\newcommand{\footnotesize}{\fontsize{\@fnfs}{\@fnfsskip}\selectfont}
 \newcommand{\small}{\fontsize{\@sfs}{\@sfsskip}\selectfont}
 \newcommand{\tiny}{\fontsize{\@tfs}{\@tfsskip}\selectfont}
 
@@ -121,6 +126,9 @@
    \renewcommand\@outputpage{%
      \ifodd\value{page}{\thispagestyle{empty}}\else\stepcounter{@mypage}\fi
      \@@outputpage}
+
+   \renewcommand\@fnfs{11pt}
+   \renewcommand\@fnfsskip{\if@doublespace22pt\else12pt\fi}
 }
 
 %
