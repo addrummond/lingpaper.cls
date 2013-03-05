@@ -165,6 +165,8 @@
    \setlength\evensidemargin{-15.4mm}
    \setlength\textwidth{180mm}}
 
+\newif\if@chapter
+
 \let\@@outputpage\@outputpage
 \DeclareOption{handout}{
    % To make sure this is evaluated after 'handout' option sets if@afoursize to true.
@@ -181,16 +183,23 @@
    \fancyfootoffset{0in}
 
    \fancyhead{}
-   \fancyhead[LE]{\leftheader}
-   \fancyhead[RE]{\rightheader}
-   \fancyhead[CE]{\centerheader}
 
    \renewcommand\@outputpage{%
      \ifodd\value{page}{\gdef\headrulewidth{0pt}}\else{\gdef\headrulewidth{\@headrulewidth}}\fi%
+     \if@chapter%
+        \@chapterfalse%
+        \fancyhead{}%
+     \else%
+        \fancyhead[LE]{\leftheader}%
+        \fancyhead[RE]{\rightheader}%
+        \fancyhead[CE]{\centerheader}%
+     \fi
      \@@outputpage}
 
    \renewcommand\@fnfs{11pt}
    \renewcommand\@fnfsskip{\if@doublespace22pt\else12pt\fi}
+
+   \@chapterfalse
 }
 
 %
@@ -200,19 +209,26 @@
   \setlength\parindent{2em}}
 
 %
-% Sections.
+% Sections and chapters.
 %
+\newdimen\chapterfontsize
+\setlength\chapterfontsize{16pt}
 \newdimen\sectionfontsize
 \setlength\sectionfontsize{12pt}
 \newdimen\subsectionfontsize
 \setlength\subsectionfontsize{12pt}
+\newdimen\subsubsectionfontsize
+\setlength\subsubsectionfontsize{\subsectionfontsize}
 
+\newcommand{\chapterfont}{\bfseries\fontshape{n}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
+\newcommand{\chapternamefont}{\fontseries{m}\fontshape{n}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
 \newcommand{\sectionfont}{\bfseries\fontshape{n}\fontsize{\sectionfontsize}{\sectionfontsize}\selectfont}
 \newcommand{\subsectionfont}{\fontseries{m}\itshape\fontsize{\subsectionfontsize}{\subsectionfontsize}\selectfont}
-\newcommand{\subsubsectionfont}{\fontseries{m}\itshape\fontsize{\subsectionfontsize}{\subsectionfontsize}\selectfont}
+\newcommand{\subsubsectionfont}{\fontseries{m}\itshape\fontsize{\subsubsectionfontsize}{\subsubsectionfontsize}\selectfont}
 
-\setcounter{secnumdepth}{3}
-\newcounter{section}
+\setcounter{secnumdepth}{4}
+\newcounter{chapter}
+\newcounter{section}[chapter]
 \newcounter{subsection}[section]
 \newcounter{subsubsection}[subsection]
 
@@ -226,13 +242,20 @@
 \DeclareOption{nosectionperiods}{\@nosectionperiodstrue}
 \renewcommand\@seccntformat[1]{\csname the#1\endcsname\if@nosectionperiods\else.\fi\quad}
 
+\newcommand\chapter[1]{%
+  \@chaptertrue%
+  \chapterfont%
+  \addtocounter{chapter}{1}%
+  \newpage%
+  {\chapterfont\noindent Chapter \arabic{chapter}\vspace{8pt}\newline\chapternamefont#1\vspace{32pt}}\par\normaltext\noindent}
+
 \newcommand\section{\@ifnextchar*{\section@two}{\section@one}}
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
 \newcommand\subsubsection{\@ifnextchar*{\subsubsection@two}{\subsection@one}}
 
-\newcommand\start@section{\@startsection{section}{1}{0pt}{24pt}{6pt}{\sectionfont}}
-\newcommand\start@subsection{\@startsection{subsection}{2}{0pt}{18pt}{6pt}{\subsectionfont}}
-\newcommand\start@subsubsection{\@startsection{subsubsection}{2}{0pt}{18pt}{6pt}{\subsubsectionfont}}
+\newcommand\start@section{\@startsection{section}{2}{0pt}{24pt}{12pt}{\sectionfont}}
+\newcommand\start@subsection{\@startsection{subsection}{3}{0pt}{18pt}{6pt}{\subsectionfont}}
+\newcommand\start@subsubsection{\@startsection{subsubsection}{4}{0pt}{18pt}{6pt}{\subsubsectionfont}}
 
 \newcommand\@secttail{\@afterindentfalse}
 
