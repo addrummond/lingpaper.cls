@@ -44,7 +44,7 @@
 \newcommand\@sfs{10pt}
 \newcommand\@sfsskip{11pt}
 \newcommand\@fnfs{\@nfs}
-\newcommand\@fnfsskip{\@nfssskip}
+\newcommand\@fnfsskip{\@nfsskip}
 \newcommand\@tfs{8pt}
 \newcommand\@tfsskip{9pt}
 
