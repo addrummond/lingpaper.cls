@@ -342,8 +342,16 @@
     \gdef\@sfsskip{\@sfssskip}%
     \gdef\@fnfsskip{\@fnfssskip}%
     \gdef\@tfsskip{\@tfssskip}%
-    \fontsize{\@nfs}{\@nfssskip}%
-    \selectfont
+    \ifdim \f@size pt = \@nfs%
+      \fontsize{\@nfs}{\@nfssskip}%
+    \else\ifdim \f@size pt = \@fnfs%
+      \fontsize{\@fnfs}{\@fnfssskip}%
+    \else\ifdim \f@size pt = \@sfs%
+      \fontsize{\@sfs}{\@sfssskip}%
+    \else\ifdim \f@size pt = \@tfs%
+      \fontsize{\@tfs}{\@tfssskip}%
+    \fi\fi\fi\fi%
+    \selectfont%
   \fi}
 \newcommand\en@singlesp{%
   \if@doublespace%
@@ -352,8 +360,16 @@
     \gdef\@sfsskip{\@sfsdskip}%
     \gdef\@fnfsskip{\@fnfsdskip}%
     \gdef\@tfsskip{\@tfsdskip}%
-    \fontsize{\@nfs}{\@nfsdskip}%
-    \selectfont
+    \ifdim \f@size pt = \@nfs%
+      \fontsize{\@nfs}{\@nfsdskip}%
+    \else\ifdim \f@size pt = \@fnfs%
+      \fontsize{\@fnfs}{\@fnfsdskip}%
+    \else\ifdim \f@size pt = \@sfs%
+      \fontsize{\@sfs}{\@sfsdskip}%
+    \else\ifdim \f@size pt = \@tfs%
+      \fontsize{\@tfs}{\@tfsdskip}%
+    \fi\fi\fi\fi%
+    \selectfont%
   \fi}
 \newenvironment{singlesp}{\start@singlesp}{\en@singlesp}
 
