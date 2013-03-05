@@ -179,13 +179,13 @@
 \@sectionperiodstrue
 \DeclareOption{nosectionperiods}{\@sectionperiodsfalse}
 \AtBeginDocument{%
-  \if@sectionperiods{%
-    \let\@@startsection\@startsection
-    \let\@@thesection\thesection
-    \renewcommand\@startsection{%
+  \if@sectionperiods%
+    \let\@@startsection\@startsection%
+    \let\@@thesection\thesection%
+    \gdef\@startsection{%
       \def\@new{\@@thesection.}%
       \let\thesection\@new%
-      \@@startsection}}
+      \@@startsection}%
   \fi}
 
 \newcommand\section{\@ifnextchar*{\section@two}{\section@one}}
