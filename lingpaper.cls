@@ -103,8 +103,8 @@
 \newcommand\shorttitle[1]{%
   \def\@shorttitle{#1}}
 
-\fancyheadoffset{0.75in}
-\fancyfootoffset{0.75in}
+\fancyheadoffset{0in}
+\fancyfootoffset{0in}
 
 \pagestyle{fancyplain}
 %\renewcommand\headrulewidth{0pt}
