@@ -49,6 +49,8 @@
 \newcommand\@nfs{12pt}
 \newcommand\@lfs{14pt}
 \newcommand\@Lfs{16pt}
+\newcommand\@hfs{20pt}
+\newcommand\@Hfs{24pt}
 
 \newcommand\@tfsskip{\@tfsskip}
 \newcommand\@scfsskip{\@scfssskip}
@@ -202,9 +204,12 @@
 % Sections and chapters.
 %
 \newdimen\bigtitlefontsize
-\setlength\bigtitlefontsize{20pt}
+\setlength\bigtitlefontsize{\@hfs}
+\newdimen\bigtitleextrainfofontsize
+\setlength\bigtitleextrainfofontsize{\@Lfs}
+
 \newdimen\chapterfontsize
-\setlength\chapterfontsize{16pt}
+\setlength\chapterfontsize{\@Lfs}
 \newdimen\sectionfontsize
 \setlength\sectionfontsize{12pt}
 \newdimen\subsectionfontsize
@@ -212,10 +217,12 @@
 \newdimen\subsubsectionfontsize
 \setlength\subsubsectionfontsize{\subsectionfontsize}
 
-\newcommand{\bigtitlefont}{\fontshape{m}\fontsize{\bigtitlefontsize}{\bigtitlefontsize}\selectfont}
-\newcommand{\chapterfont}{\bfseries\fontshape{m}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
+\newcommand{\bigtitlefont}{\fontseries{m}\fontshape{n}\fontsize{\bigtitlefontsize}{\bigtitlefontsize}\selectfont}
+\newcommand{\bigtitlextrainfofont}{\fontseries{m}\fontshape{n}\fontsize{\bigtitleextrainfofontsize}{\bigtitleextrainfofontsize}\selectfont}
+
+\newcommand{\chapterfont}{\bfseries\fontshape{n}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
 \newcommand{\chapternamefont}{\fontseries{m}\fontshape{n}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
-\newcommand{\sectionfont}{\bfseries\fontshape{m}\fontsize{\sectionfontsize}{\sectionfontsize}\selectfont}
+\newcommand{\sectionfont}{\bfseries\fontshape{n}\fontsize{\sectionfontsize}{\sectionfontsize}\selectfont}
 \newcommand{\subsectionfont}{\fontseries{m}\itshape\fontsize{\subsectionfontsize}{\subsectionfontsize}\selectfont}
 \newcommand{\subsubsectionfont}{\fontseries{m}\itshape\fontsize{\subsubsectionfontsize}{\subsubsectionfontsize}\selectfont}
 
@@ -240,7 +247,7 @@
   \addtocounter{chapter}{1}%
   \newpage%
   \thispagestyle{empty}%
-  {\chapterfont\noindent Chapter \arabic{chapter}\vspace{8pt}\newline\chapternamefont#1\vspace{32pt}}\newline\normaltext\noindent}
+  {\chapterfont\noindent Chapter \arabic{chapter}\vspace{8pt}\newline\chapternamefont#1\vspace{\chapterfontsize}}\newline\normaltext\noindent}
 
 \newcommand\section{\@ifnextchar*{\section@two}{\section@one}}
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
@@ -304,9 +311,12 @@
   \begingroup
   \let\@n\@nfsskip
   \let\@nfsskip\@nfssskip
-  \if@bigtitle\bigtitlefont\else\normaltext\fi
   \begin{center}%
-  \textbf{\@title}\vspace{6pt}\\\@author\vspace{6pt}\\\@date\\
+    \if@bigtitle\bigtitlefont\else\normaltext\fi
+    \textbf{\@title}\vspace{6pt}\\
+    \if@bigtitle\bigtitlextrainfofont\fi
+    \@author\vspace{6pt}\\
+    \normaltext\@date\\
   \end{center}%
   \vspace{\@n}%
   \endgroup%
