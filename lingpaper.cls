@@ -245,7 +245,9 @@
 
 \newcommand\chapter[1]{%
   \chapterfont%
+  \setcounter{section}{0}%
   \addtocounter{chapter}{1}%
+  \addcontentsline{toc}{chapter}{\protect\numberline{\arabic{chapter}\hspace{1em}#1}}%
   \newpage%
   \thispagestyle{empty}%
   {\chapterfont\noindent Chapter \arabic{chapter}\vspace{8pt}\newline\chapternamefont#1\vspace{\chapterfontsize}}\newline\normaltext\noindent}
@@ -466,24 +468,16 @@
 \newcommand\newblock{\hskip .11em plus .33em plus .07em}
 
 %
-% Some misc. utilities.
-%
-\newcommand\usexitsfonts{%
-  \ifpdf\else
-    \usepackage{unicode-math}
-    \ifluatex
-      \setmainfont[Mapping=tex-text]{XITS}
-    \else
-      % Current lautex doesn't support Mapping option.
-      \setmainfont[Ligatures=TeX]{XITS}
-    \fi
-    \setmathfont{XITS Math}
-  \fi}
-
-%
-% Table of contents (taken from article.sty)
+% Table of contents (mostly taken from article.sty)
 %
 \newcommand\contentsname{Contents}
+
+% Make it easy to change fonts in TOC.
+\newcommand\cftpartfont{\normalfont}
+\newcommand\cftchapterfont{\normalfont\large\bfseries}
+\newcommand\cftsectionfont{\normalfont\normalsize}
+\newcommand\cftsubsectionfont{\normalfont\footnotesize}
+\newcommand\cftsubsubsectionfont{\normalfont\footnotesize}
 
 \newcommand\@pnumwidth{1.55em}
 \newcommand\@tocrmarg{2.55em}
@@ -504,7 +498,7 @@
       \parindent \z@ \rightskip \@pnumwidth
       \parfillskip -\@pnumwidth
       {\leavevmode
-       \large \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
+       \cftpartfont #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par % Edit: replace raw font commands with \cftpartfont
        \nobreak
        \if@compatibility
          \global\@nobreaktrue
@@ -520,16 +514,16 @@
     \begingroup
       \parindent \z@ \rightskip \@pnumwidth
       \parfillskip -\@pnumwidth
-      \leavevmode \bfseries
+      \leavevmode \cftsectionfont % Edit 
       \advance\leftskip\@tempdima
       \hskip -\leftskip
       #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
     \endgroup
   \fi}
-\newcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.3em}}
-\newcommand*\l@subsubsection{\@dottedtocline{3}{3.8em}{3.2em}}
-\newcommand*\l@paragraph{\@dottedtocline{4}{7.0em}{4.1em}}
-\newcommand*\l@subparagraph{\@dottedtocline{5}{10em}{5em}}
+\newcommand*\l@subsection{\cftsubsectionfont\@dottedtocline{2}{1.5em}{2.3em}}
+\newcommand*\l@subsubsection{\cftsubsubsectionfont\@dottedtocline{3}{3.8em}{3.2em}}
+\newcommand*\l@paragraph{\cftsubsubsectionfont\@dottedtocline{4}{7.0em}{4.1em}}
+\newcommand*\l@subparagraph{\cftsubsubsectionfont\@dottedtocline{5}{10em}{5em}}
 \newcommand\listoffigures{%
     \section*{\listfigurename}%
       \@mkboth{\MakeUppercase\listfigurename}%
@@ -546,5 +540,21 @@
     }
 \let\l@table\l@figure
 
+% Added from book.cls
+\newcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \cftchapterfont % Edit
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
 
 \ProcessOptions
