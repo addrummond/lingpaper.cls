@@ -34,6 +34,7 @@
 \newcommand\@nfssskip{13pt}
 \newcommand\@lfssskip{15pt}
 \newcommand\@Lfssskip{17pt}
+\newcommand\@hfssskip{21pt}
 
 \newcommand\@tfsdskip{16pt}
 \newcommand\@scfsdskip{18pt}
@@ -42,6 +43,7 @@
 \newcommand\@nfsdskip{22pt}
 \newcommand\@lfsdskip{28pt}
 \newcommand\@Lfsdskip{32pt}
+\newcommand\@hfsdskip{40pt}
 
 \newcommand\@tfs{8pt}
 \newcommand\@scfs{9pt}
@@ -60,6 +62,7 @@
 \newcommand\@nfsskip{\@nfssskip}
 \newcommand\@lfsskip{\@lfssskip}
 \newcommand\@Lfsskip{\@Lfssskip}
+\newcommand\@hfsskip{\@hfssskip}
 
 \DeclareOption{smallfootnotes}{%
   \gdef\@fnfs{11pt}
@@ -78,6 +81,7 @@
     \gdef\@nfsskip{\@nfsdskip}
     \gdef\@lfsskip{\@lfsdskip}
     \gdef\@Lfsskip{\@Lfsdskip}
+    \gdef\@hfsskip{\@hfsdskip}
     \@doublespacetrue}}
 
 \newcommand{\tiny}{\fontsize{\@tfs}{\@tfsskip}\selectfont}
@@ -87,6 +91,7 @@
 \renewcommand{\normalsize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
 \newcommand{\large}{\fontsize{\@lfs}{\@lfsskip}\selectfont}
 \newcommand{\Large}{\fontsize{\@Lfs}{\@Lfsskip}\selectfont}
+\newcommand{\huge}{\fontsize{\@hfs}{\@hfsskip}\selectfont}
 
 \newcommand{\normaltext}{\fontseries{m}\fontshape{n}\normalsize}
 
@@ -416,6 +421,7 @@
     \gdef\@nfsskip{\@nfssskip}%
     \gdef\@lfsskip{\@lfssskip}%
     \gdef\@Lfsskip{\@Lfssskip}%
+    \gdef\@hfsskip{\@hfssskip}%
     \ifdim \f@size pt = \@tfs%
       \fontsize{\@tfs}{\@tfssskip}%
     \else\ifdim \f@size pt = \@scfs%
@@ -430,7 +436,9 @@
       \fontsize{\@lfs}{\@lfssskip}%
     \else\ifdim \f@size pt = \@Lfs%
       \fontsize{\@Lfs}{\@Lfssskip}%
-    \fi\fi\fi\fi\fi\fi\fi%
+    \else\ifdim \f@size pt = \@hfs%
+      \fontsize{\@hfs}{\@hfssskip}%
+    \fi\fi\fi\fi\fi\fi\fi\fi%
     \selectfont%
   \fi}
 \newcommand\en@singlesp{%
@@ -443,6 +451,7 @@
     \gdef\@nfsskip{\@nfsdskip}%
     \gdef\@lfsskip{\@lfsdskip}%
     \gdef\@Lfsskip{\@Lfsdskip}%
+    \gdef\@Lfsskip{\@hfsdskip}%
     \ifdim \f@size pt = \@tfs%
       \fontsize{\@tfs}{\@tfsdskip}%
     \else\ifdim \f@size pt = \@scfs%
@@ -457,6 +466,8 @@
       \fontsize{\@lfs}{\@lfsdskip}%
     \else\ifdim \f@size pt = \@Lfs%
       \fontsize{\@Lfs}{\@Lfsdskip}%
+    \else\ifdim \f@size pt = \@Lfs%
+      \fontsize{\@hfs}{\@hfsdskip}%
     \fi\fi\fi\fi%
     \selectfont%
   \fi}
@@ -473,6 +484,7 @@
 \newcommand\contentsname{Contents}
 
 % Make it easy to change fonts in TOC.
+\newcommand\cftcontentsfont{\normalfont\huge\bfseries}
 \newcommand\cftpartfont{\normalfont}
 \newcommand\cftchapterfont{\normalfont\large\bfseries}
 \newcommand\cftsectionfont{\normalfont\normalsize}
@@ -484,10 +496,13 @@
 \newcommand\@dotsep{4.5}
 \setcounter{tocdepth}{3}
 \newcommand\tableofcontents{%
-      \section*{\contentsname
-          \@mkboth{%
-             \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
-      \@starttoc{toc}}
+      \begingroup
+        \let\sectionfont\cftcontentsfont
+        \section*{\contentsname%
+            \@mkboth{%
+               \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+        \@starttoc{toc}%
+      \endgroup}
 
 \newcommand*\l@part[2]{%
   \ifnum \c@tocdepth >-2\relax
