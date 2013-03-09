@@ -2,6 +2,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \RequirePackage{endnotes}
 \RequirePackage{fancyhdr}
+\RequirePackage{ifpdf,ifxetex,ifluatex}
 
 %
 % Some basic definitions copied from article.tex.
@@ -52,7 +53,7 @@
 \newcommand\@hfs{20pt}
 \newcommand\@Hfs{24pt}
 
-\newcommand\@tfsskip{\@tfsskip}
+\newcommand\@tfsskip{\@tfssskip}
 \newcommand\@scfsskip{\@scfssskip}
 \newcommand\@fnfsskip{\@nfssskip}
 \newcommand\@sfsskip{\@sfssskip}
@@ -468,9 +469,82 @@
 % Some misc. utilities.
 %
 \newcommand\usexitsfonts{%
-  \usepackage{unicode-math}
-  \setmainfont[Mapping=tex-text]{XITS}
-  \setmathfont{XITS Math}}
+  \ifpdf\else
+    \usepackage{unicode-math}
+    \ifluatex
+      \setmainfont[Mapping=tex-text]{XITS}
+    \else
+      % Current lautex doesn't support Mapping option.
+      \setmainfont[Ligatures=TeX]{XITS}
+    \fi
+    \setmathfont{XITS Math}
+  \fi}
+
+%
+% Table of contents (taken from article.sty)
+%
+\newcommand\contentsname{Contents}
+
+\newcommand\@pnumwidth{1.55em}
+\newcommand\@tocrmarg{2.55em}
+\newcommand\@dotsep{4.5}
+\setcounter{tocdepth}{3}
+\newcommand\tableofcontents{%
+      \section*{\contentsname
+          \@mkboth{%
+             \MakeUppercase\contentsname}{\MakeUppercase\contentsname}}%
+      \@starttoc{toc}}
+
+\newcommand*\l@part[2]{%
+  \ifnum \c@tocdepth >-2\relax
+    \addpenalty\@secpenalty
+    \addvspace{2.25em \@plus\p@}%
+    \setlength\@tempdima{3em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      {\leavevmode
+       \large \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
+       \nobreak
+       \if@compatibility
+         \global\@nobreaktrue
+         \everypar{\global\@nobreakfalse\everypar{}}%
+      \fi
+    \endgroup
+  \fi}
+\newcommand*\l@section[2]{%
+  \ifnum \c@tocdepth >\z@
+    \addpenalty\@secpenalty
+    \addvspace{1.0em \@plus\p@}%
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+    \endgroup
+  \fi}
+\newcommand*\l@subsection{\@dottedtocline{2}{1.5em}{2.3em}}
+\newcommand*\l@subsubsection{\@dottedtocline{3}{3.8em}{3.2em}}
+\newcommand*\l@paragraph{\@dottedtocline{4}{7.0em}{4.1em}}
+\newcommand*\l@subparagraph{\@dottedtocline{5}{10em}{5em}}
+\newcommand\listoffigures{%
+    \section*{\listfigurename}%
+      \@mkboth{\MakeUppercase\listfigurename}%
+              {\MakeUppercase\listfigurename}%
+    \@starttoc{lof}%
+    }
+\newcommand*\l@figure{\@dottedtocline{1}{1.5em}{2.3em}}
+\newcommand\listoftables{%
+    \section*{\listtablename}%
+      \@mkboth{%
+          \MakeUppercase\listtablename}%
+         {\MakeUppercase\listtablename}%
+    \@starttoc{lot}%
+    }
+\let\l@table\l@figure
 
 
 \ProcessOptions
