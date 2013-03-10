@@ -248,15 +248,15 @@
 \DeclareOption{nosectionperiods}{\@nosectionperiodstrue}
 \renewcommand\@seccntformat[1]{\csname the#1\endcsname\if@nosectionperiods\else.\fi\quad}
 
-\newcommand\chapter{\@ifnextchar*{\@chapterstar}{\@chapternostar}}
+\newcommand\chapter{\@ifnextchar*\@chapterstar\@chapternostar}
 \newcommand\@chapternostar[1]{%
   \chapterfont%
   \setcounter{section}{0}%
   \addtocounter{chapter}{1}%
-  \addcontentsline{toc}{chapter}{\protect\numberline{\hspace{1em}#1}}%
+  \addcontentsline{toc}{chapter}{\protect\numberline{\arabic{chapter}\hspace{1em}#1}}%
   \newpage%
   \thispagestyle{empty}%
-  {\chapterfont\noindent Chapter \arabic{chapter}\vspace{8pt}\newline\chapternamefont#1\vspace{\chapterfontsize}}\newline\normaltext\noindent}
+  {\chapterfont\noindent Chapter \arabic{chapter}\par\nobreak\vspace{8pt}\noindent\chapternamefont#1\par\nobreak\vspace{\chapterfontsize}}\noindent\normaltext}
 \newcommand\@chapterstar[2]{%
   \chapterfont%
   \setcounter{section}{0}%
