@@ -248,14 +248,21 @@
 \DeclareOption{nosectionperiods}{\@nosectionperiodstrue}
 \renewcommand\@seccntformat[1]{\csname the#1\endcsname\if@nosectionperiods\else.\fi\quad}
 
-\newcommand\chapter[1]{%
+\newcommand\chapter{\@ifnextchar*{\@chapterstar}{\@chapternostar}}
+\newcommand\@chapternostar[1]{%
   \chapterfont%
   \setcounter{section}{0}%
   \addtocounter{chapter}{1}%
-  \addcontentsline{toc}{chapter}{\protect\numberline{\arabic{chapter}\hspace{1em}#1}}%
+  \addcontentsline{toc}{chapter}{\protect\numberline{\hspace{1em}#1}}%
   \newpage%
   \thispagestyle{empty}%
   {\chapterfont\noindent Chapter \arabic{chapter}\vspace{8pt}\newline\chapternamefont#1\vspace{\chapterfontsize}}\newline\normaltext\noindent}
+\newcommand\@chapterstar[2]{%
+  \chapterfont%
+  \setcounter{section}{0}%
+  \newpage%
+  \thispagestyle{empty}%
+  {\chapterfont\noindent #2\vspace{\chapterfontsize}}\newline\normaltext\noindent}
 
 \newcommand\section{\@ifnextchar*{\section@two}{\section@one}}
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
@@ -335,6 +342,7 @@
 %
 % Bibliography environment (copied from article.cls)
 %
+\newcommand\bibname{References}
 \newenvironment{thebibliography}[1]
      {\section*{\refname}%
       \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
