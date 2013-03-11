@@ -375,9 +375,9 @@
 % Lists.
 %
 \def\@listi{%
-  \parsep 5pt plus 3pt minus 2pt
-  \topsep 9.5pt plus 3pt minus 5pt
-  \itemsep 5pt plus 3pt minus 2pt
+  \parsep 5pt% plus 3pt minus 2pt
+  \topsep 9.5pt% plus 3pt minus 5pt
+  \itemsep 5pt% plus 3pt minus 2pt
 }
 
 \AtBeginDocument{%
