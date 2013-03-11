@@ -97,6 +97,9 @@
 
 \newcommand{\@pagenumfontsize}{\fontsize{10pt}{10pt}\selectfont}
 
+% Would like to make this rubber but keep getting crazy results.
+\setlength{\parskip}{0pt}
+
 %
 % Page setup.
 % See http://amath.colorado.edu/documentation/LaTeX/reference/layout.html
