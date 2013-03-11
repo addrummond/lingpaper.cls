@@ -198,10 +198,12 @@
    \fancyheadoffset{0in}
    \fancyfootoffset{0in}
 
-   \fancyhead{}
+   \let\@oldlhead\f@ncyelh
+   \let\@oldchead\f@ncyech
+   \let\@oldrhead\f@ncyerh
 
    \renewcommand\@outputpage{%
-     \ifodd\value{page}{\gdef\headrulewidth{0pt}}\else{\gdef\headrulewidth{\@headrulewidth}}\fi%
+     \ifodd\value{page}{\gdef\headrulewidth{0pt}\fancyhead{}}\else{\gdef\headrulewidth{\@headrulewidth}\lhead{\@oldlhead}\rhead{\@oldrhead}\chead{\@oldchead}}\fi%
      \@@outputpage}
 
    \renewcommand\@fnfs{11pt}
