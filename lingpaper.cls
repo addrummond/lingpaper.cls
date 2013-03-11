@@ -100,6 +100,13 @@
 % Would like to make this rubber but keep getting crazy results.
 \setlength{\parskip}{0pt}
 
+% Coped from latex.sty with rubber spacing removed (again,
+% some bug in this class file somewhere which is causing rubber spacing
+% to do crazy things).
+\newskip\smallskipamount \smallskipamount=3pt% plus 1pt minus 1pt
+\newskip\medskipamount   \medskipamount  =6pt% plus 2pt minus 2pt
+\newskip\bigskipamount   \bigskipamount =12pt% plus 4pt minus 4pt
+
 %
 % Page setup.
 % See http://amath.colorado.edu/documentation/LaTeX/reference/layout.html
