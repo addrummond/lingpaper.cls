@@ -206,8 +206,6 @@
 
    \renewcommand\@fnfs{11pt}
    \renewcommand\@fnfsskip{\if@doublespace22pt\else12pt\fi}
-
-   \@chapterfalse
 }
 
 %
