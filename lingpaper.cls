@@ -202,13 +202,13 @@
 \newcommand\@replacefootnotewithmarginnote{%
    \renewcommand\footnote[2][\thefootnote]{%
      \stepcounter{footnote}%
-     {\footnotesize \footnotemark[\thefootnote]}%
+     {\footnotesize \footnotemark[##1]}%
      \marginnote{%
        \raggedright\footnotesize%
        \ifodd\value{page}%
          \addtolength\leftskip{\marginnotesep}%
        \fi%
-       \footnotemark[\thefootnote]##2}}}
+       \footnotemark[##1]##2}}}
 %  \renewcommand\footnote[2][\thefootnote]{\stepcounter{footnote}{\footnotesize $^{\rm ##1}$}\marginpar{\raggedright\addtolength\leftskip{\marginnotesep}\footnotesize $^{\rm ##1}$##2}}}
 
 \let\@@outputpage\@outputpage
