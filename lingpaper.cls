@@ -183,7 +183,7 @@
 
 \let\@@outputpage\@outputpage
 \DeclareOption{handout}{
-   % To make sure this is evaluated after 'handout' option sets if@afoursize to true.
+   % To make sure this is evaluated after paper size options set if@afoursize to true.
    \AtEndOfPackage{%
      \@twosidetrue
      \if@afoursize
