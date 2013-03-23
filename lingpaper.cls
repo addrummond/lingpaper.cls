@@ -182,30 +182,31 @@
    \setlength\textwidth{180mm}}
 
 \let\@@outputpage\@outputpage
-\DeclareOption{handout}{
-   % To make sure this is evaluated after paper size options set if@afoursize to true.
-   \AtEndOfPackage{%
+\newif\if@handout
+\DeclareOption{handout}{\@handouttrue}
+\AtEndOfPackage{
+   \if@handout%
      \@twosidetrue
      \if@afoursize
        \@modifyafourforhandout
      \else
        \@modifylettersizeforhandout
      \fi
-   }
 
-   \fancyheadoffset{0in}
-   \fancyfootoffset{0in}
+     \fancyheadoffset{0in}
+     \fancyfootoffset{0in}
 
-   \let\@oldlhead\f@ncyelh
-   \let\@oldchead\f@ncyech
-   \let\@oldrhead\f@ncyerh
+     \let\@oldlhead\f@ncyelh
+     \let\@oldchead\f@ncyech
+     \let\@oldrhead\f@ncyerh
 
-   \renewcommand\@outputpage{%
-     \ifodd\value{page}{\gdef\headrulewidth{0pt}\fancyhead{}}\else{\gdef\headrulewidth{\@headrulewidth}\lhead{\@oldlhead}\rhead{\@oldrhead}\chead{\@oldchead}}\fi%
-     \@@outputpage}
+     \renewcommand\@outputpage{%
+       \ifodd\value{page}{\gdef\headrulewidth{0pt}\fancyhead{}}\else{\gdef\headrulewidth{\@headrulewidth}\lhead{\@oldlhead}\rhead{\@oldrhead}\chead{\@oldchead}}\fi%
+       \@@outputpage}
 
-   \renewcommand\@fnfs{11pt}
-   \renewcommand\@fnfsskip{\if@doublespace22pt\else12pt\fi}
+     \renewcommand\@fnfs{11pt}
+     \renewcommand\@fnfsskip{\if@doublespace22pt\else12pt\fi}
+  \fi
 }
 
 %
