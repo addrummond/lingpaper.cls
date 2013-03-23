@@ -19,6 +19,7 @@ Package options:
 * `[handout]` Narrow asymmetric margins for 2x2 printing.
 * `[nosectionperiods]` By default there is a period after the section number in section headings. This option removes it.
 * `[endnotes]` Endnotes instead of footnotes (notes are still specified using the `footnote` command). You may specify position of endnotes using `\theendnotes`.
+* `[marginnotes]` Margin notes instead of footnotes (notes are still specified using the `footnote` command). This works only if the `[handout]` option is also set. The right margins of odd pages and left margins of even pages are increased to make room for margin notes in the center of the handout.
 * `[smallfootnotes]` Makes footnotes small (redundant in handout mode).
 * `[bigtitle]` Makes paper/book title big (might want this for book drafts).
 
@@ -31,6 +32,8 @@ Commands that can be redefined:
 * `\leftheader`, `\rightheader` and `\centerheader` can be redefined to make simple adjustments to the content of the page headers. The headers are set using the fancyhdr package, so you can override them using fancyhdr directly.
 
 * `\cftchapterfont`, `\cftsectionfont`, `\cftsubsectionfont` and `\cftsubsubsectionfont`. These set fonts for lines in TOC.
+
+* The sum of the values of `\marginnoteextraspace` and `\marginnotesep` is the additional space added to left/right margins to make room for margin notes. The latter specifies the distance between the left/right edge of the margin note and the main text.
 
 Example:
 

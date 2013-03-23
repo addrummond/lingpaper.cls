@@ -2,7 +2,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \RequirePackage{endnotes}
 \RequirePackage{fancyhdr}
-\RequirePackage{ifpdf,ifxetex,ifluatex}
+\RequirePackage{ifpdf,ifxetex,ifluatex,marginnote}
 
 %
 % Some basic definitions copied from article.tex.
@@ -173,41 +173,72 @@
 % Handout variant.
 %
 \newcommand\@modifylettersizeforhandout{%
-   \setlength\oddsidemargin{0in}
-   \setlength\evensidemargin{-0.5in}
-   \setlength\textwidth{7in}}
+  \setlength\oddsidemargin{0in}
+  \setlength\evensidemargin{-0.5in}
+  \setlength\textwidth{7in}}
 \newcommand\@modifyafourforhandout{%
-   \setlength\oddsidemargin{-5.4mm}
-   \setlength\evensidemargin{-15.4mm}
-   \setlength\textwidth{180mm}}
+  \setlength\oddsidemargin{-5.4mm}
+  \setlength\evensidemargin{-15.4mm}
+  \setlength\textwidth{180mm}}
+
+\newcommand\marginnotesep{0.25in}
+\newcommand\marginnoteextraspace{2in}
+
+\newcommand\@modifyhandoutformarginnotes{%
+  \addtolength\evensidemargin{\marginnoteextraspace}
+  \addtolength\evensidemargin{\marginnotesep}
+  \addtolength\textwidth{-\marginnoteextraspace}
+  \addtolength\textwidth{-\marginnotesep}
+  \setlength\marginparwidth{\marginnoteextraspace}
+}
+
+\newif\if@marginnotes
+\DeclareOption{marginnotes}{\@marginnotestrue}
+
+% TODO: Redefining entire footnote command is a bit of a hack.
+\newcommand\@replacefootnotewithmarginnote{%
+   \renewcommand\footnote[2][\thefootnote]{%
+     \stepcounter{footnote}%
+     {\footnotesize \footnotemark[\thefootnote]}%
+     \marginnote{%
+       \raggedright\footnotesize%
+       \ifodd\value{page}%
+         \addtolength\leftskip{\marginnotesep}%
+       \fi%
+       \footnotemark[\thefootnote]##2}}}
+%  \renewcommand\footnote[2][\thefootnote]{\stepcounter{footnote}{\footnotesize $^{\rm ##1}$}\marginpar{\raggedright\addtolength\leftskip{\marginnotesep}\footnotesize $^{\rm ##1}$##2}}}
 
 \let\@@outputpage\@outputpage
 \newif\if@handout
 \DeclareOption{handout}{\@handouttrue}
 \AtEndOfPackage{
-   \if@handout%
-     \@twosidetrue
-     \if@afoursize
-       \@modifyafourforhandout
-     \else
-       \@modifylettersizeforhandout
-     \fi
+  \if@handout%
+    \@twosidetrue
+    \if@afoursize
+      \@modifyafourforhandout
+    \else
+      \@modifylettersizeforhandout
+    \fi
 
-     \fancyheadoffset{0in}
-     \fancyfootoffset{0in}
+    \if@marginnotes
+      \@modifyhandoutformarginnotes
+      \@replacefootnotewithmarginnote
+    \fi
 
-     \let\@oldlhead\f@ncyelh
-     \let\@oldchead\f@ncyech
-     \let\@oldrhead\f@ncyerh
+    \fancyheadoffset{0in}
+    \fancyfootoffset{0in}
 
-     \renewcommand\@outputpage{%
-       \ifodd\value{page}{\gdef\headrulewidth{0pt}\fancyhead{}}\else{\gdef\headrulewidth{\@headrulewidth}\lhead{\@oldlhead}\rhead{\@oldrhead}\chead{\@oldchead}}\fi%
-       \@@outputpage}
+    \let\@oldlhead\f@ncyelh
+    \let\@oldchead\f@ncyech
+    \let\@oldrhead\f@ncyerh
 
-     \renewcommand\@fnfs{11pt}
-     \renewcommand\@fnfsskip{\if@doublespace22pt\else12pt\fi}
-  \fi
-}
+    \renewcommand\@outputpage{%
+      \ifodd\value{page}{\gdef\headrulewidth{0pt}\fancyhead{}}\else{\gdef\headrulewidth{\@headrulewidth}\lhead{\@oldlhead}\rhead{\@oldrhead}\chead{\@oldchead}}\fi%
+      \@@outputpage}
+
+    \renewcommand\@fnfs{11pt}
+    \renewcommand\@fnfsskip{\if@doublespace22pt\else12pt\fi}
+ \fi}
 
 %
 % Layout.
