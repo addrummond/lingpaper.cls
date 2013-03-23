@@ -181,8 +181,9 @@
   \setlength\evensidemargin{-15.4mm}
   \setlength\textwidth{180mm}}
 
-\newcommand\marginnotesep{0.25in}
+\newcommand\marginnotesep{0.4in}
 \newcommand\marginnoteextraspace{2in}
+\newcommand\marginnotesquish{0.25in}
 
 \newcommand\@modifyhandoutformarginnotes{%
   \addtolength\evensidemargin{\marginnoteextraspace}
@@ -190,6 +191,8 @@
   \addtolength\textwidth{-\marginnoteextraspace}
   \addtolength\textwidth{-\marginnotesep}
   \setlength\marginparwidth{\marginnoteextraspace}
+  \addtolength\textwidth{\marginnotesquish}
+  \addtolength\evensidemargin{-\marginnotesquish}
 }
 
 \newif\if@marginnotes
