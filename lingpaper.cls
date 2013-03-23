@@ -137,8 +137,6 @@
   \setlength\evensidemargin{9.24mm}
   \setlength\textwidth{140.72mm}
   \setlength\textheight{247mm}}
-\newcommand\@handoutlettersizesettings{}
-\newcommand\@handoutafoursettings{}
 
 \newif\if@afoursize
 \@draftlettersizesettings
