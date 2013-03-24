@@ -199,7 +199,7 @@
 
 \newcommand\marginnotesep{0.4in}
 \newcommand\marginnoteextraspace{2in}
-\newcommand\marginnotesquish{0.25in}
+\newcommand\marginnotesquish{0.5in}
 
 \newcommand\@modifyhandoutformarginnotes{%
   \addtolength\evensidemargin{\marginnoteextraspace}
