@@ -588,9 +588,9 @@
 \newcommand\contentsname{Contents}
 
 % Make it easy to change fonts in TOC.
-\newcommand\cftcontentsfont{\normalfont\huge\bfseries}
-\newcommand\cftpartfont{\normalfont}
-\newcommand\cftchapterfont{\normalfont\large\bfseries}
+\newcommand\cftcontentsfont{\normalfont\fontshape{sc}\selectfont\huge}
+\newcommand\cftpartfont{\normalfont\fontshape{sc}}
+\newcommand\cftchapterfont{\normalfont\fontshape{sc}\selectfont\large}
 \newcommand\cftsectionfont{\normalfont\normalsize}
 \newcommand\cftsubsectionfont{\normalfont\footnotesize}
 \newcommand\cftsubsubsectionfont{\normalfont\footnotesize}
