@@ -105,12 +105,15 @@
 \AtEndOfPackage{%
   \if@parskip
     \if@doublespace
-      \setlength{\parskip}{\@sdoublespaceparskip}
+      \setlength{\parskip}{\@doublespaceparskip}
+      \gdef\@parskip{\@sdoublespaceparskip}
     \else
       \setlength{\parskip}{\@singlespaceparskip}
+      \gdef\@parskip{\@singlespaceparskip}
     \fi
   \else
     \setlength{\parskip}{0pt}
+    \gdef\@parskip{0pt}
   \fi}
 
 % Coped from latex.sty with rubber spacing removed (again,
@@ -263,8 +266,9 @@
 %
 % Layout.
 %
+\newcommand\@parindent{2em}
 \AtBeginDocument{%
-  \setlength\parindent{2em}}
+  \setlength\parindent{\@parindent}}
 
 %
 % Sections and chapters.
@@ -371,7 +375,6 @@
   \hrule\@width.4\columnwidth
   \kern2.6\p@}
 \newcommand\@makefntext[1]{%
-    \parindent 1em%
     \noindent
     \hb@xt@1.8em{\hss\@makefnmark}#1}
 
@@ -406,6 +409,21 @@
   \normaltext%
   \thispagestyle{empty}%
 }
+
+%\footnotesize\setlength\parindent\@parindent\noindent
+%
+% Environment for abstracts (centered paragraphs with smallish text).
+%
+\newcommand\@setupabs{\footnotesize\setlength\parindent\@parindent\noindent}
+\newcommand\abstractleftindent{0.5in}
+\newcommand\abstractrightindent{0.5in}
+\newdimen\@abstractwidth
+\newenvironment{abstract}%
+  {\setlength\@abstractwidth\textwidth%
+   \addtolength{\@abstractwidth}{-\abstractleftindent}%
+   \addtolength{\@abstractwidth}{-\abstractrightindent}%
+   \noindent\noindent\hspace*{\abstractleftindent}\noindent\begin{minipage}[t]{\@abstractwidth}\vspace{0pt}\@setupabs}
+  {\end{minipage}}
 
 %
 % Bibliography environment (copied from article.cls)
@@ -491,6 +509,7 @@
 \newcommand\start@singlesp{%
   \if@doublespace%
     \setlength\parskip{\@doublespaceparskip}
+    \gdef\@parskip{\@doublespaceparskip}
     \gdef\@tfsskip{\@tfssskip}%
     \gdef\@scfsskip{\@scfssskip}%
     \gdef\@fnfsskip{\@fnfssskip}%
@@ -522,6 +541,7 @@
   \if@doublespace%
     \par%
     \setlength\parskip{\@singlespaceparskip}
+    \gdef\@parskip{\@singlespaceparskip}
     \gdef\@tfsskip{\@tfsdskip}%
     \gdef\@scfsskip{\@scfsdskip}%
     \gdef\@fnfsskip{\@fnfsdskip}%
