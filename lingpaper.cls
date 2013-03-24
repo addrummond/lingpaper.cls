@@ -210,18 +210,22 @@
 
 \newif\if@marginnotes
 \DeclareOption{marginnotes}{\@marginnotestrue}
+\newif\if@largemarginnotes
+\DeclareOption{largemarginnotes}{\@largemarginnotestrue}
+
+\newcommand\@mnfootnotesize{\if@largemarginnotes\footnotesize\else\scriptsize\fi}
 
 % TODO: Redefining entire footnote command is a bit of a hack.
 \newcommand\@replacefootnotewithmarginnote{%
    \renewcommand\footnote[2][\thefootnote]{%
      \stepcounter{footnote}%
-     {\footnotesize \footnotemark[##1]}%
+     {\@mnfootnotesize\footnotemark[##1]}%
      \marginnote{%
-       \raggedright\footnotesize%
+       \raggedright\@mnfootnotesize%
        \ifodd\value{page}%
          \addtolength\leftskip{\marginnotesep}%
        \fi%
-       \footnotemark[##1]##2}}}
+       \@mnfootnotesize\footnotemark[##1]##2}}}
 %  \renewcommand\footnote[2][\thefootnote]{\stepcounter{footnote}{\footnotesize $^{\rm ##1}$}\marginpar{\raggedright\addtolength\leftskip{\marginnotesep}\footnotesize $^{\rm ##1}$##2}}}
 
 \let\@@outputpage\@outputpage
