@@ -97,8 +97,21 @@
 
 \newcommand{\@pagenumfontsize}{\fontsize{10pt}{10pt}\selectfont}
 
-% Would like to make this rubber but keep getting crazy results.
-\setlength{\parskip}{0pt}
+\newcommand\@singlespaceparskip{6pt}
+\newcommand\@doublespaceparskip{12pt}
+
+\newif\if@parskip
+\DeclareOption{parskip}{\@parskiptrue}
+\AtEndOfPackage{%
+  \if@parskip
+    \if@doublespace
+      \setlength{\parskip}{\@sdoublespaceparskip}
+    \else
+      \setlength{\parskip}{\@singlespaceparskip}
+    \fi
+  \else
+    \setlength{\parskip}{0pt}
+  \fi}
 
 % Coped from latex.sty with rubber spacing removed (again,
 % some bug in this class file somewhere which is causing rubber spacing
@@ -252,6 +265,11 @@
 %
 % Sections and chapters.
 %
+\newdimen\normaltitlefontsize
+\setlength\normaltitlefontsize{\@Lfs}
+\newdimen\normaltitleextrainfofontsize
+\setlength\normaltitleextrainfofontsize{\@lfs}
+
 \newdimen\bigtitlefontsize
 \setlength\bigtitlefontsize{\@hfs}
 \newdimen\bigtitleextrainfofontsize
@@ -260,20 +278,23 @@
 \newdimen\chapterfontsize
 \setlength\chapterfontsize{\@Lfs}
 \newdimen\sectionfontsize
-\setlength\sectionfontsize{12pt}
+\setlength\sectionfontsize{\@lfs}
 \newdimen\subsectionfontsize
-\setlength\subsectionfontsize{12pt}
+\setlength\subsectionfontsize{\@nfs}
 \newdimen\subsubsectionfontsize
 \setlength\subsubsectionfontsize{\subsectionfontsize}
 
-\newcommand{\bigtitlefont}{\fontseries{m}\fontshape{n}\fontsize{\bigtitlefontsize}{\bigtitlefontsize}\selectfont}
+\newcommand{\normaltitlefont}{\fontseries{m}\fontshape{sc}\fontsize{\normaltitlefontsize}{\normaltitlefontsize}\selectfont}
+\newcommand{\normaltitleextrainfofont}{\fontseries{m}\fontshape{n}\fontsize{\normaltitleextrainfofontsize}{\normaltitleextrainfofontsize}\selectfont}
+
+\newcommand{\bigtitlefont}{\fontseries{m}\fontshape{sc}\fontsize{\bigtitlefontsize}{\bigtitlefontsize}\selectfont}
 \newcommand{\bigtitlextrainfofont}{\fontseries{m}\fontshape{n}\fontsize{\bigtitleextrainfofontsize}{\bigtitleextrainfofontsize}\selectfont}
 
-\newcommand{\chapterfont}{\bfseries\fontshape{n}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
-\newcommand{\chapternamefont}{\fontseries{m}\fontshape{n}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
-\newcommand{\sectionfont}{\bfseries\fontshape{n}\fontsize{\sectionfontsize}{\sectionfontsize}\selectfont}
-\newcommand{\subsectionfont}{\fontseries{m}\itshape\fontsize{\subsectionfontsize}{\subsectionfontsize}\selectfont}
-\newcommand{\subsubsectionfont}{\fontseries{m}\itshape\fontsize{\subsubsectionfontsize}{\subsubsectionfontsize}\selectfont}
+\newcommand{\chapterfont}{\fontseries{m}\fontshape{sc}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
+\newcommand{\chapternamefont}{\fontseries{m}\fontshape{sc}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
+\newcommand{\sectionfont}{\fontseries{m}\fontshape{sc}\fontsize{\sectionfontsize}{\sectionfontsize}\selectfont}
+\newcommand{\subsectionfont}{\fontseries{m}\fontshape{sc}\fontsize{\subsectionfontsize}{\subsectionfontsize}\selectfont}
+\newcommand{\subsubsectionfont}{\fontseries{m}\fontshape{sc}\fontsize{\subsubsectionfontsize}{\subsubsectionfontsize}\selectfont}
 
 \setcounter{secnumdepth}{4}
 \newcounter{chapter}
@@ -370,9 +391,9 @@
   \let\@n\@nfsskip
   \let\@nfsskip\@nfssskip
   \begin{center}%
-    \if@bigtitle\bigtitlefont\else\normaltext\fi
-    \textbf{\@title}\vspace{6pt}\\
-    \if@bigtitle\bigtitlextrainfofont\fi
+    \if@bigtitle\bigtitlefont\else\normaltitlefont\fi
+    \@title\vspace{6pt}\\
+    \if@bigtitle\bigtitlextrainfofont\else\normaltitleextrainfofont\fi
     \@author\vspace{6pt}\\
     \normaltext\@date\\
   \end{center}%
@@ -465,6 +486,7 @@
 %
 \newcommand\start@singlesp{%
   \if@doublespace%
+    \setlength\parskip{\@doublespaceparskip}
     \gdef\@tfsskip{\@tfssskip}%
     \gdef\@scfsskip{\@scfssskip}%
     \gdef\@fnfsskip{\@fnfssskip}%
@@ -495,6 +517,7 @@
 \newcommand\en@singlesp{%
   \if@doublespace%
     \par%
+    \setlength\parskip{\@singlespaceparskip}
     \gdef\@tfsskip{\@tfsdskip}%
     \gdef\@scfsskip{\@scfsdskip}%
     \gdef\@fnfsskip{\@fnfsdskip}%
