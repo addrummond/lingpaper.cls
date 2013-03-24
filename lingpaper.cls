@@ -2,7 +2,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \RequirePackage{endnotes}
 \RequirePackage{fancyhdr}
-\RequirePackage{ifpdf,ifxetex,ifluatex,marginnote}
+\RequirePackage{ifpdf,ifxetex,ifluatex,marginnote,ifoddpage}
 
 %
 % Some basic definitions copied from article.tex.
@@ -215,21 +215,27 @@
 \DeclareOption{marginnotes}{\@marginnotestrue}
 \newif\if@largemarginnotes
 \DeclareOption{largemarginnotes}{\@largemarginnotestrue}
+\newif\if@raggedmarginnotes
+\DeclareOption{raggedmarginnotes}{\@raggedmarginnotestrue}
 
 \newcommand\@mnfootnotesize{\if@largemarginnotes\footnotesize\else\scriptsize\fi}
 
 % TODO: Redefining entire footnote command is a bit of a hack.
+\newdimen\@marginnotewidth
 \newcommand\@replacefootnotewithmarginnote{%
    \renewcommand\footnote[2][\thefootnote]{%
      \stepcounter{footnote}%
      {\@mnfootnotesize\footnotemark[##1]}%
+     \setlength\@marginnotewidth\marginparwidth%
      \marginnote{%
-       \raggedright\@mnfootnotesize%
-       \ifodd\value{page}%
+       \addtolength\@marginnotewidth{-\marginnotesep}
+       \raggedright
+       \checkoddpage\ifoddpage%
          \addtolength\leftskip{\marginnotesep}%
        \fi%
-       \@mnfootnotesize\footnotemark[##1]##2}}}
-%  \renewcommand\footnote[2][\thefootnote]{\stepcounter{footnote}{\footnotesize $^{\rm ##1}$}\marginpar{\raggedright\addtolength\leftskip{\marginnotesep}\footnotesize $^{\rm ##1}$##2}}}
+       \parbox{\@marginnotewidth}{%
+         \if@raggedmarginnotes\raggedright\fi%
+         \@mnfootnotesize\footnotemark[##1]##2}}}}
 
 \let\@@outputpage\@outputpage
 \newif\if@handout
