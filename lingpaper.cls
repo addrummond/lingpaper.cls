@@ -198,8 +198,8 @@
   \setlength\textwidth{180mm}}
 
 \newcommand\marginnotesep{0.4in}
-\newcommand\marginnoteextraspace{2in}
-\newcommand\marginnotesquish{0.5in}
+\newcommand\marginnoteextraspace{1.5in}
+\newcommand\marginnotesquish{0.8in}
 
 \newcommand\@modifyhandoutformarginnotes{%
   \addtolength\evensidemargin{\marginnoteextraspace}
@@ -207,8 +207,8 @@
   \addtolength\textwidth{-\marginnoteextraspace}
   \addtolength\textwidth{-\marginnotesep}
   \setlength\marginparwidth{\marginnoteextraspace}
-  \addtolength\textwidth{\marginnotesquish}
-  \addtolength\evensidemargin{-\marginnotesquish}
+%  \addtolength\textwidth{\marginnotesquish}
+%  \addtolength\evensidemargin{-\marginnotesquish}
 }
 
 \newif\if@marginnotes
@@ -229,10 +229,12 @@
      \setlength\@marginnotewidth\marginparwidth%
      \marginnote{%
        \addtolength\@marginnotewidth{-\marginnotesep}
+       \addtolength\@marginnotewidth{\marginnotesquish}
        \raggedright
        \checkoddpage\ifoddpage%
          \addtolength\leftskip{\marginnotesep}%
        \fi%
+       \checkoddpage\ifoddpage\hspace*{0in}\else\hspace*{-\marginnotesquish}\fi%
        \parbox{\@marginnotewidth}{%
          \if@raggedmarginnotes\raggedright\fi%
          \@mnfootnotesize\footnotemark[##1]##2}}}}
@@ -298,6 +300,16 @@
 \newdimen\subsubsectionfontsize
 \setlength\subsubsectionfontsize{\subsectionfontsize}
 
+\newdimen\sectionlineskip
+\setlength\sectionlineskip{\sectionfontsize}
+\addtolength\sectionlineskip{0.25\sectionfontsize}
+\newdimen\subsectionlineskip
+\setlength\subsectionlineskip{\subsectionfontsize}
+\addtolength\subsectionlineskip{0.25\subsectionfontsize}
+\newdimen\subsubsectionlineskip
+\setlength\subsubsectionlineskip{\subsubsectionfontsize}
+\addtolength\subsubsectionlineskip{0.25\subsubsectionfontsize}
+
 \newcommand{\normaltitlefont}{\fontseries{m}\fontshape{sc}\fontsize{\normaltitlefontsize}{\normaltitlefontsize}\selectfont}
 \newcommand{\normaltitleextrainfofont}{\fontseries{m}\fontshape{n}\fontsize{\normaltitleextrainfofontsize}{\normaltitleextrainfofontsize}\selectfont}
 
@@ -306,9 +318,9 @@
 
 \newcommand{\chapterfont}{\fontseries{m}\fontshape{sc}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
 \newcommand{\chapternamefont}{\fontseries{m}\fontshape{sc}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
-\newcommand{\sectionfont}{\fontseries{m}\fontshape{sc}\fontsize{\sectionfontsize}{\sectionfontsize}\selectfont}
-\newcommand{\subsectionfont}{\fontseries{m}\fontshape{sc}\fontsize{\subsectionfontsize}{\subsectionfontsize}\selectfont}
-\newcommand{\subsubsectionfont}{\fontseries{m}\fontshape{sc}\fontsize{\subsubsectionfontsize}{\subsubsectionfontsize}\selectfont}
+\newcommand{\sectionfont}{\fontseries{m}\fontshape{sc}\fontsize{\sectionfontsize}{\sectionlineskip}\selectfont}
+\newcommand{\subsectionfont}{\fontseries{m}\fontshape{sc}\fontsize{\subsectionfontsize}{\subsectionlineskip}\selectfont}
+\newcommand{\subsubsectionfont}{\fontseries{m}\fontshape{sc}\fontsize{\subsubsectionfontsize}{\subsubsectionlineskip}\selectfont}
 
 \setcounter{secnumdepth}{4}
 \newcounter{chapter}
