@@ -234,7 +234,7 @@
        \checkoddpage\ifoddpage%
          \addtolength\leftskip{\marginnotesep}%
        \fi%
-       \checkoddpage\ifoddpage\hspace*{0in}\else\hspace*{-\marginnotesquish}\fi%
+       \checkoddpage\ifoddpage\hspace*{-5pt}\else\hspace*{-\marginnotesquish}\fi%
        \parbox{\@marginnotewidth}{%
          \if@raggedmarginnotes\raggedright\fi%
          \@mnfootnotesize\footnotemark[##1]##2}}}}
