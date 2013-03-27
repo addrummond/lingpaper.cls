@@ -356,7 +356,7 @@
 
 \newcommand\section{\@ifnextchar*{\section@two}{\section@one}}
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
-\newcommand\subsubsection{\@ifnextchar*{\subsubsection@two}{\subsection@one}}
+\newcommand\subsubsection{\@ifnextchar*{\subsubsection@two}{\subsubsection@one}}
 
 \newcommand\start@section{\@startsection{section}{2}{0pt}{24pt}{12pt}{\sectionfont}}
 \newcommand\start@subsection{\@startsection{subsection}{3}{0pt}{18pt}{6pt}{\subsectionfont}}
