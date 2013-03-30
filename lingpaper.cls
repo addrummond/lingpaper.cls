@@ -387,7 +387,16 @@
     \renewcommand\theendnotes{}
   \fi}
 
-\setlength\footnotesep{12pt}
+\newcommand\set@footnotesepsingle{\setlength\footnotesep{\@fnfssskip}}
+\newcommand\set@footnotesepdouble{\setlength\footnotesep{\@fnfsdskip}}
+
+\AtBeginDocument{%
+  \if@doublespace%
+    \set@footnotesepdouble%
+  \else%
+    \set@footnotesepsingle%
+  \fi}
+
 \renewcommand\footnoterule{%
   \kern-3\p@
   \hrule\@width.4\columnwidth
