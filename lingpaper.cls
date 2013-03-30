@@ -95,6 +95,7 @@
 
 \newcommand{\normaltext}{\fontseries{m}\fontshape{n}\normalsize}
 
+\newcommand{\@runningheaderfontsize}{\fontsize{\@lfs}{\@lfsskip}\selectfont}
 \newcommand{\@pagenumfontsize}{\fontsize{10pt}{10pt}\selectfont}
 
 \newcommand\@singlespaceparskip{6pt}
@@ -164,8 +165,12 @@
 %
 % Set up fancyhdr package with sensible defaults.
 %
+\let\old@title\title
 \newcommand\shorttitle[1]{%
   \def\@shorttitle{#1}}
+\renewcommand\title[1]{%
+  \def\@shorttitle{[SET SHORT TITLE]}%
+  \old@title{#1}}
 
 \fancyheadoffset{0in}
 \fancyfootoffset{0in}
@@ -175,12 +180,28 @@
 \newcommand\leftheader{\@pagenumfontsize\textit{\ifdefined\@shorttitle\@shorttitle\else\@title\fi}}
 \newcommand\rightheader{\@pagenumfontsize\@author}
 \newcommand\centerheader{}
-\lhead{\leftheader}
-\chead{}
-\rhead{\rightheader}
-\lfoot{}
-\cfoot{}
-\rfoot{\@pagenumfontsize\thepage}
+
+\AtEndOfPackage{
+  \if@handout
+    \lhead{\leftheader}
+    \chead{}
+    \rhead{\rightheader}
+    \lfoot{}
+    \cfoot{}
+    \rfoot{\@pagenumfontsize\thepage}
+  \else
+    \fancyhead{}
+    % Can't get twoside mode to work so can't use [CE] and [CO].
+    \fancyhead[C]{%
+      \checkoddpage\ifoddpage%
+        \textsc{\@runningheaderfontsize\MakeLowercase\@shorttitle}%
+      \else%
+        \textsc{\@runningheaderfontsize\MakeLowercase\@author}%
+      \fi}
+    \fancyfoot[R]{\@pagenumfontsize\thepage}
+    \fancyfoot[L,C]{}
+    \renewcommand\headrulewidth{0pt}
+  \fi}
 
 \newcommand\@headrulewidth{1pt}
 \renewcommand{\headrulewidth}{\@headrulewidth}
