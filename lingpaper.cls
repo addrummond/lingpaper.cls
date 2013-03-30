@@ -476,7 +476,7 @@
 %
 % Bibliography environment (copied from article.cls)
 %
-\newcommand\bibname{References}
+\newcommand\refname{References}
 \newenvironment{thebibliography}[1]
      {\section*{\refname}%
       \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
@@ -496,6 +496,15 @@
      {\def\@noitemerr
        {\@latex@warning{Empty `thebibliography' environment}}%
       \endlist}
+
+% To make it work with natbib, which redefines thebibliography.
+\AtBeginDocument{
+  \@ifpackageloaded{natbib}{
+    \global\let\bibname\refname
+    \renewcommand\bibfont{}
+    \renewcommand\bibsection{\section*{\refname}}
+    \renewcommand\bibname{My bib!}
+  }{}}
 
 %
 % Lists.
