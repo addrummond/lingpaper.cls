@@ -1,8 +1,7 @@
 \ProvidesClass{lingpaper}[2013/03/02 Linguistics papers]
 \NeedsTeXFormat{LaTeX2e}
-\RequirePackage{endnotes}
-\RequirePackage{fancyhdr}
-\RequirePackage{ifpdf,ifxetex,ifluatex,marginnote,ifoddpage}
+\newenvironment{description}{}{}
+\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginnote,ifoddpage,enumitem}
 
 %
 % Some basic definitions copied from article.tex.
