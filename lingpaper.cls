@@ -2,6 +2,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \newenvironment{description}{}{}
 \RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginnote,ifoddpage,enumitem}
+\RequirePackage[protrusion=true,expansion]{microtype}
 
 %
 % Some basic definitions copied from article.tex.
