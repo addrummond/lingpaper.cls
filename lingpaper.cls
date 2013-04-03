@@ -68,7 +68,10 @@
   \gdef\@fnfs{11pt}
   \gdef\@fnfssskip{12pt}
   \gdef\@fnfsdskip{22pt}
-  \gdef\@fnfsskip{\@fnfssskip}}
+  \gdef\@fnfsskip{\@fnfssskip}
+  % Remove footnote rule (visual separation caused by smaller text
+  % is sufficient).
+  \renewcommand\footnoterule{}}
 
 \newif\if@doublespace
 \DeclareOption{doublespace}{%
