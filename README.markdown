@@ -33,7 +33,7 @@ Commands:
 
 Commands that can be redefined:
 
-* `\leftheader`, `\rightheader` and `\centerheader` can be redefined to make simple adjustments to the content of the page headers. The headers are set using the fancyhdr package, so you can override them using fancyhdr directly.
+* `\leftheader`, `\rightheader` and `\centerheader` can be redefined to make simple adjustments to the content of the page headers. The headers are set using the fancyhdr package, so you can also override them using fancyhdr directly.
 
 * `\cftchapterfont`, `\cftsectionfont`, `\cftsubsectionfont` and `\cftsubsubsectionfont`. These set fonts for lines in TOC.
 
