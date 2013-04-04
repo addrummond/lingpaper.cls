@@ -29,6 +29,8 @@ Commands:
 
 * `\begin{singlesp}` Single-space environment. Ignored if `[doublespace]` option is not set.
 
+* `\glossc` A variant of the `textsc` macro for use in glosses. This turns on old-style (i.e. smaller) numerals where available, and also outputs dashes and periods outside of the smallcaps environment.
+
 Commands that can be redefined:
 
 * `\leftheader`, `\rightheader` and `\centerheader` can be redefined to make simple adjustments to the content of the page headers. The headers are set using the fancyhdr package, so you can override them using fancyhdr directly.

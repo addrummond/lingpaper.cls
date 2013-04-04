@@ -1,7 +1,7 @@
 \ProvidesClass{lingpaper}[2013/03/02 Linguistics papers]
 \NeedsTeXFormat{LaTeX2e}
 \newenvironment{description}{}{}
-\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginnote,ifoddpage,enumitem}
+\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginnote,ifoddpage,enumitem,pdftexcmds}
 \RequirePackage[protrusion=true,expansion]{microtype}
 
 %
@@ -729,5 +729,22 @@
       \penalty\@highpenalty
     \endgroup
   \fi}
+
+%
+% Version of textsc which uses old-style numbers where available.
+% Looks better for glosses like PAST-1PS.
+% Modified from http://tex.stackexchange.com/a/81755
+%
+\def\glossc#1{%
+\@tfor\tmp:=#1\do{%
+\ifnum\pdf@strcmp{-}{\tmp}=0%
+  -%
+\else\ifnum\pdf@strcmp{.}{\tmp}=0%
+  .%
+\else\ifcat1\tmp%
+  \relax\oldstylenums\tmp%
+\else%
+  \textsc\tmp%
+\fi\fi\fi}}
 
 \ProcessOptions
