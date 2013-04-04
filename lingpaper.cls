@@ -2,7 +2,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \newenvironment{description}{}{}
 \RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginnote,ifoddpage,enumitem,pdftexcmds}
-\RequirePackage[protrusion=true,expansion]{microtype}
 
 %
 % Some basic definitions copied from article.tex.
@@ -126,6 +125,11 @@
 \newskip\smallskipamount \smallskipamount=3pt% plus 1pt minus 1pt
 \newskip\medskipamount   \medskipamount  =6pt% plus 2pt minus 2pt
 \newskip\bigskipamount   \bigskipamount =12pt% plus 4pt minus 4pt
+
+%
+% Load microtype.
+%
+\AtEndOfPackage{\usepackage[protrusion=true,expansion]{microtype}}
 
 %
 % Page setup.
