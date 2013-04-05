@@ -387,6 +387,8 @@
 \DeclareOption{nosectionperiods}{\@nosectionperiodstrue}
 \renewcommand\@seccntformat[1]{\csname the#1\endcsname\if@nosectionperiods\else.\fi\quad}
 
+\newif\if@dontindentsections\@dontindentsectionsfalse
+
 \newcommand\chapter{\@ifnextchar*\@chapterstar\@chapternostar}
 \newcommand\@chapternostar[1]{%
   \chapterfont%
@@ -407,7 +409,7 @@
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
 \newcommand\subsubsection{\@ifnextchar*{\subsubsection@two}{\subsubsection@one}}
 
-\newcommand\@sectpre{\if@indenty\indent\fi}
+\newcommand\@sectpre{\if@indenty\if@dontindentsections\else\indent\fi}
 \newcommand\@secttail{\if@indenty\@afterindenttrue\else\@afterindentfalse\fi}
 
 \newcommand\start@section{\@startsection{section}{2}{0pt}{24pt}{12pt}{\sectionfont\@sectpre}}
@@ -511,8 +513,7 @@
 %
 \newcommand\refname{References}
 \newenvironment{thebibliography}[1]
-     {\section*{\refname}%
-      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
+     {\@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
       \list{\@biblabel{\@arabic\c@enumiv}}%
            {\settowidth\labelwidth{\@biblabel{#1}}%
             \leftmargin\labelwidth
@@ -535,7 +536,7 @@
   \@ifpackageloaded{natbib}{
     \global\let\bibname\refname
     \renewcommand\bibfont{}
-    \renewcommand\bibsection{\section*{\refname}}
+    \renewcommand\bibsection{\@dontindentsectionstrue\section*{\refname}\@dontindentsectionsfalse}
     \renewcommand\bibname{My bib!}
   }{}}
 
