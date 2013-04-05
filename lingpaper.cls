@@ -250,6 +250,13 @@
   \ifoddpage\@tmpevenpageboolfalse\else\@tmpevenpagebooltrue\fi%
   \if@tmpevenpagebool}
 
+\AtEndOfPackage{%
+  \if@largemarginnotes
+    \newcommand\marginnotevsep{\@fnfs}
+  \else
+    \newcommand\marginnotevsep{\@scfs}
+  \fi}
+
 % TODO: Redefining entire footnote command is a bit of a hack.
 \newdimen\@marginnotewidth
 \newcommand\@replacefootnotewithmarginnote{%
@@ -260,7 +267,7 @@
     {\@mnfootnotesize\footnotemark[##1]}%
     \setlength\@marginnotewidth\marginparwidth%
     \marginpar{%
-      \marginskip{1em}
+      \marginskip{\marginnotevsep}
       \addtolength\@marginnotewidth{-\marginnotesep}
       \addtolength\@marginnotewidth{\marginnotesquish}
       \raggedright
