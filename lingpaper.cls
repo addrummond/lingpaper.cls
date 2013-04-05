@@ -165,6 +165,12 @@
 \setlength\topskip{\@nfs}
 
 %
+% 'indenty' option.
+%
+\newif\if@indenty\@indentyfalse
+\DeclareOption{indenty}{\@indentytrue}
+
+%
 % Set up fancyhdr package with sensible defaults.
 %
 \let\old@title\title
@@ -317,7 +323,7 @@
 %
 % Layout.
 %
-\newcommand\@parindent{2em}
+\newcommand\@parindent{24pt}
 \AtBeginDocument{%
   \setlength\parindent{\@parindent}}
 
@@ -401,11 +407,12 @@
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
 \newcommand\subsubsection{\@ifnextchar*{\subsubsection@two}{\subsubsection@one}}
 
-\newcommand\start@section{\@startsection{section}{2}{0pt}{24pt}{12pt}{\sectionfont}}
-\newcommand\start@subsection{\@startsection{subsection}{3}{0pt}{18pt}{6pt}{\subsectionfont}}
-\newcommand\start@subsubsection{\@startsection{subsubsection}{4}{0pt}{18pt}{6pt}{\subsubsectionfont}}
+\newcommand\@sectpre{\if@indenty\indent\fi}
+\newcommand\@secttail{\if@indenty\@afterindenttrue\else\@afterindentfalse\fi}
 
-\newcommand\@secttail{\@afterindentfalse}
+\newcommand\start@section{\@startsection{section}{2}{0pt}{24pt}{12pt}{\sectionfont\@sectpre}}
+\newcommand\start@subsection{\@startsection{subsection}{3}{0pt}{18pt}{6pt}{\subsectionfont\@sectpre}}
+\newcommand\start@subsubsection{\@startsection{subsubsection}{4}{0pt}{18pt}{6pt}{\subsubsectionfont\@sectpre}}
 
 \newcommand\section@one[1]{\start@section{#1}\@secttail}
 \newcommand\section@two[2]{\start@section#1{#2}\@secttail}
@@ -484,15 +491,19 @@
 %
 % Environment for abstracts (centered paragraphs with smallish text).
 %
-\newcommand\@setupabs{\footnotesize\setlength\parindent\@parindent\noindent}
-\newcommand\abstractleftindent{0.5in}
-\newcommand\abstractrightindent{0.5in}
+\newcommand\@setupabs{%
+  \footnotesize\setlength\parindent\@parindent%
+  \if@indenty\else\noindent\fi}
+\newcommand\abstractleftindent{0in}
+\newcommand\abstractrightindent{0in}
 \newdimen\@abstractwidth
 \newenvironment{abstract}%
   {\setlength\@abstractwidth\textwidth%
    \addtolength{\@abstractwidth}{-\abstractleftindent}%
    \addtolength{\@abstractwidth}{-\abstractrightindent}%
-   \noindent\noindent\hspace*{\abstractleftindent}\noindent\begin{minipage}[t]{\@abstractwidth}\vspace{0pt}\@setupabs}
+   \if@indenty\addtolength{\@abstractwidth}{-\@parindent}\fi%
+   \if@indenty\else\noindent\fi%
+   \hspace*{\abstractleftindent}\begin{minipage}[t]{\@abstractwidth}\vspace{0pt}\@setupabs}%
   {\end{minipage}}
 
 %

@@ -16,6 +16,7 @@ Package options:
 
 * `[letterpaper]` (default) and `[a4paper]`.
 * `[doublespace]` Main text and footnotes are double-spaced if this is specified.
+* `[indenty]` Turns on a more indent-heavy style, where section headings and the first paragraphs of sections are indented. Entire abstract is also indented by same amount. Looks nice in papers but not so great with handouts.
 * `[handout]` Asymmetric margins for 2x2 printing. Margins narrower than the defauly unless `[marginnotes]` option is also set. Headers printed
 only on even-numbered pages.
 * `[nosectionperiods]` By default there is a period after the section number in section headings. This option removes it.
