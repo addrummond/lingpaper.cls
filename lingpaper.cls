@@ -127,11 +127,6 @@
 \newskip\bigskipamount   \bigskipamount =12pt% plus 4pt minus 4pt
 
 %
-% Load microtype.
-%
-\AtEndOfPackage{\usepackage[protrusion=true,expansion]{microtype}}
-
-%
 % Page setup.
 % See http://amath.colorado.edu/documentation/LaTeX/reference/layout.html
 % for a helpful diagram.
