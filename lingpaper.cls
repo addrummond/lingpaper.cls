@@ -1,7 +1,7 @@
 \ProvidesClass{lingpaper}[2013/03/02 Linguistics papers]
 \NeedsTeXFormat{LaTeX2e}
 \newenvironment{description}{}{}
-\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginnote,ifoddpage,enumitem,pdftexcmds}
+\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginfix,ifoddpage,enumitem,pdftexcmds}
 
 %
 % Some basic definitions copied from article.tex.
@@ -245,27 +245,35 @@
 
 \newcommand\@mnfootnotesize{\if@largemarginnotes\footnotesize\else\scriptsize\fi}
 
+\newif\if@tmpevenpagebool
+\newcommand\ifevenpage{%
+  \ifoddpage\@tmpevenpageboolfalse\else\@tmpevenpagebooltrue\fi%
+  \if@tmpevenpagebool}
+
 % TODO: Redefining entire footnote command is a bit of a hack.
 \newdimen\@marginnotewidth
 \newcommand\@replacefootnotewithmarginnote{%
-   \renewcommand\footnote[2][\thefootnote]{%
-     \stepcounter{footnote}%
-     {\@mnfootnotesize\footnotemark[##1]}%
-     \setlength\@marginnotewidth\marginparwidth%
-     \marginnote{%
-       \addtolength\@marginnotewidth{-\marginnotesep}
-       \addtolength\@marginnotewidth{\marginnotesquish}
-       \raggedright
-       \checkoddpage\ifoddpage%
-         \addtolength\leftskip{\marginnotesep}%
-       \fi%
-       \checkoddpage\ifoddpage\hspace*{-5pt}\else\hspace*{-\marginnotesquish}\fi%
-       \parbox{\@marginnotewidth}{%
-         \if@raggedmarginnotes\raggedright\fi%
-         \if@doublespace\if@nosinglespmarginnotes\else%
-           \start@singlesp%
-         \fi\fi%
-         \@mnfootnotesize\footnotemark[##1]##2}}}}
+  % Redefine command that marginfix package uses to figure out which page to put notes on.
+  \def\MFX@leftmargin{\fi\checkoddpage\ifevenpage}
+  \renewcommand\footnote[2][\thefootnote]{%
+    \stepcounter{footnote}%
+    {\@mnfootnotesize\footnotemark[##1]}%
+    \setlength\@marginnotewidth\marginparwidth%
+    \marginpar{%
+      \marginskip{1em}
+      \addtolength\@marginnotewidth{-\marginnotesep}
+      \addtolength\@marginnotewidth{\marginnotesquish}
+      \raggedright
+      \checkoddpage\ifoddpage%
+        \addtolength\leftskip{\marginnotesep}%
+      \fi%
+      \checkoddpage\ifoddpage\hspace*{-5pt}\else\hspace*{-\marginnotesquish}\fi%
+      \parbox{\@marginnotewidth}{%
+        \if@raggedmarginnotes\raggedright\fi%
+        \if@doublespace\if@nosinglespmarginnotes\else%
+          \start@singlesp%
+        \fi\fi%
+        \@mnfootnotesize\footnotemark[##1]##2}}}}
 
 \let\@@outputpage\@outputpage
 \newif\if@handout
