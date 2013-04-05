@@ -240,6 +240,8 @@
 \DeclareOption{largemarginnotes}{\@largemarginnotestrue}
 \newif\if@raggedmarginnotes
 \DeclareOption{raggedmarginnotes}{\@raggedmarginnotestrue}
+\newif\if@nosinglespmarginnotes
+\DeclareOption{nosinglespmarginnotes}{\@nosinglespmarginnotestrue}
 
 \newcommand\@mnfootnotesize{\if@largemarginnotes\footnotesize\else\scriptsize\fi}
 
@@ -260,6 +262,9 @@
        \checkoddpage\ifoddpage\hspace*{-5pt}\else\hspace*{-\marginnotesquish}\fi%
        \parbox{\@marginnotewidth}{%
          \if@raggedmarginnotes\raggedright\fi%
+         \if@doublespace\if@nosinglespmarginnotes\else%
+           \start@singlesp%
+         \fi\fi%
          \@mnfootnotesize\footnotemark[##1]##2}}}}
 
 \let\@@outputpage\@outputpage

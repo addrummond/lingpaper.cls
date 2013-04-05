@@ -23,6 +23,7 @@ only on even-numbered pages.
 * `[marginnotes]` Margin notes instead of footnotes (notes are still specified using the `footnote` command). This works only if the `[handout]` option is also set. The right margins of odd pages and left margins of even pages are increased to make room for margin notes in the center of the handout.
 * `[largemarginnotes]` If this is set then margin notes use `\footnotesize` instead of `\scriptsize` (usually, margin notes need to be a bit smaller than footnotes would be).
 * `[raggedmarginnotes]` If this is set then margin notes are ragged rather than justified.
+* `[nosinglespmarginnotes]` If this is not set, then margin notes are single spaced even when the main text is double spaced.
 * `[smallfootnotes]` Makes footnotes small (redundant in handout mode).
 * `[bigtitle]` Makes paper/book title big (might want this for book drafts).
 
