@@ -794,4 +794,23 @@
   \textsc\tmp%
 \fi\fi\fi}}
 
+%
+% Some utilities for setting nice unicode fonts with XeTex/LuaTeX
+% Code taken from test files here: http://ctan.mirror.rafal.ca/fonts/tex-gyre-math/doc/
+%
+\newcommand\setfonttexgyre{
+  \usepackage{amsmath}[2000/07/18] %% Displayed equations
+  \usepackage{amssymb}[2002/01/22] %% and additional symbols
+  \usepackage{fontspec}
+  \setromanfont[Ligatures=TeX]{TeX Gyre Pagella}
+  \usepackage{unicode-math}
+  \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX]{TeX Gyre Pagella Math}}
+\newcommand\setfonttextermes{
+  \usepackage{amsmath}[2000/07/18] %% Displayed equations
+  \usepackage{amssymb}[2002/01/22] %% and additional symbols
+  \usepackage{fontspec}
+  \setromanfont[Ligatures=TeX]{TeX Gyre Termes}
+  \usepackage{unicode-math}
+  \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX]{TeX Gyre Termes Math}}
+
 \ProcessOptions
