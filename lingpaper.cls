@@ -70,7 +70,8 @@
   \gdef\@fnfsskip{\@fnfssskip}
   % Remove footnote rule (visual separation caused by smaller text
   % is sufficient).
-  \renewcommand\footnoterule{}}
+  \renewcommand\footnoterule{}
+  }
 
 \newif\if@doublespace
 \DeclareOption{doublespace}{%
@@ -673,7 +674,7 @@
       \fontsize{\@Lfs}{\@Lfsdskip}%
     \else\ifdim \f@size pt = \@Lfs%
       \fontsize{\@hfs}{\@hfsdskip}%
-    \fi\fi\fi\fi%
+    \fi\fi\fi\fi\fi\fi\fi\fi%
     \selectfont%
   \fi}
 \newenvironment{singlesp}{\start@singlesp}{\en@singlesp}
