@@ -30,6 +30,8 @@ only on even-numbered pages.
 
 Commands:
 
+* `\affil` Defines (optional) affiliation to appear under author's name.
+
 * `\begin{singlesp}` Single-space environment. Ignored if `[doublespace]` option is not set.
 
 * `\glossc` A variant of the `textsc` macro for use in glosses. This turns on old-style (i.e. smaller) numerals where available, and also outputs dashes and periods outside of the smallcaps environment.

@@ -472,16 +472,32 @@
 \newif\if@bigtitle
 \DeclareOption{bigtitle}{\@bigtitletrue}
 
+% Add option to define affiliation.
+\newcommand\affil[1]{\gdef\@affil{#1}}
+% Stop author command adding in vspace (?)
+\renewcommand\author[1]{\gdef\@author{#1}}
+
 \newcommand\maketitle{%
   \begingroup
   \let\@n\@nfsskip
   \let\@nfsskip\@nfssskip
   \begin{center}%
     \if@bigtitle\bigtitlefont\else\normaltitlefont\fi
-    \@title\vspace{6pt}\\
+    \@title\vspace{\@nfsskip}\\
     \if@bigtitle\bigtitlextrainfofont\else\normaltitleextrainfofont\fi
-    \@author\vspace{6pt}\\
-    \normaltext\@date\\
+    \@author\\
+    \ifdefined\@affil%
+      \vspace{\dimexpr\@nfsskip/2\relax}\normaltext\@affil\\%
+    \else
+      \\%
+    \fi%
+   \footnotesize%
+   \if@doublespace%
+     \vspace{\dimexpr\@nfsskip-\@fnfs}%
+   \else%
+     \vspace{\@nfsskip}%
+   \fi%
+   \@date\\
   \end{center}%
   \vspace{\@n}%
   \endgroup%
