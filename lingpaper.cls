@@ -70,8 +70,7 @@
   \gdef\@fnfsskip{\@fnfssskip}
   % Remove footnote rule (visual separation caused by smaller text
   % is sufficient).
-  \renewcommand\footnoterule{}
-  }
+  \renewcommand\footnoterule{}}
 
 \newif\if@doublespace
 \DeclareOption{doublespace}{%
@@ -410,7 +409,7 @@
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
 \newcommand\subsubsection{\@ifnextchar*{\subsubsection@two}{\subsubsection@one}}
 
-\newcommand\@sectpre{\if@indenty\if@dontindentsections\else\noindent\leftskip\@parindent\fi}
+\newcommand\@sectpre{\if@indenty\if@dontindentsections\else\noindent\leftskip\@parindent\fi\fi}
 \newcommand\@secttail{}%\if@indenty\@afterindenttrue\else\@afterindentfalse\fi}
 
 \newcommand\start@section{\@startsection{section}{2}{0pt}{24pt}{12pt}{\sectionfont\@sectpre}}
@@ -490,7 +489,7 @@
     \ifdefined\@affil%
       \vspace{\dimexpr\@nfsskip/2\relax}\normaltext\@affil\\%
     \else
-      \\%
+      %\\%
     \fi%
    \footnotesize%
    \if@doublespace%
