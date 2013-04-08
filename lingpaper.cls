@@ -410,7 +410,7 @@
 \newcommand\subsubsection{\@ifnextchar*{\subsubsection@two}{\subsubsection@one}}
 
 \newcommand\@sectpre{\if@indenty\if@dontindentsections\else\noindent\leftskip\@parindent\fi\fi}
-\newcommand\@secttail{}%\if@indenty\@afterindenttrue\else\@afterindentfalse\fi}
+\newcommand\@secttail{\if@indenty\@afterindenttrue\else\@afterindentfalse\fi}
 
 \newcommand\start@section{\@startsection{section}{2}{0pt}{24pt}{12pt}{\sectionfont\@sectpre}}
 \newcommand\start@subsection{\@startsection{subsection}{3}{0pt}{18pt}{6pt}{\subsectionfont\@sectpre}}
