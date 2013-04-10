@@ -97,7 +97,7 @@
 
 \newcommand{\normaltext}{\fontseries{m}\fontshape{n}\normalsize}
 
-\newcommand{\@runningheaderfontsize}{\fontsize{\@lfs}{\@lfsskip}\selectfont}
+\newcommand{\@runningheaderfontsize}{\fontsize{\if@smallcaps\@lfs\else\@nfs\fi}{\if@smallcaps\@lfsskip\else\@nfsskip\fi}\selectfont}
 \newcommand{\@pagenumfontsize}{\fontsize{10pt}{10pt}\selectfont}
 
 \newcommand\@singlespaceparskip{6pt}
@@ -202,9 +202,17 @@
     % Can't get twoside mode to work so can't use [CE] and [CO].
     \fancyhead[C]{%
       \checkoddpage\ifoddpage%
-        \textsc{\@runningheaderfontsize\MakeLowercase\@shorttitle}%
+        \if@smallcaps%
+          \textsc{\@runningheaderfontsize\MakeLowercase\@shorttitle}%
+        \else
+          \textit{\@runningheaderfontsize\@shorttitle}%
+        \fi%
       \else%
-        \textsc{\@runningheaderfontsize\MakeLowercase\@author}%
+        \if@smallcaps%
+          \textsc{\@runningheaderfontsize\MakeLowercase\@author}%
+        \else%
+          \textit{\@runningheaderfontsize\@author}%
+        \fi
       \fi}
     \fancyfoot[R]{\@pagenumfontsize\thepage}
     \fancyfoot[L,C]{}
@@ -330,6 +338,9 @@
 %
 % Sections and chapters.
 %
+\newif\if@smallcaps\@smallcapstrue
+\DeclareOption{nosmallcaps}{\@smallcapsfalse}
+
 \newdimen\normaltitlefontsize
 \setlength\normaltitlefontsize{\@Lfs}
 \newdimen\normaltitleextrainfofontsize
@@ -359,17 +370,17 @@
 \setlength\subsubsectionlineskip{\subsubsectionfontsize}
 \addtolength\subsubsectionlineskip{0.25\subsubsectionfontsize}
 
-\newcommand{\normaltitlefont}{\fontseries{m}\fontshape{sc}\fontsize{\normaltitlefontsize}{\normaltitlefontsize}\selectfont}
+\newcommand{\normaltitlefont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\normaltitlefontsize}{\normaltitlefontsize}\selectfont}
 \newcommand{\normaltitleextrainfofont}{\fontseries{m}\fontshape{n}\fontsize{\normaltitleextrainfofontsize}{\normaltitleextrainfofontsize}\selectfont}
 
-\newcommand{\bigtitlefont}{\fontseries{m}\fontshape{sc}\fontsize{\bigtitlefontsize}{\bigtitlefontsize}\selectfont}
+\newcommand{\bigtitlefont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\bigtitlefontsize}{\bigtitlefontsize}\selectfont}
 \newcommand{\bigtitlextrainfofont}{\fontseries{m}\fontshape{n}\fontsize{\bigtitleextrainfofontsize}{\bigtitleextrainfofontsize}\selectfont}
 
-\newcommand{\chapterfont}{\fontseries{m}\fontshape{sc}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
-\newcommand{\chapternamefont}{\fontseries{m}\fontshape{sc}\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
-\newcommand{\sectionfont}{\fontseries{m}\fontshape{sc}\fontsize{\sectionfontsize}{\sectionlineskip}\selectfont}
-\newcommand{\subsectionfont}{\fontseries{m}\fontshape{sc}\fontsize{\subsectionfontsize}{\subsectionlineskip}\selectfont}
-\newcommand{\subsubsectionfont}{\fontseries{m}\fontshape{sc}\fontsize{\subsubsectionfontsize}{\subsubsectionlineskip}\selectfont}
+\newcommand{\chapterfont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
+\newcommand{\chapternamefont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
+\newcommand{\sectionfont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\sectionfontsize}{\sectionlineskip}\selectfont}
+\newcommand{\subsectionfont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\subsectionfontsize}{\subsectionlineskip}\selectfont}
+\newcommand{\subsubsectionfont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\subsubsectionfontsize}{\subsubsectionlineskip}\selectfont}
 
 \setcounter{secnumdepth}{4}
 \newcounter{chapter}
@@ -389,12 +400,14 @@
 
 \newif\if@dontindentsections\@dontindentsectionsfalse
 
+\newcommand\@modifysectheadtext[1]{\if@smallcaps\oldstylenums{#1}\else#1\fi}
+
 \newcommand\chapter{\@ifnextchar*\@chapterstar\@chapternostar}
 \newcommand\@chapternostar[1]{%
   \chapterfont%
   \setcounter{section}{0}%
   \addtocounter{chapter}{1}%
-  \addcontentsline{toc}{chapter}{\protect\numberline{\arabic{chapter}\hspace{1em}#1}}%
+  \addcontentsline{toc}{chapter}{\protect\numberline{\arabic{chapter}\hspace{1em}\@modifysectheadtext{#1}}}%
   \newpage%
   \thispagestyle{empty}%
   {\chapterfont\noindent Chapter \arabic{chapter}\par\nobreak\vspace{8pt}\noindent\chapternamefont#1\par\nobreak\vspace{\chapterfontsize}}\noindent\normaltext}
@@ -403,7 +416,7 @@
   \setcounter{section}{0}%
   \newpage%
   \thispagestyle{empty}%
-  {\chapterfont\noindent #2\vspace{\chapterfontsize}}\newline\normaltext\noindent}
+  {\chapterfont\noindent \@modifysectheadtext{#2}\vspace{\chapterfontsize}}\newline\normaltext\noindent}
 
 \newcommand\section{\@ifnextchar*{\section@two}{\section@one}}
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
@@ -416,12 +429,12 @@
 \newcommand\start@subsection{\@startsection{subsection}{3}{0pt}{18pt}{6pt}{\subsectionfont\@sectpre}}
 \newcommand\start@subsubsection{\@startsection{subsubsection}{4}{0pt}{18pt}{6pt}{\subsubsectionfont\@sectpre}}
 
-\newcommand\section@one[1]{\start@section{#1}\@secttail}
-\newcommand\section@two[2]{\start@section#1{#2}\@secttail}
-\newcommand\subsection@one[1]{\start@subsection{#1}\@secttail}
-\newcommand\subsection@two[2]{\start@subsection#1{#2}\@secttail}
-\newcommand\subsubsection@one[1]{\start@subsubsection{#1}\@secttail}
-\newcommand\subsubsection@two[2]{\start@subsubsection#1{#2}\@secttail}
+\newcommand\section@one[1]{\start@section{\@modifysectheadtext{#1}}\@secttail}
+\newcommand\section@two[2]{\start@section#1{\@modifysectheadtext{#2}}\@secttail}
+\newcommand\subsection@one[1]{\start@subsection{\@modifysectheadtext{#1}}\@secttail}
+\newcommand\subsection@two[2]{\start@subsection#1{\@modifysectheadtext{#2}}\@secttail}
+\newcommand\subsubsection@one[1]{\start@subsubsection{\@modifysectheadtext{#1}}\@secttail}
+\newcommand\subsubsection@two[2]{\start@subsubsection#1{\@modifysectheadtext{#2}}\@secttail}
 
 %
 % Footnotes/endnotes.
@@ -689,9 +702,9 @@
 \newcommand\contentsname{Contents}
 
 % Make it easy to change fonts in TOC.
-\newcommand\cftcontentsfont{\normalfont\fontshape{sc}\selectfont\huge}
-\newcommand\cftpartfont{\normalfont\fontshape{sc}}
-\newcommand\cftchapterfont{\normalfont\fontshape{sc}\selectfont\large}
+\newcommand\cftcontentsfont{\normalfont\if@smallcaps\fontshape{sc}\fi\selectfont\huge}
+\newcommand\cftpartfont{\normalfont\if@smallcaps\fontshape{sc}\fi}
+\newcommand\cftchapterfont{\normalfont\if@smallcaps\fontshape{sc}\fi\selectfont\large}
 \newcommand\cftsectionfont{\normalfont\normalsize}
 \newcommand\cftsubsectionfont{\normalfont\footnotesize}
 \newcommand\cftsubsubsectionfont{\normalfont\footnotesize}
