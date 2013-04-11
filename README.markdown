@@ -11,7 +11,7 @@ The basic features are as follows:
 * Footnotes same size as main text by default except in "handout" mode.
 * "handout" option sets asymmetric margins for 2x2 printing and places headers only on even-numbered pages.
 * Easy to switch betwen double/single spacing and footnotes/endnotes.
-* Makes proper use of old style numbers in smallcaps section headings and in glosses.
+* Makes proper use of old style numerals in smallcaps section headings and in glosses.
 
 Package options:
 
