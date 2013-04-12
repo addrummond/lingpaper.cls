@@ -829,7 +829,7 @@
 %
 % Load microtype with appropriate settings if LuaTeX is being used.
 %
-\AtEndOfPackage{
+\AtBeginDocument{
   \ifluatex
     \usepackage[activate={true,nocompatibility},final,factor=1100,stretch=10,shrink=10]{microtype}
   \fi}
