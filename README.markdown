@@ -41,7 +41,7 @@ Commands:
 
 * `\glossc` A variant of the `textsc` macro for use in glosses. This turns on old-style (i.e. smaller) numerals where available, and also outputs dashes and periods outside of the smallcaps environment.
 
-* `\boxout' For emphasizing a paragraph of text (e.g. `\boxout{Blah blah blah...}`). Currently, this prints a grey vertical bar on the left of the paragraph.
+* `\boxout` For emphasizing a paragraph of text (e.g. `\boxout{Blah blah blah...}`). Currently, this prints a grey vertical bar on the left of the paragraph.
 
 Commands that can be redefined:
 
