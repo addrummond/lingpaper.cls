@@ -1,7 +1,7 @@
 \ProvidesClass{lingpaper}[2013/03/02 Linguistics papers]
 \NeedsTeXFormat{LaTeX2e}
 \newenvironment{description}{}{}
-\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginfix,ifoddpage,enumitem,pdftexcmds}
+\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginfix,ifoddpage,enumitem,pdftexcmds,tikz}
 
 %
 % Some basic definitions copied from article.tex.
@@ -70,7 +70,8 @@
   \gdef\@fnfsskip{\@fnfssskip}
   % Remove footnote rule (visual separation caused by smaller text
   % is sufficient).
-  \renewcommand\footnoterule{}}
+  %\renewcommand\footnoterule{}
+}
 
 \newif\if@doublespace
 \DeclareOption{doublespace}{%
@@ -825,6 +826,19 @@
   \setromanfont[Ligatures=TeX]{TeX Gyre Termes}
   \usepackage{unicode-math}
   \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX]{TeX Gyre Termes Math}}
+
+%
+% Utility for creating an emphasized text box of some sort.
+%
+\newcommand\@boxoutlinewidth{6pt}
+\newdimen\@textwidthmboxoutlinewidth
+\setlength\@textwidthmboxoutlinewidth{\textwidth}
+\addtolength\@textwidthmboxoutlinewidth{-\@boxoutlinewidth}
+\addtolength\@textwidthmboxoutlinewidth{-\@boxoutlinewidth}
+\newcommand\boxout[1]{\begin{tikzpicture}
+\node[inner sep=0pt,outer sep=0pt](t){\hspace*{\@boxoutlinewidth}\parbox[t]{\@textwidthmboxoutlinewidth}{#1}};
+\draw[gray,fill=gray] ($ (t.north west)+(0,0pt) $) rectangle ($ (t.south west)+(-\@boxoutlinewidth,-0pt) $);
+\end{tikzpicture}}
 
 %
 % Load microtype with appropriate settings if LuaTeX is being used.
