@@ -28,7 +28,7 @@
 %
 \newcommand\@tfssskip{9pt}
 \newcommand\@scfssskip{10pt}
-\newcommand\@fnfssskip{\@nfsdskip}
+\newcommand\@fnfssskip{\@nfssskip}
 \newcommand\@sfssskip{11pt}
 \newcommand\@nfssskip{13pt}
 \newcommand\@lfssskip{15pt}
@@ -75,6 +75,7 @@
 
 \newif\if@doublespace
 \DeclareOption{doublespace}{%
+  \@doublespacetrue
   % To ensure this is evaluated after the above.
   \AtEndOfPackage{%
     \gdef\@tfsskip{\@tfsdskip}
@@ -84,8 +85,7 @@
     \gdef\@nfsskip{\@nfsdskip}
     \gdef\@lfsskip{\@lfsdskip}
     \gdef\@Lfsskip{\@Lfsdskip}
-    \gdef\@hfsskip{\@hfsdskip}
-    \@doublespacetrue}}
+    \gdef\@hfsskip{\@hfsdskip}}}
 
 \newcommand{\tiny}{\fontsize{\@tfs}{\@tfsskip}\selectfont}
 \newcommand{\scriptsize}{\fontsize{\@scfs}{\@scfsskip}\selectfont}
@@ -486,12 +486,16 @@
 \newif\if@bigtitle
 \DeclareOption{bigtitle}{\@bigtitletrue}
 
-% Add option to define affiliation.
+% Add option to define affiliation and location.
 \newcommand\affil[1]{\gdef\@affil{#1}}
+\newcommand\location[1]{\gdef\@location{#1}}
 % Stop author command adding in vspace (?)
 \renewcommand\author[1]{\gdef\@author{#1}}
 
+\newif\if@wasdoublespace
 \newcommand\maketitle{%
+  \if@doublespace\@wasdoublespacetrue\else\@wasdoublespacefalse\fi%
+  \start@singlespnoif%
   \begingroup
   \let\@n\@nfsskip
   \let\@nfsskip\@nfssskip
@@ -501,22 +505,22 @@
     \if@bigtitle\bigtitlextrainfofont\else\normaltitleextrainfofont\fi
     \@author\\
     \ifdefined\@affil%
-      \vspace{\dimexpr\@nfsskip/2\relax}\normaltext\@affil\\%
+      \vspace{\dimexpr\@nfsskip/4\relax}\normaltext\@affil\\%
     \else
       %\\%
     \fi%
    \footnotesize%
-   \if@doublespace%
-     \vspace{\dimexpr\@nfsskip-\@fnfs}%
-   \else%
-     \vspace{\@nfsskip}%
-   \fi%
-   \@date\\
+   \vspace{\@nfsskip}%
+   \@date
+   \ifdefined\@location%
+     \vspace{\dimexpr\@fnfsskip/4\relax}\\\@location\\%
+   \else\\\fi%
   \end{center}%
   \vspace{\@n}%
   \endgroup%
   \normaltext%
   \thispagestyle{empty}%
+  \if@wasdoublespace\en@singlesp\fi
 }
 
 %\footnotesize\setlength\parindent\@parindent\noindent
@@ -632,41 +636,40 @@
 % A single space environment.
 %
 \newcommand\start@singlesp{%
-  \if@doublespace%
-    \setlength\parskip{\@doublespaceparskip}
-    \gdef\@parskip{\@doublespaceparskip}
-    \gdef\@tfsskip{\@tfssskip}%
-    \gdef\@scfsskip{\@scfssskip}%
-    \gdef\@fnfsskip{\@fnfssskip}%
-    \gdef\@sfsskip{\@sfssskip}%
-    \gdef\@nfsskip{\@nfssskip}%
-    \gdef\@lfsskip{\@lfssskip}%
-    \gdef\@Lfsskip{\@Lfssskip}%
-    \gdef\@hfsskip{\@hfssskip}%
-    \ifdim \f@size pt = \@tfs%
-      \fontsize{\@tfs}{\@tfssskip}%
-    \else\ifdim \f@size pt = \@scfs%
-      \fontsize{\@scfs}{\@scfssskip}%
-    \else\ifdim \f@size pt = \@fnfs%
-      \fontsize{\@fnfs}{\@fnfssskip}%
-    \else\ifdim \f@size pt = \@sfs%
-      \fontsize{\@sfs}{\@sfssskip}%
-    \else\ifdim \f@size pt = \@nfs%
-      \fontsize{\@nfs}{\@nfssskip}%
-    \else\ifdim \f@size pt = \@lfs%
-      \fontsize{\@lfs}{\@lfssskip}%
-    \else\ifdim \f@size pt = \@Lfs%
-      \fontsize{\@Lfs}{\@Lfssskip}%
-    \else\ifdim \f@size pt = \@hfs%
-      \fontsize{\@hfs}{\@hfssskip}%
-    \fi\fi\fi\fi\fi\fi\fi\fi%
-    \selectfont%
-  \fi}
+  \if@doublespace\start@singlespnoif\fi}
+\newcommand\start@singlespnoif{%
+  \setlength\parskip{\@singlespaceparskip}%
+  \gdef\@parskip{\@singlespaceparskip}%
+  \gdef\@tfsskip{\@tfssskip}%
+  \gdef\@scfsskip{\@scfssskip}%
+  \gdef\@fnfsskip{\@fnfssskip}%
+  \gdef\@sfsskip{\@sfssskip}%
+  \gdef\@nfsskip{\@nfssskip}%
+  \gdef\@lfsskip{\@lfssskip}%
+  \gdef\@Lfsskip{\@Lfssskip}%
+  \gdef\@hfsskip{\@hfssskip}%
+  \ifdim \f@size pt = \@tfs%
+    \fontsize{\@tfs}{\@tfssskip}%
+  \else\ifdim \f@size pt = \@scfs%
+    \fontsize{\@scfs}{\@scfssskip}%
+  \else\ifdim \f@size pt = \@fnfs%
+    \fontsize{\@fnfs}{\@fnfssskip}%
+  \else\ifdim \f@size pt = \@sfs%
+    \fontsize{\@sfs}{\@sfssskip}%
+  \else\ifdim \f@size pt = \@nfs%
+    \fontsize{\@nfs}{\@nfssskip}%
+  \else\ifdim \f@size pt = \@lfs%
+    \fontsize{\@lfs}{\@lfssskip}%
+  \else\ifdim \f@size pt = \@Lfs%
+    \fontsize{\@Lfs}{\@Lfssskip}%
+  \else\ifdim \f@size pt = \@hfs%
+    \fontsize{\@hfs}{\@hfssskip}%
+  \fi\fi\fi\fi\fi\fi\fi\fi%
+  \selectfont}
 \newcommand\en@singlesp{%
   \if@doublespace%
-    \par%
-    \setlength\parskip{\@singlespaceparskip}
-    \gdef\@parskip{\@singlespaceparskip}
+    \setlength\parskip{\@doublespaceparskip}%
+    \gdef\@parskip{\@doublespaceparskip}%
     \gdef\@tfsskip{\@tfsdskip}%
     \gdef\@scfsskip{\@scfsdskip}%
     \gdef\@fnfsskip{\@fnfsdskip}%
@@ -694,7 +697,7 @@
     \fi\fi\fi\fi\fi\fi\fi\fi%
     \selectfont%
   \fi}
-\newenvironment{singlesp}{\start@singlesp}{\en@singlesp}
+\newenvironment{singlesp}{\start@singlesp}{\par\en@singlesp}
 
 %
 % Blocks.
