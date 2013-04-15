@@ -832,10 +832,11 @@
 %
 \newcommand\@boxoutlinewidth{6pt}
 \newdimen\@textwidthmboxoutlinewidth
-\setlength\@textwidthmboxoutlinewidth{\textwidth}
-\addtolength\@textwidthmboxoutlinewidth{-\@boxoutlinewidth}
-\addtolength\@textwidthmboxoutlinewidth{-\@boxoutlinewidth}
-\newcommand\boxout[1]{\begin{tikzpicture}
+\newcommand\boxout[1]{%
+\setlength\@textwidthmboxoutlinewidth{\textwidth}%
+\addtolength\@textwidthmboxoutlinewidth{-\@boxoutlinewidth}%
+\addtolength\@textwidthmboxoutlinewidth{-\@boxoutlinewidth}%
+\begin{tikzpicture}%
 \node[inner sep=0pt,outer sep=0pt](t){\hspace*{\@boxoutlinewidth}\parbox[t]{\@textwidthmboxoutlinewidth}{#1}};
 \draw[gray,fill=gray] ($ (t.north west)+(0,0pt) $) rectangle ($ (t.south west)+(-\@boxoutlinewidth,-0pt) $);
 \end{tikzpicture}}
