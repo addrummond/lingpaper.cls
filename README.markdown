@@ -29,6 +29,7 @@ only on even-numbered pages.
 * `[nosinglespmarginnotes]` If this is not set, then margin notes are single spaced even when the main text is double spaced.
 * `[smallfootnotes]` Makes footnotes small (redundant in handout mode).
 * `[bigtitle]` Makes paper/book title big (might want this for book drafts).
+* `[largeabstract]` By default, text in the `abstract` environment is set to `\footnotesize`. If this option is set the normal font size is used.
 
 Commands:
 

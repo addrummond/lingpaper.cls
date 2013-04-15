@@ -523,8 +523,12 @@
 %
 % Environment for abstracts (centered paragraphs with smallish text).
 %
+\newif\if@largeabstract
+\DeclareOption{largeabstract}{\@largeabstracttrue}
+
 \newcommand\@setupabs{%
-  \footnotesize\setlength\parindent\@parindent%
+  \if@largeabstract\else\footnotesize\fi%
+  \setlength\parindent\@parindent%
   \if@indenty\else\noindent\fi}
 \newcommand\abstractleftindent{0in}
 \newcommand\abstractrightindent{0in}
