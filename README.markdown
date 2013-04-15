@@ -41,6 +41,8 @@ Commands:
 
 * `\glossc` A variant of the `textsc` macro for use in glosses. This turns on old-style (i.e. smaller) numerals where available, and also outputs dashes and periods outside of the smallcaps environment.
 
+* `\boxout' For emphasizing a paragraph of text (e.g. `\boxout{Blah blah blah...}`). Currently, this prints a grey vertical bar on the left of the paragraph.
+
 Commands that can be redefined:
 
 * `\leftheader`, `\rightheader` and `\centerheader` can be redefined to make simple adjustments to the content of the page headers. The headers are set using the fancyhdr package, so you can also override them using fancyhdr directly.
