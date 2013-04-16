@@ -856,4 +856,12 @@
     \usepackage[activate={true,nocompatibility},final,factor=1100,stretch=10,shrink=10]{microtype}
   \fi}
 
+%
+% Load natbib with sensible settings.
+%
+\AtEndOfPackage{
+  \usepackage[comma]{natbib}
+  \bibpunct{(}{)}{,}{a}{}{,}}
+
+
 \ProcessOptions
