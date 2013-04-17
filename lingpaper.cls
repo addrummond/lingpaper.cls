@@ -411,7 +411,9 @@
   \addcontentsline{toc}{chapter}{\protect\numberline{\arabic{chapter}\hspace{1em}\@modifysectheadtext{#1}}}%
   \newpage%
   \thispagestyle{empty}%
-  {\chapterfont\noindent Chapter \arabic{chapter}\par\nobreak\vspace{8pt}\noindent\chapternamefont#1\par\nobreak\vspace{\chapterfontsize}}\noindent\normaltext}
+  {\chapterfont\noindent Chapter \arabic{chapter}\par\nobreak\vspace{8pt}\noindent\chapternamefont#1}%
+  \vspace{\chapterfontsize}%
+  \@afterindentfalse\@afterheading\par\normalfont\normalsize}
 \newcommand\@chapterstar[2]{%
   \chapterfont%
   \setcounter{section}{0}%
