@@ -62,6 +62,8 @@ Example:
 
     \begin{document}
     \author{Joe Linguist}
+    \affil{University of Foo}
+    \location{Location of talk}
     \title{My Analysis of Phenomenon X With a Long Title}
     \shorttitle{The Short Title}
     
