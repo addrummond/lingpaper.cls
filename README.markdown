@@ -53,7 +53,7 @@ Commands that can be redefined:
 
 * `\marginnotevsep` Vertical separation between marginnotes.
 
-* The sum of the values of `\marginnoteextraspace` and `\marginnotesep` is the additional space added to left/right margins to make room for margin notes. The latter specifies the distance between the left/right edge of the margin note and the main text. The distance between the right edge of odd pages and left edge of even pages is also reduced by double the value of `\marginnotesquish' (since generally opposite margin notes can be closer to each other than the main text).
+* The sum of the values of `\marginnoteextraspace` and `\marginnotesep` is the additional space added to left/right margins to make room for margin notes. The latter specifies the distance between the left/right edge of the margin note and the main text. The distance between the right edge of odd pages and left edge of even pages is also reduced by double the value of `\marginnotesquish` (since generally opposite margin notes can be closer to each other than the main text).
 
 Example:
 
