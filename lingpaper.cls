@@ -856,12 +856,13 @@
 %
 \newdimen\@tmplinguexdimen
 \newenvironment{xbullets}{%
-  \setlength\@tmplinguexdimen\Exindent%
-  \addtolength\Exindent{-1em}%
+  \@ifundefined{\Exindent}{}{%
+    \setlength\@tmplinguexdimen\Exindent%
+    \addtolength\Exindent{-1em}}%
   \begin{enumerate}[label=$\rhd$,labelindent=0pt,labelwidth=0.75em,labelsep=0.25em,itemsep=\@parskip,leftmargin=1em,itemindent=0em]%
 }{%
   \end{enumerate}%
-  \setlength\Exindent\@tmplinguexdimen%
+  \@ifundefined{\Exindent}{}{\setlength\Exindent\@tmplinguexdimen}%
 }
 
 %
