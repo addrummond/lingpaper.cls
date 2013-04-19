@@ -851,6 +851,20 @@
 \end{tikzpicture}\medskip\noindent}
 
 %
+% Bullet points suitable for handout. Not highly indented. Examples defined using linguex are not indented
+% further if they appear inside a \item.
+%
+\newdimen\@tmplinguexdimen
+\newenvironment{xbullets}{%
+  \setlength\@tmplinguexdimen\Exindent%
+  \addtolength\Exindent{-1em}%
+  \begin{enumerate}[label=$\rhd$,labelindent=0pt,labelwidth=0.75em,labelsep=0.25em,itemsep=\@parskip,leftmargin=1em,itemindent=0em]%
+}{%
+  \end{enumerate}%
+  \setlength\Exindent\@tmplinguexdimen%
+}
+
+%
 % Load microtype with appropriate settings if LuaTeX is being used.
 %
 \AtBeginDocument{
