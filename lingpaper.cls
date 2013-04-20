@@ -1,7 +1,7 @@
 \ProvidesClass{lingpaper}[2013/03/02 Linguistics papers]
 \NeedsTeXFormat{LaTeX2e}
 \newenvironment{description}{}{}
-\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginfix,ifoddpage,enumitem,pdftexcmds,tikz}
+\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginfix,ifoddpage,enumitem,pdftexcmds,tikz,amsmath}
 \AtBeginDocument{\usetikzlibrary{shapes.geometric}}
 
 %
@@ -238,7 +238,7 @@
 
 \newcommand\marginnotesep{0.4in}
 \newcommand\marginnoteextraspace{1.5in}
-\newcommand\marginnotesquish{0.75in}
+\newcommand\marginnotesquish{0.725in}
 
 \newcommand\@modifyhandoutformarginnotes{%
   \addtolength\evensidemargin{\marginnoteextraspace}
@@ -843,13 +843,14 @@
 % Utility for creating an emphasized text box of some sort.
 %
 \newcommand\@boxoutlinewidth{6pt}
-\newdimen\@textwidthmboxoutlinewidth
+\newdimen\@btextwidth
 \newcommand\boxout[1]{%
-\setlength\@textwidthmboxoutlinewidth{\textwidth}%
-\addtolength\@textwidthmboxoutlinewidth{-\@boxoutlinewidth}%
-\addtolength\@textwidthmboxoutlinewidth{-\@boxoutlinewidth}%
-\begin{tikzpicture}%
-\node[inner sep=0pt,outer sep=0pt](t){\hspace*{\@boxoutlinewidth}\parbox[t]{\@textwidthmboxoutlinewidth}{#1}};
+\setlength\@btextwidth{\textwidth}%
+\newdimen\@bsepwidth
+\setlength\@bsepwidth{\@boxoutlinewidth}
+\addtolength\@bsepwidth{\dimexpr-\@boxoutlinewidth/4\relax}
+\hspace*{-\@bsepwidth}\hspace*{-\@boxoutlinewidth}\begin{tikzpicture}%
+\node[inner sep=0pt,outer sep=0pt](t){\hspace*{\@bsepwidth}\parbox[t]{\@btextwidth}{#1}};
 \draw[gray,fill=gray] ($ (t.north west)+(0,0pt) $) rectangle ($ (t.south west)+(-\@boxoutlinewidth,-0pt) $);
 \end{tikzpicture}\medskip\noindent}
 
@@ -911,6 +912,5 @@ outer sep=0pt]{};
 \AtEndOfPackage{
   \usepackage[comma]{natbib}
   \bibpunct{(}{)}{,}{a}{}{,}}
-
 
 \ProcessOptions
