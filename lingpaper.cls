@@ -579,6 +579,8 @@
     \renewcommand\bibfont{}
     \renewcommand\bibsection{\@dontindentsectionstrue\section*{\refname}\@dontindentsectionsfalse}
     \renewcommand\bibname{My bib!}
+    \setlength\bibsep{0pt}
+    \setlength\bibhang{\@parindent}
   }{}}
 
 %
