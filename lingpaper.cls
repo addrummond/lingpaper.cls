@@ -238,7 +238,7 @@
 
 \newcommand\marginnotesep{0.4in}
 \newcommand\marginnoteextraspace{1.5in}
-\newcommand\marginnotesquish{0.8in}
+\newcommand\marginnotesquish{0.75in}
 
 \newcommand\@modifyhandoutformarginnotes{%
   \addtolength\evensidemargin{\marginnoteextraspace}
@@ -290,7 +290,7 @@
       \checkoddpage\ifoddpage%
         \addtolength\leftskip{\marginnotesep}%
       \fi%
-      \checkoddpage\ifoddpage\hspace*{-5pt}\else\hspace*{-\marginnotesquish}\fi%
+      \checkoddpage\ifoddpage\hspace*{-0pt}\else\hspace*{-\marginnotesquish}\fi%
       \parbox{\@marginnotewidth}{%
         \if@raggedmarginnotes\raggedright\fi%
         \if@doublespace\if@nosinglespmarginnotes\else%
