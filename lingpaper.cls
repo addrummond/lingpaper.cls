@@ -2,6 +2,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \newenvironment{description}{}{}
 \RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginfix,ifoddpage,enumitem,pdftexcmds,tikz}
+\AtBeginDocument{\usetikzlibrary{shapes.geometric}}
 
 %
 % Some basic definitions copied from article.tex.
@@ -694,7 +695,7 @@
       \fontsize{\@lfs}{\@lfsdskip}%
     \else\ifdim \f@size pt = \@Lfs%
       \fontsize{\@Lfs}{\@Lfsdskip}%
-    \else\ifdim \f@size pt = \@Lfs%
+    \else\ifdim \f@size pt = \@hfs%
       \fontsize{\@hfs}{\@hfsdskip}%
     \fi\fi\fi\fi\fi\fi\fi\fi%
     \selectfont%
@@ -854,16 +855,45 @@
 % Bullet points suitable for handout. Not highly indented. Examples defined using linguex are not indented
 % further if they appear inside a \item.
 %
+\newcommand\@triangle{%
+\begin{tikzpicture}
+\node[isosceles triangle,
+isosceles triangle apex angle=60,
+draw,
+color=black,
+thick,
+minimum height=0.5em,
+inner sep=0pt,
+outer sep=0pt]{};
+\end{tikzpicture}%
+}
+\newcommand\@thicktriangle{%
+\begin{tikzpicture}
+\node[isosceles triangle,
+isosceles triangle apex angle=60,
+draw,
+color=black,
+thick,
+fill=black,
+minimum height=0.5em,
+inner sep=0pt,
+outer sep=0pt]{};
+\end{tikzpicture}%
+}
+
 \newdimen\@tmplinguexdimen
 \newenvironment{xbullets}{%
-  \@ifundefined{\Exindent}{}{%
+  \@ifundefined{Exindent}{}{%
     \setlength\@tmplinguexdimen\Exindent%
-    \addtolength\Exindent{-1em}}%
-  \begin{enumerate}[label=$\rhd$,labelindent=0pt,labelwidth=0.75em,labelsep=0.25em,itemsep=\@parskip,leftmargin=1em,itemindent=0em]%
+    \addtolength\Exindent{-0em}}%
+  \begin{enumerate}[label=\protect\@triangle,labelindent=0pt,labelwidth=0.75em,labelsep=0.25em,itemsep=\@parskip,leftmargin=0em,itemindent=0em]%
 }{%
   \end{enumerate}%
-  \@ifundefined{\Exindent}{}{\setlength\Exindent\@tmplinguexdimen}%
+  \@ifundefined{Exindent}{}{%
+    \setlength\Exindent\@tmplinguexdimen}%
 }
+
+\newcommand\xitem{\item[\protect\@thicktriangle]}
 
 %
 % Load microtype with appropriate settings if LuaTeX is being used.
