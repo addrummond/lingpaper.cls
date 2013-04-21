@@ -280,7 +280,7 @@
   \def\MFX@leftmargin{\fi\checkoddpage\ifevenpage}
   \renewcommand\footnote[2][\thefootnote]{%
     \stepcounter{footnote}%
-    {\@mnfootnotesize\footnotemark[##1]}%
+    {\footnotemark[##1]}%
     \setlength\@marginnotewidth\marginparwidth%
     \marginpar{%
       \marginskip{\marginnotevsep}
