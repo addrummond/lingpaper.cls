@@ -1,7 +1,7 @@
 \ProvidesClass{lingpaper}[2013/03/02 Linguistics papers]
 \NeedsTeXFormat{LaTeX2e}
 \newenvironment{description}{}{}
-\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginfix,ifoddpage,enumitem,pdftexcmds,tikz,amsmath}
+\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginnote,ifoddpage,enumitem,pdftexcmds,tikz,amsmath,multicol}
 \AtBeginDocument{\usetikzlibrary{shapes.geometric}}
 
 %
@@ -27,33 +27,35 @@
 %
 % Basic font setup.
 %
-\newcommand\@tfssskip{9pt}
-\newcommand\@scfssskip{10pt}
-\newcommand\@fnfssskip{\@nfssskip}
-\newcommand\@sfssskip{11pt}
-\newcommand\@nfssskip{13pt}
-\newcommand\@lfssskip{15pt}
-\newcommand\@Lfssskip{17pt}
-\newcommand\@hfssskip{21pt}
-
-\newcommand\@tfsdskip{16pt}
-\newcommand\@scfsdskip{18pt}
-\newcommand\@fnfsdskip{\@nfsdskip}
-\newcommand\@sfsdskip{20pt}
-\newcommand\@nfsdskip{22pt}
-\newcommand\@lfsdskip{28pt}
-\newcommand\@Lfsdskip{32pt}
-\newcommand\@hfsdskip{40pt}
-
 \newcommand\@tfs{8pt}
 \newcommand\@scfs{9pt}
 \newcommand\@fnfs{\@nfs}
 \newcommand\@sfs{10pt}
 \newcommand\@nfs{12pt}
 \newcommand\@lfs{14pt}
-\newcommand\@Lfs{16pt}
-\newcommand\@hfs{20pt}
-\newcommand\@Hfs{24pt}
+\newcommand\@Lfs{18pt}
+\newcommand\@hfs{22pt}
+\newcommand\@Hfs{26pt}
+
+\newcommand\@tfssskip{9pt}
+\newcommand\@scfssskip{10pt}
+\newcommand\@fnfssskip{\@nfssskip}
+\newcommand\@sfssskip{11pt}
+\newcommand\@nfssskip{13pt}
+\newcommand\@lfssskip{15pt}
+\newcommand\@Lfssskip{19pt}
+\newcommand\@hfssskip{23pt}
+\newcommand\@Hfssskip{27pt}
+
+\newcommand\@tfsdskip{16pt}
+\newcommand\@scfsdskip{18pt}
+\newcommand\@fnfsdskip{\@nfsdskip}
+\newcommand\@sfsdskip{20pt}
+\newcommand\@nfsdskip{24pt}
+\newcommand\@lfsdskip{28pt}
+\newcommand\@Lfsdskip{36pt}
+\newcommand\@hfsdskip{44pt}
+\newcommand\@Hfsdskip{52pt}
 
 \newcommand\@tfsskip{\@tfssskip}
 \newcommand\@scfsskip{\@scfssskip}
@@ -133,8 +135,11 @@
 % See http://amath.colorado.edu/documentation/LaTeX/reference/layout.html
 % for a helpful diagram.
 %
+\newcommand\@paperwidth{}
+\newcommand\@paperheight{}
 \newcommand\@draftlettersizesettings{%
-  \special{papersize=8.5in,11in}
+  \renewcommand\@paperwidth{11in}
+  \renewcommand\@paperheight{8.5in}
   \setlength\paperheight{11in}
   \setlength\paperwidth{8.5in}
   \setlength\topmargin{-62.27pt}
@@ -147,7 +152,8 @@
   \setlength\textheight{9in}}
 \newcommand\@draftafoursettings{%
   % 1 LaTeX point = 0.3515mm
-  \special{papersize=210mm,297mm}
+  \renewcommand\@paperwidth{210mm}
+  \renewcommand\@paperheight{297mm}
   \setlength\paperheight{297mm}
   \setlength\paperwidth{210mm}
   \setlength\topmargin{-61.123pt}
@@ -192,21 +198,20 @@
 \newcommand\centerheader{}
 
 \AtEndOfPackage{
-  \if@handout
-    \lhead{\leftheader}
-    \chead{}
-    \rhead{\rightheader}
-    \lfoot{}
-    \cfoot{}
-    \rfoot{\@pagenumfontsize\thepage}
-  \else
-    \fancyhead{}
+  \if@handout%
+    \fancyhead[L]{\leftheader}%
+    \fancyhead[C]{}%
+    \fancyhead[R]{\rightheader}%
+    \fancyfoot[R]{\@pagenumfontsize\thepage}%
+    \fancyfoot[L,C]{}%
+  \else%
+    \fancyhead{}%
     % Can't get twoside mode to work so can't use [CE] and [CO].
     \fancyhead[C]{%
       \checkoddpage\ifoddpage%
         \if@smallcaps%
           \textsc{\@runningheaderfontsize\MakeLowercase\@shorttitle}%
-        \else
+        \else%
           \textit{\@runningheaderfontsize\@shorttitle}%
         \fi%
       \else%
@@ -214,11 +219,11 @@
           \textsc{\@runningheaderfontsize\MakeLowercase\@author}%
         \else%
           \textit{\@runningheaderfontsize\@author}%
-        \fi
-      \fi}
-    \fancyfoot[R]{\@pagenumfontsize\thepage}
-    \fancyfoot[L,C]{}
-    \renewcommand\headrulewidth{0pt}
+        \fi%
+      \fi}%
+    \fancyfoot[R]{\@pagenumfontsize\thepage}%
+    \fancyfoot[L,C]{}%
+    \renewcommand\headrulewidth{0pt}%
   \fi}
 
 \newcommand\@headrulewidth{1pt}
@@ -228,26 +233,36 @@
 % Handout variant.
 %
 \newcommand\@modifylettersizeforhandout{%
+  \renewcommand\@paperwidth{11in}
+  \renewcommand\@paperheight{8.5in}
+  \setlength\paperwidth{11in}
+  \setlength\paperheight{8.5in}
   \setlength\oddsidemargin{0in}
-  \setlength\evensidemargin{-0.5in}
-  \setlength\textwidth{7in}}
-\newcommand\@modifyafourforhandout{%
-  \setlength\oddsidemargin{-5.4mm}
-  \setlength\evensidemargin{-15.4mm}
-  \setlength\textwidth{180mm}}
+  \setlength\evensidemargin{0in}
+  \setlength\topmargin{-1in}
+  \setlength\textheight{6.5in}
+  \setlength\textwidth{9in}
+  \setlength\columnsep{0.5in}}
+%\newcommand\@modifyafourforhandout{%
+%  \setlength\oddsidemargin{-5.4mm}
+%  \setlength\evensidemargin{-15.4mm}
+%  \setlength\textwidth{180mm}}
+
+\newcommand\abd@handout{
+  \if@handout%
+    \begin{multicols}{2}%
+  \fi%
+}
+\AtEndDocument{
+  \if@handout
+    \end{multicols}}
 
 \newcommand\marginnotesep{0.4in}
 \newcommand\marginnoteextraspace{1.5in}
-\newcommand\marginnotesquish{0.725in}
 
 \newcommand\@modifyhandoutformarginnotes{%
-  \addtolength\evensidemargin{\marginnoteextraspace}
-  \addtolength\evensidemargin{\marginnotesep}
   \addtolength\textwidth{-\marginnoteextraspace}
   \addtolength\textwidth{-\marginnotesep}
-  \setlength\marginparwidth{\marginnoteextraspace}
-%  \addtolength\textwidth{\marginnotesquish}
-%  \addtolength\evensidemargin{-\marginnotesquish}
 }
 
 \newif\if@marginnotes
@@ -274,25 +289,19 @@
   \fi}
 
 % TODO: Redefining entire footnote command is a bit of a hack.
-\newdimen\@marginnotewidth
 \newcommand\@replacefootnotewithmarginnote{%
   % Redefine command that marginfix package uses to figure out which page to put notes on.
-  \def\MFX@leftmargin{\fi\checkoddpage\ifevenpage}
+%  \def\MFX@leftmargin{\fi\checkoddpage\ifevenpage}
+%  \def\MFX@leftmargin{\fi\checkoddpage\if10}
+%  \gdef\@mn@margintest{\@tempswatrue}%
+  \if@raggedmarginnotes\else\renewcommand*\raggedrightmarginnote{}\fi%
   \renewcommand\footnote[2][\thefootnote]{%
     \stepcounter{footnote}%
     {\footnotemark[##1]}%
-    \setlength\@marginnotewidth\marginparwidth%
-    \marginpar{%
-      \marginskip{\marginnotevsep}
-      \addtolength\@marginnotewidth{-\marginnotesep}
-      \addtolength\@marginnotewidth{\marginnotesquish}
-      \raggedright
-      \checkoddpage\ifoddpage%
-        \addtolength\leftskip{\marginnotesep}%
-      \fi%
-      \checkoddpage\ifoddpage\hspace*{-0pt}\else\hspace*{-\marginnotesquish}\fi%
-      \parbox{\@marginnotewidth}{%
-        \if@raggedmarginnotes\raggedright\fi%
+    \marginparwidth=\marginnoteextraspace%
+    \marginnote{%
+      \hspace*{\marginnotesep}%
+      \parbox{\marginnoteextraspace}{%
         \if@doublespace\if@nosinglespmarginnotes\else%
           \start@singlesp%
         \fi\fi%
@@ -302,8 +311,8 @@
 \newif\if@handout
 \DeclareOption{handout}{\@handouttrue}
 \AtEndOfPackage{
+  \@twosidefalse
   \if@handout%
-    \@twosidetrue
     \if@afoursize
       \@modifyafourforhandout
     \else
@@ -328,13 +337,15 @@
 
     \renewcommand\@fnfs{11pt}
     \renewcommand\@fnfsskip{\if@doublespace22pt\else12pt\fi}
- \fi}
+ \fi
+ \special{papersize=\@paperwidth,\@paperheight}
+}
 
 %
 % Layout.
 %
 \newcommand\@parindent{24pt}
-\AtBeginDocument{%
+\newcommand\abd@layout{%
   \setlength\parindent{\@parindent}}
 
 %
@@ -349,18 +360,18 @@
 \setlength\normaltitleextrainfofontsize{\@lfs}
 
 \newdimen\bigtitlefontsize
-\setlength\bigtitlefontsize{\@hfs}
+\setlength\bigtitlefontsize{\@Hfs}
 \newdimen\bigtitleextrainfofontsize
-\setlength\bigtitleextrainfofontsize{\@Lfs}
+\setlength\bigtitleextrainfofontsize{\@hfs}
 
 \newdimen\chapterfontsize
-\setlength\chapterfontsize{\@Lfs}
+\setlength\chapterfontsize{\@hfs}
 \newdimen\sectionfontsize
-\setlength\sectionfontsize{\@lfs}
+\setlength\sectionfontsize{\@Lfs}
 \newdimen\subsectionfontsize
-\setlength\subsectionfontsize{\@nfs}
+\setlength\subsectionfontsize{\@lfs}
 \newdimen\subsubsectionfontsize
-\setlength\subsubsectionfontsize{\subsectionfontsize}
+\setlength\subsubsectionfontsize{\@nfs}
 
 \newdimen\sectionlineskip
 \setlength\sectionlineskip{\sectionfontsize}
@@ -447,7 +458,7 @@
 \DeclareOption{endnotes}{%
   \@endnotestrue}
 
-\AtBeginDocument{%
+\newcommand\abd@notes{%
   \if@endnotes
     % Endnotes.
     \renewcommand\footnote{\endnote}
@@ -459,7 +470,7 @@
 \newcommand\set@footnotesepsingle{\setlength\footnotesep{\@fnfssskip}}
 \newcommand\set@footnotesepdouble{\setlength\footnotesep{\@fnfsdskip}}
 
-\AtBeginDocument{%
+\newcommand\abd@spacing{%
   \if@doublespace%
     \set@footnotesepdouble%
   \else%
@@ -499,6 +510,7 @@
 \newcommand\maketitle{%
   \if@doublespace\@wasdoublespacetrue\else\@wasdoublespacefalse\fi%
   \start@singlespnoif%
+%  \if@handout\end{multicols}\fi%
   \begingroup
   \let\@n\@nfsskip
   \let\@nfsskip\@nfssskip
@@ -521,9 +533,10 @@
   \end{center}%
   \vspace{\@n}%
   \endgroup%
+%  \if@handout\begin{multicols}{2}\fi%
   \normaltext%
   \thispagestyle{empty}%
-  \if@wasdoublespace\en@singlesp\fi
+  \if@wasdoublespace\en@singlesp\fi%
 }
 
 %\footnotesize\setlength\parindent\@parindent\noindent
@@ -541,7 +554,7 @@
 \newcommand\abstractrightindent{0in}
 \newdimen\@abstractwidth
 \newenvironment{abstract}%
-  {\setlength\@abstractwidth\textwidth%
+  {\setlength\@abstractwidth\columnwidth%
    \addtolength{\@abstractwidth}{-\abstractleftindent}%
    \addtolength{\@abstractwidth}{-\abstractrightindent}%
    \if@indenty\addtolength{\@abstractwidth}{-\@parindent}\fi%
@@ -573,7 +586,7 @@
       \endlist}
 
 % To make it work with natbib, which redefines thebibliography.
-\AtBeginDocument{
+\newcommand\abd@natbib{%
   \@ifpackageloaded{natbib}{
     \global\let\bibname\refname
     \renewcommand\bibfont{}
@@ -592,7 +605,7 @@
   \itemsep 5pt% plus 3pt minus 2pt
 }
 
-\AtBeginDocument{%
+\newcommand\abd@layouttwo{%
   \setlength\leftmargini{2.5em}
   \setlength\leftmarginii{2.2em}
   \setlength\leftmarginiii{1.87em}
@@ -716,7 +729,7 @@
 
 % Make it easy to change fonts in TOC.
 \newcommand\cftcontentsfont{\normalfont\if@smallcaps\fontshape{sc}\fi\selectfont\huge}
-\newcommand\cftpartfont{\normalfont\if@smallcaps\fontshape{sc}\fi}
+\newcommand\cftpartfont{\normalfont\if@smallcaps\fontshape{sc}\fi\large}
 \newcommand\cftchapterfont{\normalfont\if@smallcaps\fontshape{sc}\fi\selectfont\large}
 \newcommand\cftsectionfont{\normalfont\normalsize}
 \newcommand\cftsubsectionfont{\normalfont\footnotesize}
@@ -845,7 +858,7 @@
 \newcommand\@boxoutlinewidth{6pt}
 \newdimen\@btextwidth
 \newcommand\boxout[1]{%
-\setlength\@btextwidth{\textwidth}%
+\setlength\@btextwidth{\columnwidth}%
 \newdimen\@bsepwidth
 \setlength\@bsepwidth{\@boxoutlinewidth}
 \addtolength\@bsepwidth{\dimexpr-\@boxoutlinewidth/4\relax}
@@ -901,7 +914,7 @@ outer sep=0pt]{};
 %
 % Load microtype with appropriate settings if LuaTeX is being used.
 %
-\AtBeginDocument{
+\newcommand\abd@lua{
   \ifluatex
     \usepackage[activate={true,nocompatibility},final,factor=1100,stretch=10,shrink=10]{microtype}
   \fi}
@@ -913,4 +926,18 @@ outer sep=0pt]{};
   \usepackage[comma]{natbib}
   \bibpunct{(}{)}{,}{a}{}{,}}
 
+%
+% AtBeginDocument
+%
+\AtBeginDocument{
+  \abd@layout%
+  \abd@layouttwo%
+  \abd@notes%
+  \abd@spacing%
+  \abd@natbib%
+  \abd@lua%
+  \abd@handout%
+}
+
 \ProcessOptions
+
