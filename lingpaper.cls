@@ -248,6 +248,48 @@
 %  \setlength\evensidemargin{-15.4mm}
 %  \setlength\textwidth{180mm}}
 
+\newcommand\@hscale{1.5pt}
+\newcommand\@modifyfontsizesforhandout{%
+  \renewcommand\@tfs{4pt}
+  \renewcommand\@scfs{4.5pt}
+  \renewcommand\@fnfs{\@nfs}
+  \renewcommand\@sfs{5pt}
+  \renewcommand\@nfs{6pt}
+  \renewcommand\@lfs{7pt}
+  \renewcommand\@Lfs{9pt}
+  \renewcommand\@hfs{11pt}
+  \renewcommand\@Hfs{13pt}
+
+  \renewcommand\@tfssskip{4.5pt}
+  \renewcommand\@scfssskip{5pt}
+  \renewcommand\@fnfssskip{\@nfssskip}
+  \renewcommand\@sfssskip{5.5pt}
+  \renewcommand\@nfssskip{6.5pt}
+  \renewcommand\@lfssskip{7.5pt}
+  \renewcommand\@Lfssskip{9.5pt}
+  \renewcommand\@hfssskip{11.5pt}
+  \renewcommand\@Hfssskip{13.5pt}
+
+  \renewcommand\@tfsdskip{7pt}
+  \renewcommand\@scfsdskip{9pt}
+  \renewcommand\@fnfsdskip{\@nfsdskip}
+  \renewcommand\@sfsdskip{10pt}
+  \renewcommand\@nfsdskip{12pt}
+  \renewcommand\@lfsdskip{14pt}
+  \renewcommand\@Lfsdskip{19pt}
+  \renewcommand\@hfsdskip{22pt}
+  \renewcommand\@Hfsdskip{26pt}
+
+  \renewcommand\@tfsskip{\@tfssskip}
+  \renewcommand\@scfsskip{\@scfssskip}
+  \renewcommand\@fnfsskip{\@nfssskip}
+  \renewcommand\@sfsskip{\@sfssskip}
+  \renewcommand\@nfsskip{\@nfssskip}
+  \renewcommand\@lfsskip{\@lfssskip}
+  \renewcommand\@Lfsskip{\@Lfssskip}
+  \renewcommand\@hfsskip{\@hfssskip}
+}
+
 \newcommand\abd@handout{
   \if@handout%
     \begin{multicols}{2}%
@@ -255,7 +297,7 @@
 }
 \AtEndDocument{
   \if@handout
-    \end{multicols}}
+    \end{multicols}\fi}
 
 \newcommand\marginnotesep{0.4in}
 \newcommand\marginnoteextraspace{1.5in}
@@ -318,6 +360,8 @@
     \else
       \@modifylettersizeforhandout
     \fi
+
+    \@modifyfontsizesforhandout
 
     \if@marginnotes
       \@modifyhandoutformarginnotes
