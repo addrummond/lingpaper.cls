@@ -27,72 +27,55 @@
 %
 % Basic font setup.
 %
+\newif\if@smallfootnotes
+\DeclareOption{smallfootnotes}{\@smallfootnotestrue}
+
 \newcommand\@tfs{8pt}
 \newcommand\@scfs{9pt}
-\newcommand\@fnfs{\@nfs}
+\newcommand\@fnfs{\if@smallfootnotes11pt\else12pt\fi}
 \newcommand\@sfs{10pt}
 \newcommand\@nfs{12pt}
 \newcommand\@lfs{14pt}
-\newcommand\@Lfs{18pt}
-\newcommand\@hfs{22pt}
-\newcommand\@Hfs{26pt}
+\newcommand\@Lfs{16pt}
+\newcommand\@hfs{20pt}
+\newcommand\@Hfs{24pt}
 
 \newcommand\@tfssskip{9pt}
 \newcommand\@scfssskip{10pt}
-\newcommand\@fnfssskip{\@nfssskip}
+\newcommand\@fnfssskip{\if@smallfootnotes12pt\else13pt\fi}
 \newcommand\@sfssskip{11pt}
 \newcommand\@nfssskip{13pt}
 \newcommand\@lfssskip{15pt}
-\newcommand\@Lfssskip{19pt}
-\newcommand\@hfssskip{23pt}
-\newcommand\@Hfssskip{27pt}
+\newcommand\@Lfssskip{17pt}
+\newcommand\@hfssskip{21pt}
+\newcommand\@Hfssskip{25pt}
 
 \newcommand\@tfsdskip{16pt}
 \newcommand\@scfsdskip{18pt}
-\newcommand\@fnfsdskip{\@nfsdskip}
+\newcommand\@fnfsdskip{\if@smallfootnotes22pt\else24pt\fi}
 \newcommand\@sfsdskip{20pt}
 \newcommand\@nfsdskip{24pt}
 \newcommand\@lfsdskip{28pt}
-\newcommand\@Lfsdskip{36pt}
-\newcommand\@hfsdskip{44pt}
-\newcommand\@Hfsdskip{52pt}
+\newcommand\@Lfsdskip{32pt}
+\newcommand\@hfsdskip{40pt}
+\newcommand\@Hfsdskip{48pt}
 
 \newcommand\@tfsskip{\@tfssskip}
 \newcommand\@scfsskip{\@scfssskip}
-\newcommand\@fnfsskip{\@nfssskip}
+\newcommand\@fnfsskip{\fnfssskip}
 \newcommand\@sfsskip{\@sfssskip}
 \newcommand\@nfsskip{\@nfssskip}
 \newcommand\@lfsskip{\@lfssskip}
 \newcommand\@Lfsskip{\@Lfssskip}
 \newcommand\@hfsskip{\@hfssskip}
 
-\DeclareOption{smallfootnotes}{%
-  \gdef\@fnfs{11pt}
-  \gdef\@fnfssskip{12pt}
-  \gdef\@fnfsdskip{22pt}
-  \gdef\@fnfsskip{\@fnfssskip}
-  % Remove footnote rule (visual separation caused by smaller text
-  % is sufficient).
-  %\renewcommand\footnoterule{}
-}
-
 \newif\if@doublespace
-\DeclareOption{doublespace}{%
-  \@doublespacetrue
-  % To ensure this is evaluated after the above.
-  \AtEndOfPackage{%
-    \gdef\@tfsskip{\@tfsdskip}
-    \gdef\@scfsskip{\@scfsdskip}
-    \gdef\@fnfsskip{\@fnfsdskip}
-    \gdef\@sfsskip{\@sfsdskip}
-    \gdef\@nfsskip{\@nfsdskip}
-    \gdef\@lfsskip{\@lfsdskip}
-    \gdef\@Lfsskip{\@Lfsdskip}
-    \gdef\@hfsskip{\@hfsdskip}}}
+\DeclareOption{doublespace}{\@doublespacetrue}
 
 \newcommand{\tiny}{\fontsize{\@tfs}{\@tfsskip}\selectfont}
 \newcommand{\scriptsize}{\fontsize{\@scfs}{\@scfsskip}\selectfont}
 \newcommand{\footnotesize}{\fontsize{\@fnfs}{\@fnfsskip}\selectfont}
+\newcommand{\@realfootnotesize}{\if@smallfootnotes\footnotesize\else\@smallfootnotestrue\footnotesize\@smallfootnotesfalse\fi}
 \newcommand{\small}{\fontsize{\@sfs}{\@sfsskip}\selectfont}
 \renewcommand{\normalsize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
 \newcommand{\large}{\fontsize{\@lfs}{\@lfsskip}\selectfont}
@@ -102,23 +85,24 @@
 \newcommand{\normaltext}{\fontseries{m}\fontshape{n}\normalsize}
 
 \newcommand{\@runningheaderfontsize}{\fontsize{\if@smallcaps\@lfs\else\@nfs\fi}{\if@smallcaps\@lfsskip\else\@nfsskip\fi}\selectfont}
-\newcommand{\@pagenumfontsize}{\fontsize{10pt}{10pt}\selectfont}
-
-\newcommand\@singlespaceparskip{6pt}
-\newcommand\@doublespaceparskip{12pt}
+\newcommand{\@pagenumfontsize}{\@realfootnotesize}
 
 \newif\if@parskip
 \DeclareOption{parskip}{\@parskiptrue}
 \AtEndOfPackage{%
   \if@parskip
+    \newcommand\@singlespaceparskip{6pt}
+    \newcommand\@doublespaceparskip{12pt}
     \if@doublespace
       \setlength{\parskip}{\@doublespaceparskip}
-      \gdef\@parskip{\@sdoublespaceparskip}
+      \gdef\@parskip{\@doublespaceparskip}
     \else
       \setlength{\parskip}{\@singlespaceparskip}
       \gdef\@parskip{\@singlespaceparskip}
     \fi
   \else
+    \newcommand\@singlespaceparskip{0pt}
+    \newcommand\@doublespaceparskip{0pt}
     \setlength{\parskip}{0pt}
     \gdef\@parskip{0pt}
   \fi}
@@ -250,35 +234,35 @@
 
 \newcommand\@hscale{1.5pt}
 \newcommand\@modifyfontsizesforhandout{%
-  \renewcommand\@tfs{4pt}
-  \renewcommand\@scfs{4.5pt}
-  \renewcommand\@fnfs{\@nfs}
-  \renewcommand\@sfs{5pt}
-  \renewcommand\@nfs{6pt}
-  \renewcommand\@lfs{7pt}
-  \renewcommand\@Lfs{9pt}
-  \renewcommand\@hfs{11pt}
-  \renewcommand\@Hfs{13pt}
+  \renewcommand\@tfs{7pt}
+  \renewcommand\@scfs{7.5pt}
+  \renewcommand\@fnfs{\if@smallfootnotes8pt\else9pt\fi}
+  \renewcommand\@sfs{8.5pt}
+  \renewcommand\@nfs{9pt}
+  \renewcommand\@lfs{10pt}
+  \renewcommand\@Lfs{11pt}
+  \renewcommand\@hfs{12pt}
+  \renewcommand\@Hfs{14pt}
 
-  \renewcommand\@tfssskip{4.5pt}
-  \renewcommand\@scfssskip{5pt}
-  \renewcommand\@fnfssskip{\@nfssskip}
-  \renewcommand\@sfssskip{5.5pt}
-  \renewcommand\@nfssskip{6.5pt}
-  \renewcommand\@lfssskip{7.5pt}
-  \renewcommand\@Lfssskip{9.5pt}
-  \renewcommand\@hfssskip{11.5pt}
-  \renewcommand\@Hfssskip{13.5pt}
+  \renewcommand\@tfssskip{7.5pt}
+  \renewcommand\@scfssskip{8pt}
+  \renewcommand\@fnfssskip{\if@smallfootnotes8.5pt\else9.5pt\fi}
+  \renewcommand\@sfssskip{9pt}
+  \renewcommand\@nfssskip{9.5pt}
+  \renewcommand\@lfssskip{11pt}
+  \renewcommand\@Lfssskip{12pt}
+  \renewcommand\@hfssskip{13pt}
+  \renewcommand\@Hfssskip{15pt}
 
-  \renewcommand\@tfsdskip{7pt}
-  \renewcommand\@scfsdskip{9pt}
-  \renewcommand\@fnfsdskip{\@nfsdskip}
-  \renewcommand\@sfsdskip{10pt}
-  \renewcommand\@nfsdskip{12pt}
-  \renewcommand\@lfsdskip{14pt}
-  \renewcommand\@Lfsdskip{19pt}
-  \renewcommand\@hfsdskip{22pt}
-  \renewcommand\@Hfsdskip{26pt}
+  \renewcommand\@tfsdskip{14pt}
+  \renewcommand\@scfsdskip{15pt}
+  \renewcommand\@fnfsdskip{\if@smallfootnotes16pt\else18pt\fi}
+  \renewcommand\@sfsdskip{17pt}
+  \renewcommand\@nfsdskip{18pt}
+  \renewcommand\@lfsdskip{20pt}
+  \renewcommand\@Lfsdskip{22pt}
+  \renewcommand\@hfsdskip{24pt}
+  \renewcommand\@Hfsdskip{28pt}
 
   \renewcommand\@tfsskip{\@tfssskip}
   \renewcommand\@scfsskip{\@scfssskip}
@@ -290,13 +274,8 @@
   \renewcommand\@hfsskip{\@hfssskip}
 }
 
-\newcommand\abd@handout{
-  \if@handout%
-    \begin{multicols}{2}%
-  \fi%
-}
 \AtEndDocument{
-  \if@handout
+  \if@handout%
     \end{multicols}\fi}
 
 \newcommand\marginnotesep{0.4in}
@@ -342,6 +321,7 @@
     {\footnotemark[##1]}%
     \marginparwidth=\marginnoteextraspace%
     \marginnote{%
+      \raggedright%
       \hspace*{\marginnotesep}%
       \parbox{\marginnoteextraspace}{%
         \if@doublespace\if@nosinglespmarginnotes\else%
@@ -361,8 +341,6 @@
       \@modifylettersizeforhandout
     \fi
 
-    \@modifyfontsizesforhandout
-
     \if@marginnotes
       \@modifyhandoutformarginnotes
       \@replacefootnotewithmarginnote
@@ -379,8 +357,8 @@
       \ifodd\value{page}{\gdef\headrulewidth{0pt}\fancyhead{}}\else{\gdef\headrulewidth{\@headrulewidth}\lhead{\@oldlhead}\rhead{\@oldrhead}\chead{\@oldchead}}\fi%
       \@@outputpage}
 
-    \renewcommand\@fnfs{11pt}
-    \renewcommand\@fnfsskip{\if@doublespace22pt\else12pt\fi}
+    \@modifyfontsizesforhandout
+    \@smallfootnotestrue
  \fi
  \special{papersize=\@paperwidth,\@paperheight}
 }
@@ -398,6 +376,7 @@
 \newif\if@smallcaps\@smallcapstrue
 \DeclareOption{nosmallcaps}{\@smallcapsfalse}
 
+\newcommand\abd@setotherfontsizes{%
 \newdimen\normaltitlefontsize
 \setlength\normaltitlefontsize{\@Lfs}
 \newdimen\normaltitleextrainfofontsize
@@ -426,6 +405,7 @@
 \newdimen\subsubsectionlineskip
 \setlength\subsubsectionlineskip{\subsubsectionfontsize}
 \addtolength\subsubsectionlineskip{0.25\subsubsectionfontsize}
+}
 
 \newcommand{\normaltitlefont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\normaltitlefontsize}{\normaltitlefontsize}\selectfont}
 \newcommand{\normaltitleextrainfofont}{\fontseries{m}\fontshape{n}\fontsize{\normaltitleextrainfofontsize}{\normaltitleextrainfofontsize}\selectfont}
@@ -511,15 +491,25 @@
     \renewcommand\theendnotes{}
   \fi}
 
-\newcommand\set@footnotesepsingle{\setlength\footnotesep{\@fnfssskip}}
-\newcommand\set@footnotesepdouble{\setlength\footnotesep{\@fnfsdskip}}
+\newcommand\set@footnotesepsingle{\setlength\footnotesep{\dimexpr\@fnfssskip/3\relax}}
+\newcommand\set@footnotesepdouble{\setlength\footnotesep{\dimexpr\@fnfsdskip/2\relax}}
 
 \newcommand\abd@spacing{%
-  \if@doublespace%
+%  \if@doublespace%
     \set@footnotesepdouble%
-  \else%
-    \set@footnotesepsingle%
-  \fi}
+    \gdef\@tfsskip{\@tfsdskip}%
+    \gdef\@scfsskip{\@scfsdskip}%
+    \gdef\@fnfsskip{\@fnfsdskip}%
+    \gdef\@sfsskip{\@sfsdskip}%
+    \gdef\@nfsskip{\@nfsdskip}%
+    \gdef\@lfsskip{\@lfsdskip}%
+    \gdef\@Lfsskip{\@Lfsdskip}%
+    \gdef\@hfsskip{\@hfsdskip}%
+    \gdef\@Hfsskip{\@Hfsdskip}%
+}
+%  \else%
+%    \set@footnotesepsingle%
+%\fi}
 
 \renewcommand\footnoterule{%
   \kern-3\p@
@@ -554,7 +544,6 @@
 \newcommand\maketitle{%
   \if@doublespace\@wasdoublespacetrue\else\@wasdoublespacefalse\fi%
   \start@singlespnoif%
-%  \if@handout\end{multicols}\fi%
   \begingroup
   \let\@n\@nfsskip
   \let\@nfsskip\@nfssskip
@@ -577,10 +566,10 @@
   \end{center}%
   \vspace{\@n}%
   \endgroup%
-%  \if@handout\begin{multicols}{2}\fi%
   \normaltext%
   \thispagestyle{empty}%
   \if@wasdoublespace\en@singlesp\fi%
+  \if@handout\begin{multicols}{2}\fi%
 }
 
 %\footnotesize\setlength\parindent\@parindent\noindent
@@ -977,10 +966,11 @@ outer sep=0pt]{};
   \abd@layout%
   \abd@layouttwo%
   \abd@notes%
-  \abd@spacing%
   \abd@natbib%
   \abd@lua%
-  \abd@handout%
+  \abd@setotherfontsizes%
+  \abd@spacing%
+%  \abd@handout%
 }
 
 \ProcessOptions
