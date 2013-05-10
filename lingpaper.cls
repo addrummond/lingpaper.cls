@@ -38,7 +38,7 @@
 \newcommand\@lfs{14pt}
 \newcommand\@Lfs{16pt}
 \newcommand\@hfs{20pt}
-\newcommand\@Hfs{24pt}
+\newcommand\@Hfs{26pt}
 
 \newcommand\@tfssskip{9pt}
 \newcommand\@scfssskip{10pt}
@@ -48,7 +48,7 @@
 \newcommand\@lfssskip{15pt}
 \newcommand\@Lfssskip{17pt}
 \newcommand\@hfssskip{21pt}
-\newcommand\@Hfssskip{25pt}
+\newcommand\@Hfssskip{27pt}
 
 \newcommand\@tfsdskip{16pt}
 \newcommand\@scfsdskip{18pt}
@@ -58,7 +58,7 @@
 \newcommand\@lfsdskip{28pt}
 \newcommand\@Lfsdskip{32pt}
 \newcommand\@hfsdskip{40pt}
-\newcommand\@Hfsdskip{48pt}
+\newcommand\@Hfsdskip{52pt}
 
 \newcommand\@tfsskip{\@tfssskip}
 \newcommand\@scfsskip{\@scfssskip}
@@ -71,6 +71,40 @@
 
 \newif\if@doublespace
 \DeclareOption{doublespace}{\@doublespacetrue}
+
+\newif\if@eleven
+\DeclareOption{11pt}{\@eleventrue}
+\newcommand\abd@eleven{%
+\renewcommand\@tfs{7pt}%
+\renewcommand\@scfs{8pt}%
+\renewcommand\@fnfs{\if@smallfootnotes9pt\else10pt\fi}%
+\renewcommand\@sfs{10pt}%
+\renewcommand\@nfs{11pt}%
+\renewcommand\@lfs{13.5pt}%
+\renewcommand\@Lfs{15pt}%
+\renewcommand\@hfs{19pt}%
+\renewcommand\@Hfs{25pt}%
+%
+\renewcommand\@tfssskip{8pt}%
+\renewcommand\@scfssskip{9pt}%
+\renewcommand\@fnfssskip{\if@smallfootnotes10pt\else11pt\fi}%
+\renewcommand\@sfssskip{11pt}%
+\renewcommand\@nfssskip{12pt}%
+\renewcommand\@lfssskip{14.5pt}%
+\renewcommand\@Lfssskip{16pt}%
+\renewcommand\@hfssskip{20pt}%
+\renewcommand\@Hfssskip{26pt}%
+%
+\renewcommand\@tfsdskip{14pt}%
+\renewcommand\@scfsdskip{16pt}%
+\renewcommand\@fnfsdskip{\if@smallfootnotes18pt\else20pt\fi}%
+\renewcommand\@sfsdskip{20pt}%
+\renewcommand\@nfsdskip{22pt}%
+\renewcommand\@lfsdskip{27pt}%
+\renewcommand\@Lfsdskip{30pt}%
+\renewcommand\@hfsdskip{38pt}%
+\renewcommand\@Hfsdskip{50pt}%
+}
 
 \newcommand{\tiny}{\fontsize{\@tfs}{\@tfsskip}\selectfont}
 \newcommand{\scriptsize}{\fontsize{\@scfs}{\@scfsskip}\selectfont}
@@ -385,10 +419,12 @@
 \newdimen\bigtitlefontsize
 \setlength\bigtitlefontsize{\@Hfs}
 \newdimen\bigtitleextrainfofontsize
-\setlength\bigtitleextrainfofontsize{\@hfs}
+\setlength\bigtitleextrainfofontsize{\@lfs}
 
-\newdimen\chapterfontsize
-\setlength\chapterfontsize{\@hfs}
+\newdimen\chapternumberfontsize
+\setlength\chapternumberfontsize{\@Hfs}
+\newdimen\chapternamefontsize
+\setlength\chapternamefontsize{\@hfs}
 \newdimen\sectionfontsize
 \setlength\sectionfontsize{\@Lfs}
 \newdimen\subsectionfontsize
@@ -413,8 +449,8 @@
 \newcommand{\bigtitlefont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\bigtitlefontsize}{\bigtitlefontsize}\selectfont}
 \newcommand{\bigtitlextrainfofont}{\fontseries{m}\fontshape{n}\fontsize{\bigtitleextrainfofontsize}{\bigtitleextrainfofontsize}\selectfont}
 
-\newcommand{\chapterfont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
-\newcommand{\chapternamefont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\chapterfontsize}{\chapterfontsize}\selectfont}
+\newcommand{\chapternumberfont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\chapternumberfontsize}{\chapternumberfontsize}\selectfont}
+\newcommand{\chapternamefont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\chapternamefontsize}{\chapternamefontsize}\selectfont}
 \newcommand{\sectionfont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\sectionfontsize}{\sectionlineskip}\selectfont}
 \newcommand{\subsectionfont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\subsectionfontsize}{\subsectionlineskip}\selectfont}
 \newcommand{\subsubsectionfont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\subsubsectionfontsize}{\subsubsectionlineskip}\selectfont}
@@ -441,21 +477,21 @@
 
 \newcommand\chapter{\@ifnextchar*\@chapterstar\@chapternostar}
 \newcommand\@chapternostar[1]{%
-  \chapterfont%
+  \chapternumberfont%
   \setcounter{section}{0}%
   \addtocounter{chapter}{1}%
   \addcontentsline{toc}{chapter}{\protect\numberline{\arabic{chapter}\hspace{1em}\@modifysectheadtext{#1}}}%
   \newpage%
   \thispagestyle{empty}%
-  {\chapterfont\noindent Chapter \arabic{chapter}\par\nobreak\vspace{8pt}\noindent\chapternamefont#1}%
-  \vspace{\chapterfontsize}%
+  {\chapternumberfont\noindent \arabic{chapter}\par\nobreak\vspace{8pt}\noindent\chapternamefont#1}%
+  \vspace{\chapternamefontsize}%
   \@afterindentfalse\@afterheading\par\normalfont\normalsize}
 \newcommand\@chapterstar[2]{%
-  \chapterfont%
+  \chapternumberfont%
   \setcounter{section}{0}%
   \newpage%
   \thispagestyle{empty}%
-  {\chapterfont\noindent \@modifysectheadtext{#2}\vspace{\chapterfontsize}}\newline\normaltext\noindent}
+  {\chapternamefont\noindent \@modifysectheadtext{#2}\vspace{\chapternamefontsize}}\newline\normaltext\noindent}
 
 \newcommand\section{\@ifnextchar*{\section@two}{\section@one}}
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
@@ -969,6 +1005,7 @@ outer sep=0pt]{};
   \abd@natbib%
   \abd@lua%
   \abd@setotherfontsizes%
+  \abd@eleven%
   \abd@spacing%
 %  \abd@handout%
 }

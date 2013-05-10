@@ -6,7 +6,7 @@ LaTeX features which you want to use.
 
 The basic features are as follows:
 
-* Fixed 12pt font size for main text and section headings.
+* Default 12pt font size for main text with option of 11pt.
 * Wide margins.
 * Footnotes same size as main text by default except in "handout" mode.
 * "handout" option sets asymmetric margins for 2x2 printing and places headers only on even-numbered pages.
@@ -20,6 +20,7 @@ Package options:
 * `[indenty]` Turns on a more indent-heavy style, where section headings and the first paragraphs of sections are indented. Entire abstract is also indented by same amount. Looks nice in papers but not so great with handouts.
 * `[handout]` Asymmetric margins for 2x2 printing. Margins narrower than the defauly unless `[marginnotes]` option is also set. Headers printed
 only on even-numbered pages.
+* `[11pt]` Normal text is 11pt instead of default 12pt.
 * `[nosectionperiods]` By default there is a period after the section number in section headings. This option removes it.
 * `[nosmallcaps]` Don't use smallcaps for section headings, running headers, etc.
 * `[endnotes]` Endnotes instead of footnotes (notes are still specified using the `footnote` command). You may specify position of endnotes using `\theendnotes`.
