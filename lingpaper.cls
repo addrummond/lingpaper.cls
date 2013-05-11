@@ -1,7 +1,7 @@
 \ProvidesClass{lingpaper}[2013/03/02 Linguistics papers]
 \NeedsTeXFormat{LaTeX2e}
 \newenvironment{description}{}{}
-\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginnote,ifoddpage,enumitem,pdftexcmds,tikz,amsmath,multicol}
+\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginnote,ifoddpage,enumitem,pdftexcmds,tikz,amsmath,multicol,hyphenat}
 \AtBeginDocument{\usetikzlibrary{shapes.geometric}}
 
 %
@@ -394,9 +394,9 @@
     \@modifyfontsizesforhandout
     \@smallfootnotestrue
  \fi
-% \pdfpagewidth\@paperwidth
-% \pdfpageheight\@paperheight
- \special{papersize=\@paperwidth,\@paperheight}
+\pdfpagewidth\@paperwidth
+\pdfpageheight\@paperheight
+%\special{papersize=\@paperwidth,\@paperheight}
 }
 
 %
@@ -411,6 +411,10 @@
 %
 \newif\if@smallcaps\@smallcapstrue
 \DeclareOption{nosmallcaps}{\@smallcapsfalse}
+
+\newif\if@hyphensect
+\DeclareOption{hyphensect}{\@hyphensecttrue}
+\newcommand\@sectnohyphens[1]{\if@hyphensect#1\else\nohyphens{#1}\fi}
 
 \newcommand\abd@setotherfontsizes{%
 \newdimen\normaltitlefontsize
@@ -475,7 +479,7 @@
 
 \newif\if@dontindentsections\@dontindentsectionsfalse
 
-\newcommand\@modifysectheadtext[1]{\if@smallcaps\oldstylenums{#1}\else#1\fi}
+\newcommand\@modifysectheadtext[1]{\@sectnohyphens{\if@smallcaps\oldstylenums{#1}\else#1\fi}}
 
 \definecolor{chapter-gray}{gray}{0.4}
 
@@ -497,7 +501,7 @@
   \vspace{\dimexpr-\chapternumberfontsize + (\@chlinethickness * 4)\relax}%
   \newline\@chline%
   \vspace{-\chapternumberfontsize}\vspace{\chapternamefontsize}\vspace{\dimexpr \@chlinethickness * 2\relax}%
-  \newline\chapternamefont#1}%
+  \newline\chapternamefont\@sectnohyphens{#1}}%
   \vspace{\dimexpr\chapternamefontsize *2\relax}%
   \@afterindentfalse\@afterheading\par\normalfont\normalsize}
 \newcommand\@chapterstar[2]{%

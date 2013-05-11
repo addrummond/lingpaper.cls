@@ -32,6 +32,7 @@ only on even-numbered pages.
 * `[bigtitle]` Makes paper/book title big (might want this for book drafts).
 * `[largeabstract]` By default, text in the `abstract` environment is set to `\footnotesize`. If this option is set the normal font size is used.
 * `[parskip]` Add vertical space between paragraphs as well as indenting.
+* `[hyphensect]` By default, hyphens are not inserted in chapter and section headings. This option turns hyphenation on.
 
 Commands:
 
