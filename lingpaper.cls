@@ -422,7 +422,7 @@
 \setlength\bigtitleextrainfofontsize{\@lfs}
 
 \newdimen\chapternumberfontsize
-\setlength\chapternumberfontsize{\@Hfs}
+\setlength\chapternumberfontsize{\dimexpr\@Hfs * 2\relax}
 \newdimen\chapternamefontsize
 \setlength\chapternamefontsize{\@hfs}
 \newdimen\sectionfontsize
@@ -475,6 +475,14 @@
 
 \newcommand\@modifysectheadtext[1]{\if@smallcaps\oldstylenums{#1}\else#1\fi}
 
+\definecolor{chapter-gray}{gray}{0.4}
+
+\newcommand\@chlinethickness{4pt}
+\newcommand\@chline{%
+  {\fontsize{1pt}{1pt}\selectfont\begin{tikzpicture}
+  \path[chapter-gray,fill=chapter-gray] (0,0) rectangle ($ (\linewidth,\@chlinethickness)+(-1pt,0) $);
+  \end{tikzpicture}}}
+
 \newcommand\chapter{\@ifnextchar*\@chapterstar\@chapternostar}
 \newcommand\@chapternostar[1]{%
   \chapternumberfont%
@@ -483,8 +491,12 @@
   \addcontentsline{toc}{chapter}{\protect\numberline{\arabic{chapter}\hspace{1em}\@modifysectheadtext{#1}}}%
   \newpage%
   \thispagestyle{empty}%
-  {\chapternumberfont\noindent \arabic{chapter}\par\nobreak\vspace{8pt}\noindent\chapternamefont#1}%
-  \vspace{\chapternamefontsize}%
+  {\chapternumberfont\noindent \hfill {\color{chapter-gray}\arabic{chapter}}%
+  \vspace{\dimexpr-\chapternumberfontsize + (\@chlinethickness * 4)\relax}%
+  \newline\@chline%
+  \vspace{-\chapternumberfontsize}\vspace{\chapternamefontsize}\vspace{\dimexpr \@chlinethickness * 2\relax}%
+  \newline\chapternamefont#1}%
+  \vspace{\dimexpr\chapternamefontsize *2\relax}%
   \@afterindentfalse\@afterheading\par\normalfont\normalsize}
 \newcommand\@chapterstar[2]{%
   \chapternumberfont%
