@@ -394,6 +394,8 @@
     \@modifyfontsizesforhandout
     \@smallfootnotestrue
  \fi
+ \pdfpagewidth\@paperwidth
+ \pdfpageheight\@paperheight
  \special{papersize=\@paperwidth,\@paperheight}
 }
 
@@ -479,8 +481,8 @@
 
 \newcommand\@chlinethickness{4pt}
 \newcommand\@chline{%
-  {\fontsize{1pt}{1pt}\selectfont\begin{tikzpicture}
-  \path[chapter-gray,fill=chapter-gray] (0,0) rectangle ($ (\linewidth,\@chlinethickness)+(-1pt,0) $);
+  {\fontsize{1pt}{1pt}\selectfont\hspace*{1pt}\begin{tikzpicture}
+  \path[chapter-gray,fill=chapter-gray] (0,0) rectangle ($ (\linewidth,\@chlinethickness)+(-2pt,0) $);
   \end{tikzpicture}}}
 
 \newcommand\chapter{\@ifnextchar*\@chapterstar\@chapternostar}
