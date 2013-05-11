@@ -394,8 +394,8 @@
     \@modifyfontsizesforhandout
     \@smallfootnotestrue
  \fi
- \pdfpagewidth\@paperwidth
- \pdfpageheight\@paperheight
+% \pdfpagewidth\@paperwidth
+% \pdfpageheight\@paperheight
  \special{papersize=\@paperwidth,\@paperheight}
 }
 
