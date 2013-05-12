@@ -545,8 +545,12 @@
     \renewcommand\theendnotes{}
   \fi}
 
-\newcommand\set@footnotesepsingle{\setlength\footnotesep{\dimexpr\@fnfssskip/3\relax}}
-\newcommand\set@footnotesepdouble{\setlength\footnotesep{\dimexpr\@fnfsdskip/2\relax}}
+\newdimen\tmp@fnsunit
+\setlength\tmp@fnsunit{\dimexpr\@fnfssskip/8}
+\newdimen\tmp@fndunit
+\setlength\tmp@fndunit{\dimexpr\@fnfsdskip/8}
+\newcommand\set@footnotesepsingle{\setlength\footnotesep{\dimexpr\tmp@fnsunit*5\relax}}
+\newcommand\set@footnotesepdouble{\setlength\footnotesep{\dimexpr\tmp@fndunit*5\relax}}
 
 \newcommand\abd@spacing{%
 %  \if@doublespace%
