@@ -489,11 +489,16 @@
   \path[chapter-gray,fill=chapter-gray] (0,0) rectangle ($ (\linewidth,\@chlinethickness)+(-2pt,0) $);
   \end{tikzpicture}}}
 
+% We detect if the document uses any chapters so we know whether references should
+% be a chapter or section heading.
+\newif\if@thereweresomechapters
+
 \newif\if@chapterstar
 \newcommand\chapter{\@ifnextchar*\@chapterstar\@chapternostar}
 \newcommand\@chapterstar[2]{\@chapterstartrue\@mychapter{#2}}
 \newcommand\@chapternostar[1]{\@chapterstarfalse\@mychapter{#1}}
 \newcommand\@mychapter[1]{%
+  \@thereweresomechapterstrue%
   \chapternumberfont%
   \if@chapterstar\else%
     \setcounter{section}{0}%
@@ -679,13 +684,13 @@
        {\@latex@warning{Empty `thebibliography' environment}}%
       \endlist}
 
-% To make it work with natbib, which redefines thebibliography.
 \newcommand\abd@natbib{%
+  \renewcommand\bibsection{\@dontindentsectionstrue\if@thereweresomechapters\chapter*{\refname}\else\section*{\refname}\fi\@dontindentsectionsfalse}
+  % To make it work with natbib, which redefines thebibliography.
   \@ifpackageloaded{natbib}{
     \global\let\bibname\refname
     \renewcommand\bibfont{}
-    \renewcommand\bibsection{\@dontindentsectionstrue\section*{\refname}\@dontindentsectionsfalse}
-    \renewcommand\bibname{My bib!}
+    \renewcommand\bibname{\refname}
     \setlength\bibsep{0pt}
     \setlength\bibhang{\@parindent}
   }{}}
