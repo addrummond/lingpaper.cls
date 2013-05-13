@@ -489,27 +489,30 @@
   \path[chapter-gray,fill=chapter-gray] (0,0) rectangle ($ (\linewidth,\@chlinethickness)+(-2pt,0) $);
   \end{tikzpicture}}}
 
+\newif\if@chapterstar
 \newcommand\chapter{\@ifnextchar*\@chapterstar\@chapternostar}
-\newcommand\@chapternostar[1]{%
+\newcommand\@chapterstar[2]{\@chapterstartrue\@mychapter{#2}}
+\newcommand\@chapternostar[1]{\@chapterstarfalse\@mychapter{#1}}
+\newcommand\@mychapter[1]{%
   \chapternumberfont%
-  \setcounter{section}{0}%
-  \addtocounter{chapter}{1}%
-  \addcontentsline{toc}{chapter}{\protect\numberline{\arabic{chapter}\hspace{1em}\@modifysectheadtext{#1}}}%
+  \if@chapterstar\else%
+    \setcounter{section}{0}%
+    \addtocounter{chapter}{1}%
+    \addcontentsline{toc}{chapter}{\protect\numberline{\arabic{chapter}\hspace{1em}\@modifysectheadtext{#1}}}%
+  \fi%
   \newpage%
   \thispagestyle{empty}%
-  {\chapternumberfont\noindent \hfill {\color{chapter-gray}\arabic{chapter}}%
-  \vspace{\dimexpr-\chapternumberfontsize + (\@chlinethickness * 4)\relax}%
-  \newline\@chline%
+  \if@chapterstar\else%
+    {\chapternumberfont\noindent \hfill {\color{chapter-gray}\arabic{chapter}}%
+    \vspace{\dimexpr-\chapternumberfontsize + (\@chlinethickness * 4)\relax}}%
+    \newline%
+  \fi%
+  \noindent\@chline%
   \vspace{-\chapternumberfontsize}\vspace{\chapternamefontsize}\vspace{\dimexpr \@chlinethickness * 2\relax}%
-  \newline\chapternamefont\@sectnohyphens{#1}}%
+  \newline%
+  {\chapternamefont\@sectnohyphens{#1}}%
   \vspace{\dimexpr\chapternamefontsize *2\relax}%
   \@afterindentfalse\@afterheading\par\normalfont\normalsize}
-\newcommand\@chapterstar[2]{%
-  \chapternumberfont%
-  \setcounter{section}{0}%
-  \newpage%
-  \thispagestyle{empty}%
-  {\chapternamefont\noindent \@modifysectheadtext{#2}\vspace{\chapternamefontsize}}\newline\normaltext\noindent}
 
 \newcommand\section{\@ifnextchar*{\section@two}{\section@one}}
 \newcommand\subsection{\@ifnextchar*{\subsection@two}{\subsection@one}}
