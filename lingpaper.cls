@@ -75,6 +75,7 @@
 \newif\if@eleven
 \DeclareOption{11pt}{\@eleventrue}
 \newcommand\abd@eleven{%
+\if@eleven
 \renewcommand\@tfs{7pt}%
 \renewcommand\@scfs{8pt}%
 \renewcommand\@fnfs{\if@smallfootnotes9pt\else10pt\fi}%
@@ -104,6 +105,7 @@
 \renewcommand\@Lfsdskip{30pt}%
 \renewcommand\@hfsdskip{38pt}%
 \renewcommand\@Hfsdskip{50pt}%
+\fi
 }
 
 \newcommand{\tiny}{\fontsize{\@tfs}{\@tfsskip}\selectfont}
