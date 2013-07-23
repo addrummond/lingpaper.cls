@@ -599,7 +599,7 @@
 \renewcommand\thanks[1]{%
   \setcounter{@oldfn}{\value{footnote}}%
   \let\thefootnote\@star%
-  \footnotemark\footnotetext{#1}%
+  \footnotemark\footnotetext{\if@doublespace\en@singlesp\fi#1}%
   \setcounter{footnote}{\value{@oldfn}}}
 
 %
