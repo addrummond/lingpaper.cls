@@ -211,36 +211,43 @@
 \fancyheadoffset{0in}
 \fancyfootoffset{0in}
 
+\newif\if@noheader
+\DeclareOption{noheader}{\@noheadertrue}
+
 \pagestyle{fancyplain}
 %\renewcommand\headrulewidth{0pt}
-\newcommand\leftheader{\@pagenumfontsize\textit{\ifdefined\@shorttitle\@shorttitle\else\@title\fi}}
+\newcommand\leftheader{\if@noheader\else\@pagenumfontsize\textit{\ifdefined\@shorttitle\@shorttitle\else\@title\fi}\fi}
 \newcommand\rightheader{\@pagenumfontsize\@author}
 \newcommand\centerheader{}
 
 \AtEndOfPackage{
   \if@handout%
-    \fancyhead[L]{\leftheader}%
-    \fancyhead[C]{}%
-    \fancyhead[R]{\rightheader}%
+    \if@noheader\else%
+      \fancyhead[L]{\leftheader}%
+      \fancyhead[C]{}%
+      \fancyhead[R]{\rightheader}%
+    \fi%
     \fancyfoot[R]{\@pagenumfontsize\thepage}%
     \fancyfoot[L,C]{}%
   \else%
     \fancyhead{}%
     % Can't get twoside mode to work so can't use [CE] and [CO].
-    \fancyhead[C]{%
-      \checkoddpage\ifoddpage%
-        \if@smallcaps%
-          \textsc{\@runningheaderfontsize\MakeLowercase\@shorttitle}%
+    \if@noheader\else%
+      \fancyhead[C]{%
+        \checkoddpage\ifoddpage%
+          \if@smallcaps%
+            \textsc{\@runningheaderfontsize\MakeLowercase\@shorttitle}%
+          \else%
+            \textit{\@runningheaderfontsize\@shorttitle}%
+          \fi%
         \else%
-          \textit{\@runningheaderfontsize\@shorttitle}%
-        \fi%
-      \else%
-        \if@smallcaps%
-          \textsc{\@runningheaderfontsize\MakeLowercase\@author}%
-        \else%
-          \textit{\@runningheaderfontsize\@author}%
-        \fi%
-      \fi}%
+          \if@smallcaps%
+            \textsc{\@runningheaderfontsize\MakeLowercase\@author}%
+          \else%
+            \textit{\@runningheaderfontsize\@author}%
+          \fi%
+        \fi}%
+    \fi%
     \fancyfoot[R]{\@pagenumfontsize\thepage}%
     \fancyfoot[L,C]{}%
     \renewcommand\headrulewidth{0pt}%
@@ -563,7 +570,7 @@
 \newcommand\set@footnotesepdouble{\setlength\footnotesep{\dimexpr\tmp@fndunit*5\relax}}
 
 \newcommand\abd@spacing{%
-%  \if@doublespace%
+  \if@doublespace%
     \set@footnotesepdouble%
     \gdef\@tfsskip{\@tfsdskip}%
     \gdef\@scfsskip{\@scfsdskip}%
@@ -574,10 +581,9 @@
     \gdef\@Lfsskip{\@Lfsdskip}%
     \gdef\@hfsskip{\@hfsdskip}%
     \gdef\@Hfsskip{\@Hfsdskip}%
-}
-%  \else%
-%    \set@footnotesepsingle%
-%\fi}
+  \else%
+    \set@footnotesepsingle%
+\fi}
 
 \renewcommand\footnoterule{%
   \kern-3\p@
