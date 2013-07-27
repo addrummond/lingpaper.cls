@@ -62,7 +62,7 @@
 
 \newcommand\@tfsskip{\@tfssskip}
 \newcommand\@scfsskip{\@scfssskip}
-\newcommand\@fnfsskip{\fnfssskip}
+\newcommand\@fnfsskip{\@fnfssskip}
 \newcommand\@sfsskip{\@sfssskip}
 \newcommand\@nfsskip{\@nfssskip}
 \newcommand\@lfsskip{\@lfssskip}
