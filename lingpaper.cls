@@ -217,7 +217,7 @@
 \pagestyle{fancyplain}
 %\renewcommand\headrulewidth{0pt}
 \newcommand\leftheader{\if@noheader\else\@pagenumfontsize\textit{\ifdefined\@shorttitle\@shorttitle\else\@title\fi}\fi}
-\newcommand\rightheader{\@pagenumfontsize\@author}
+\newcommand\rightheader{\ifdefined\@author\@pagenumfontsize\@author\fi}
 \newcommand\centerheader{}
 
 \AtEndOfPackage{
@@ -241,10 +241,12 @@
             \textit{\@runningheaderfontsize\@shorttitle}%
           \fi%
         \else%
-          \if@smallcaps%
-            \textsc{\@runningheaderfontsize\MakeLowercase\@author}%
-          \else%
-            \textit{\@runningheaderfontsize\@author}%
+          \ifdefined\@author%
+            \if@smallcaps%
+              \textsc{\@runningheaderfontsize\MakeLowercase\@author}%
+            \else%
+              \textit{\@runningheaderfontsize\@author}%
+            \fi%
           \fi%
         \fi}%
     \fi%
@@ -618,22 +620,22 @@
 \newcommand\maketitle{%
   \if@doublespace\@wasdoublespacetrue\else\@wasdoublespacefalse\fi%
   \start@singlespnoif%
-  \begingroup
-  \let\@n\@nfsskip
-  \let\@nfsskip\@nfssskip
+  \begingroup%
+  \let\@n\@nfsskip%
+  \let\@nfsskip\@nfssskip%
   \begin{center}%
-    \if@bigtitle\bigtitlefont\else\normaltitlefont\fi
+    \if@bigtitle\bigtitlefont\else\normaltitlefont\fi%
     \@title\vspace{\@nfsskip}\\
-    \if@bigtitle\bigtitlextrainfofont\else\normaltitleextrainfofont\fi
+    \if@bigtitle\bigtitlextrainfofont\else\normaltitleextrainfofont\fi%
     \@author\\
     \ifdefined\@affil%
       \vspace{\dimexpr\@nfsskip/4\relax}\normaltext\@affil\\%
-    \else
+    \else%
       %\\%
     \fi%
    \footnotesize%
    \vspace{\@nfsskip}%
-   \@date
+   \@date%
    \ifdefined\@location%
      \vspace{\dimexpr\@fnfsskip/4\relax}\\\@location\\%
    \else\\\fi%
