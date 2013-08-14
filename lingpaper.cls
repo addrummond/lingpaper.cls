@@ -490,7 +490,7 @@
 
 \newif\if@dontindentsections\@dontindentsectionsfalse
 
-\newcommand\@modifysectheadtext[1]{\@sectnohyphens{\if@smallcaps\oldstylenums{#1}\else#1\fi}}
+\newcommand\@modifysectheadtext[1]{\@sectnohyphens{#1}}
 
 \definecolor{chapter-gray}{gray}{0.4}
 
