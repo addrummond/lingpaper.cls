@@ -1,7 +1,7 @@
 \ProvidesClass{lingpaper}[2013/03/02 Linguistics papers]
 \NeedsTeXFormat{LaTeX2e}
 \newenvironment{description}{}{}
-\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,marginnote,ifoddpage,enumitem,pdftexcmds,tikz,amsmath,multicol,hyphenat}
+\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,ifoddpage,enumitem,pdftexcmds,tikz,amsmath,multicol,hyphenat}
 \AtBeginDocument{\usetikzlibrary{shapes.geometric}}
 
 %
@@ -22,7 +22,8 @@
 %
 % Misc. definitions.
 %
-\newcommand{\thepage}{\arabic{page}}
+\newcommand\thepage{\arabic{page}}
+\newcommand\smallvspace{\vspace*{\dimexpr\@nfs/4}}
 
 %
 % Basic font setup.
@@ -216,15 +217,18 @@
 
 \pagestyle{fancyplain}
 %\renewcommand\headrulewidth{0pt}
-\newcommand\leftheader{\if@noheader\else\@pagenumfontsize\textit{\ifdefined\@shorttitle\@shorttitle\else\@title\fi}\fi}
-\newcommand\rightheader{\ifdefined\@author\@pagenumfontsize\@author\fi}
-\newcommand\centerheader{}
+\newcommand\@leftheaderfont[1]{\if@handout#1\else\textit{#1}\fi}
+\newcommand\@rightheaderfont[1]{#1}
+\newcommand\@centerheaderfont[1]{#1}
+\newcommand\leftheader{\if@noheader\else\@pagenumfontsize\@leftheaderfont{\if@handout\@date\else\ifdefined\@shorttitle\@shorttitle\else\@title\fi\fi}\fi}
+\newcommand\rightheader{\@rightheaderfont{\ifdefined\@author\@pagenumfontsize\@author\fi}}
+\newcommand\centerheader{\if@handout\@centerheaderfont{\@shorttitle}\fi}
 
 \AtEndOfPackage{
   \if@handout%
     \if@noheader\else%
       \fancyhead[L]{\leftheader}%
-      \fancyhead[C]{}%
+      \fancyhead[C]{\centerheader}%
       \fancyhead[R]{\rightheader}%
     \fi%
     \fancyfoot[R]{\@pagenumfontsize\thepage}%
@@ -262,16 +266,18 @@
 % Handout variant.
 %
 \newcommand\@modifylettersizeforhandout{%
-  \renewcommand\@paperwidth{11in}
-  \renewcommand\@paperheight{8.5in}
-  \setlength\paperwidth{11in}
-  \setlength\paperheight{8.5in}
-  \setlength\oddsidemargin{0in}
-  \setlength\evensidemargin{0in}
-  \setlength\topmargin{-1in}
-  \setlength\textheight{6.5in}
-  \setlength\textwidth{9in}
-  \setlength\columnsep{0.5in}}
+  \renewcommand\@paperwidth{11in}%
+  \renewcommand\@paperheight{8.5in}%
+  \setlength\paperwidth{11in}%
+  \setlength\paperheight{8.5in}%
+  \setlength\oddsidemargin{0in}%
+  \setlength\evensidemargin{0in}%
+  \setlength\topmargin{-1in}%
+  \setlength\textheight{6.5in}%
+  \setlength\textwidth{9in}%
+  \setlength\columnsep{0.5in}%
+  \pdfpagewidth\@paperwidth%
+  \pdfpageheight\@paperheight}
 %\newcommand\@modifyafourforhandout{%
 %  \setlength\oddsidemargin{-5.4mm}
 %  \setlength\evensidemargin{-15.4mm}
@@ -279,100 +285,54 @@
 
 \newcommand\@hscale{1.5pt}
 \newcommand\@modifyfontsizesforhandout{%
-  \renewcommand\@tfs{7pt}
-  \renewcommand\@scfs{7.5pt}
-  \renewcommand\@fnfs{\if@smallfootnotes8pt\else9pt\fi}
-  \renewcommand\@sfs{8.5pt}
-  \renewcommand\@nfs{9pt}
-  \renewcommand\@lfs{10pt}
-  \renewcommand\@Lfs{11pt}
-  \renewcommand\@hfs{12pt}
-  \renewcommand\@Hfs{14pt}
-
-  \renewcommand\@tfssskip{7.5pt}
-  \renewcommand\@scfssskip{8pt}
-  \renewcommand\@fnfssskip{\if@smallfootnotes8.5pt\else9.5pt\fi}
-  \renewcommand\@sfssskip{9pt}
-  \renewcommand\@nfssskip{9.5pt}
-  \renewcommand\@lfssskip{11pt}
-  \renewcommand\@Lfssskip{12pt}
-  \renewcommand\@hfssskip{13pt}
-  \renewcommand\@Hfssskip{15pt}
-
-  \renewcommand\@tfsdskip{14pt}
-  \renewcommand\@scfsdskip{15pt}
-  \renewcommand\@fnfsdskip{\if@smallfootnotes16pt\else18pt\fi}
-  \renewcommand\@sfsdskip{17pt}
-  \renewcommand\@nfsdskip{18pt}
-  \renewcommand\@lfsdskip{20pt}
-  \renewcommand\@Lfsdskip{22pt}
-  \renewcommand\@hfsdskip{24pt}
-  \renewcommand\@Hfsdskip{28pt}
-
-  \renewcommand\@tfsskip{\@tfssskip}
-  \renewcommand\@scfsskip{\@scfssskip}
-  \renewcommand\@fnfsskip{\@nfssskip}
-  \renewcommand\@sfsskip{\@sfssskip}
-  \renewcommand\@nfsskip{\@nfssskip}
-  \renewcommand\@lfsskip{\@lfssskip}
-  \renewcommand\@Lfsskip{\@Lfssskip}
-  \renewcommand\@hfsskip{\@hfssskip}
+  \renewcommand\@tfs{7pt}%
+  \renewcommand\@scfs{7.5pt}%
+  \renewcommand\@fnfs{\if@smallfootnotes8pt\else9pt\fi}%
+  \renewcommand\@sfs{8.5pt}%
+  \renewcommand\@nfs{9pt}%
+  \renewcommand\@lfs{10pt}%
+  \renewcommand\@Lfs{11pt}%
+  \renewcommand\@hfs{12pt}%
+  \renewcommand\@Hfs{14pt}%
+  %
+  \renewcommand\@tfssskip{7.5pt}%
+  \renewcommand\@scfssskip{8pt}%
+  \renewcommand\@fnfssskip{\if@smallfootnotes8.5pt\else9.5pt\fi}%
+  \renewcommand\@sfssskip{9pt}%
+  \renewcommand\@nfssskip{9.5pt}%
+  \renewcommand\@lfssskip{11pt}%
+  \renewcommand\@Lfssskip{12pt}%
+  \renewcommand\@hfssskip{13pt}%
+  \renewcommand\@Hfssskip{15pt}%
+  %
+  \renewcommand\@tfsdskip{14pt}%
+  \renewcommand\@scfsdskip{15pt}%
+  \renewcommand\@fnfsdskip{\if@smallfootnotes16pt\else18pt\fi}%
+  \renewcommand\@sfsdskip{17pt}%
+  \renewcommand\@nfsdskip{18pt}%
+  \renewcommand\@lfsdskip{20pt}%
+  \renewcommand\@Lfsdskip{22pt}%
+  \renewcommand\@hfsdskip{24pt}%
+  \renewcommand\@Hfsdskip{28pt}%
+  %
+  \renewcommand\@tfsskip{\@tfssskip}%
+  \renewcommand\@scfsskip{\@scfssskip}%
+  \renewcommand\@fnfsskip{\@nfssskip}%
+  \renewcommand\@sfsskip{\@sfssskip}%
+  \renewcommand\@nfsskip{\@nfssskip}%
+  \renewcommand\@lfsskip{\@lfssskip}%
+  \renewcommand\@Lfsskip{\@Lfssskip}%
+  \renewcommand\@hfsskip{\@hfssskip}%
 }
 
 \AtEndDocument{
   \if@handout%
     \end{multicols}\fi}
 
-\newcommand\marginnotesep{0.4in}
-\newcommand\marginnoteextraspace{1.5in}
-
-\newcommand\@modifyhandoutformarginnotes{%
-  \addtolength\textwidth{-\marginnoteextraspace}
-  \addtolength\textwidth{-\marginnotesep}
-}
-
-\newif\if@marginnotes
-\DeclareOption{marginnotes}{\@marginnotestrue}
-\newif\if@largemarginnotes
-\DeclareOption{largemarginnotes}{\@largemarginnotestrue}
-\newif\if@raggedmarginnotes
-\DeclareOption{raggedmarginnotes}{\@raggedmarginnotestrue}
-\newif\if@nosinglespmarginnotes
-\DeclareOption{nosinglespmarginnotes}{\@nosinglespmarginnotestrue}
-
-\newcommand\@mnfootnotesize{\if@largemarginnotes\footnotesize\else\scriptsize\fi}
-
 \newif\if@tmpevenpagebool
 \newcommand\ifevenpage{%
   \ifoddpage\@tmpevenpageboolfalse\else\@tmpevenpagebooltrue\fi%
   \if@tmpevenpagebool}
-
-\AtEndOfPackage{%
-  \if@largemarginnotes
-    \newcommand\marginnotevsep{\@fnfs}
-  \else
-    \newcommand\marginnotevsep{\@scfs}
-  \fi}
-
-% TODO: Redefining entire footnote command is a bit of a hack.
-\newcommand\@replacefootnotewithmarginnote{%
-  % Redefine command that marginfix package uses to figure out which page to put notes on.
-%  \def\MFX@leftmargin{\fi\checkoddpage\ifevenpage}
-%  \def\MFX@leftmargin{\fi\checkoddpage\if10}
-%  \gdef\@mn@margintest{\@tempswatrue}%
-  \if@raggedmarginnotes\else\renewcommand*\raggedrightmarginnote{}\fi%
-  \renewcommand\footnote[2][\thefootnote]{%
-    \stepcounter{footnote}%
-    {\footnotemark[##1]}%
-    \marginparwidth=\marginnoteextraspace%
-    \marginnote{%
-      \raggedright%
-      \hspace*{\marginnotesep}%
-      \parbox{\marginnoteextraspace}{%
-        \if@doublespace\if@nosinglespmarginnotes\else%
-          \start@singlesp%
-        \fi\fi%
-        \@mnfootnotesize\footnotemark[##1]##2}}}}
 
 \let\@@outputpage\@outputpage
 \newif\if@handout
@@ -384,11 +344,6 @@
       \@modifyafourforhandout
     \else
       \@modifylettersizeforhandout
-    \fi
-
-    \if@marginnotes
-      \@modifyhandoutformarginnotes
-      \@replacefootnotewithmarginnote
     \fi
 
     \fancyheadoffset{0in}
