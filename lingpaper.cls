@@ -954,11 +954,11 @@ outer sep=0pt]{};
 }
 
 \newdimen\@tmplinguexdimen
-\newenvironment{xbullets}{%
+\newenvironment{xbullets}[1][]{%
   \@ifundefined{Exindent}{}{%
     \setlength\@tmplinguexdimen\Exindent%
     \addtolength\Exindent{-0em}}%
-  \begin{enumerate}[label=\protect\@triangle,labelindent=0pt,labelwidth=0.75em,labelsep=0.25em,itemsep=\@parskip,leftmargin=0em,itemindent=0em]%
+  \begin{enumerate}[label=\protect\@triangle,labelindent=0pt,labelwidth=0.75em,labelsep=0.25em,itemsep=\@parskip,leftmargin=0em,itemindent=0em,#1]%
 }{%
   \end{enumerate}%
   \@ifundefined{Exindent}{}{%
