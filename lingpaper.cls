@@ -220,7 +220,6 @@
 \DeclareOption{noheader}{\@noheadertrue}
 
 \pagestyle{fancyplain}
-%\renewcommand\headrulewidth{0pt}
 \newcommand\@leftheaderfont[1]{\roundlightfont\if@handout#1\else\textit{#1}\fi}
 \newcommand\@rightheaderfont[1]{\roundlightfont #1}
 \newcommand\@centerheaderfont[1]{\roundlightfont #1}
@@ -228,15 +227,19 @@
 \newcommand\rightheader{\@rightheaderfont{\ifdefined\@author\@pagenumfontsize\@author\fi}}
 \newcommand\centerheader{\if@handout\@centerheaderfont{\@shorttitle}\fi}
 
+\newcommand\@headrulewidth{1pt}
+\newcommand\@headlinestrut{\rule[-1.5ex]{0pt}{2ex}} % See http://tex.stackexchange.com/questions/40270/how-do-i-increase-the-spacing-between-header-text-and-the-headrule-line-with-f
+
 \AtEndOfPackage{
   \if@handout%
     \if@noheader\else%
-      \fancyhead[L]{\leftheader}%
+      \fancyhead[L]{\@headlinestrut\leftheader}%
       \fancyhead[C]{\centerheader}%
       \fancyhead[R]{\rightheader}%
     \fi%
     \fancyfoot[R]{\@pagenumfontsize\thepage}%
     \fancyfoot[L,C]{}%
+    \renewcommand\@headrulewidth{0.5pt}%
   \else%
     \fancyhead{}%
     % Can't get twoside mode to work so can't use [CE] and [CO].
@@ -252,11 +255,8 @@
     \fi%
     \fancyfoot[R]{\@pagenumfontsize\thepage}%
     \fancyfoot[L,C]{}%
-    \renewcommand\headrulewidth{0pt}%
+    \renewcommand\@headrulewidth{0pt}%
   \fi}
-
-\newcommand\@headrulewidth{1pt}
-\renewcommand{\headrulewidth}{\@headrulewidth}
 
 %
 % Handout variant.
