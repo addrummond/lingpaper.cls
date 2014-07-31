@@ -928,13 +928,13 @@
 % Bullet points suitable for handout. Not highly indented. Examples defined using linguex are not indented
 % further if they appear inside a \item.
 %
+\newcommand\@tricolor{rgb:black,7;white,1}
 \newcommand\@triangle{%
 \begin{tikzpicture}
 \node[isosceles triangle,
 isosceles triangle apex angle=60,
 draw,
-color=black,
-thick,
+color=\@tricolor,
 minimum height=0.5em,
 inner sep=0pt,
 outer sep=0pt]{};
@@ -945,9 +945,8 @@ outer sep=0pt]{};
 \node[isosceles triangle,
 isosceles triangle apex angle=60,
 draw,
-color=black,
-thick,
-fill=black,
+color=\@tricolor,
+fill=\@tricolor,
 minimum height=0.5em,
 inner sep=0pt,
 outer sep=0pt]{};
