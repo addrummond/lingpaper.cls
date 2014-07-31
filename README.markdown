@@ -11,7 +11,6 @@ The basic features are as follows:
 * Footnotes same size as main text by default except in "handout" mode.
 * "handout" option sets asymmetric margins for 2x2 printing and places headers only on even-numbered pages.
 * Easy to switch betwen double/single spacing and footnotes/endnotes.
-* Makes proper use of old style numerals in smallcaps section headings and in glosses.
 
 Package options:
 
@@ -22,7 +21,6 @@ Package options:
 only on even-numbered pages.
 * `[11pt]` Normal text is 11pt instead of default 12pt.
 * `[nosectionperiods]` By default there is a period after the section number in section headings. This option removes it.
-* `[nosmallcaps]` Don't use smallcaps for section headings, running headers, etc.
 * `[endnotes]` Endnotes instead of footnotes (notes are still specified using the `footnote` command). You may specify position of endnotes using `\theendnotes`.
 * `[marginnotes]` Margin notes instead of footnotes (notes are still specified using the `footnote` command). This works only if the `[handout]` option is also set. The right margins of odd pages and left margins of even pages are increased to make room for margin notes in the center of the handout. Margin notes are defined using the [marginfix](http://www.ctan.org/tex-archive/macros/latex/contrib/marginfix) package.
 * `[largemarginnotes]` If this is set then margin notes use `\footnotesize` instead of `\scriptsize` (usually, margin notes need to be a bit smaller than footnotes would be).
@@ -69,7 +67,7 @@ Example:
     \location{Location of talk}
     \title{My Analysis of Phenomenon X With a Long Title}
     \shorttitle{The Short Title}
-    
+
     \maketitle
 
     \section{First section}

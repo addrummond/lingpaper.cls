@@ -1,7 +1,7 @@
 \ProvidesClass{lingpaper}[2013/03/02 Linguistics papers]
 \NeedsTeXFormat{LaTeX2e}
 \newenvironment{description}{}{}
-\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,ifoddpage,enumitem,pdftexcmds,tikz,amsmath,multicol,hyphenat}
+\RequirePackage{endnotes,fancyhdr,ifpdf,ifxetex,ifluatex,ifoddpage,enumitem,pdftexcmds,tikz,amsmath,multicol,hyphenat,scalefnt}
 \AtBeginDocument{\usetikzlibrary{shapes.geometric}}
 
 %
@@ -28,6 +28,10 @@
 %
 % Basic font setup.
 %
+\newcommand\roundlightfont{\normalfont\fontfamily{fos}\fontseries{l}\selectfont\scalefont{0.95}}
+\newcommand\roundnormalfont{\normalfont\fontfamily{fos}\fontseries{lc}\selectfont\scalefont{0.95}}
+\newcommand\roundboldfont{\normalfont\fontfamily{fos}\fontseries{sb}\selectfont\scalefont{0.95}}
+
 \newif\if@smallfootnotes
 \DeclareOption{smallfootnotes}{\@smallfootnotestrue}
 
@@ -121,7 +125,7 @@
 
 \newcommand{\normaltext}{\fontseries{m}\fontshape{n}\normalsize}
 
-\newcommand{\@runningheaderfontsize}{\fontsize{\if@smallcaps\@lfs\else\@nfs\fi}{\if@smallcaps\@lfsskip\else\@nfsskip\fi}\selectfont}
+\newcommand{\@runningheaderfontsize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
 \newcommand{\@pagenumfontsize}{\@realfootnotesize}
 
 \newif\if@parskip
@@ -217,9 +221,9 @@
 
 \pagestyle{fancyplain}
 %\renewcommand\headrulewidth{0pt}
-\newcommand\@leftheaderfont[1]{\if@handout#1\else\textit{#1}\fi}
-\newcommand\@rightheaderfont[1]{#1}
-\newcommand\@centerheaderfont[1]{#1}
+\newcommand\@leftheaderfont[1]{\roundlightfont\if@handout#1\else\textit{#1}\fi}
+\newcommand\@rightheaderfont[1]{\roundlightfont #1}
+\newcommand\@centerheaderfont[1]{\roundlightfont #1}
 \newcommand\leftheader{\if@noheader\else\@pagenumfontsize\@leftheaderfont{\if@handout\@date\else\ifdefined\@shorttitle\@shorttitle\else\@title\fi\fi}\fi}
 \newcommand\rightheader{\@rightheaderfont{\ifdefined\@author\@pagenumfontsize\@author\fi}}
 \newcommand\centerheader{\if@handout\@centerheaderfont{\@shorttitle}\fi}
@@ -239,18 +243,10 @@
     \if@noheader\else%
       \fancyhead[C]{%
         \checkoddpage\ifoddpage%
-          \if@smallcaps%
-            \textsc{\@runningheaderfontsize\MakeLowercase\@shorttitle}%
-          \else%
-            \textit{\@runningheaderfontsize\@shorttitle}%
-          \fi%
+          \textit{\@runningheaderfontsize\@shorttitle}%
         \else%
           \ifdefined\@author%
-            \if@smallcaps%
-              \textsc{\@runningheaderfontsize\MakeLowercase\@author}%
-            \else%
-              \textit{\@runningheaderfontsize\@author}%
-            \fi%
+            \textit{\@runningheaderfontsize\@author}%
           \fi%
         \fi}%
     \fi%
@@ -375,9 +371,6 @@
 %
 % Sections and chapters.
 %
-\newif\if@smallcaps\@smallcapstrue
-\DeclareOption{nosmallcaps}{\@smallcapsfalse}
-
 \newif\if@hyphensect
 \DeclareOption{hyphensect}{\@hyphensecttrue}
 \newcommand\@sectnohyphens[1]{\if@hyphensect#1\else\nohyphens{#1}\fi}
@@ -415,17 +408,17 @@
 \addtolength\subsubsectionlineskip{0.25\subsubsectionfontsize}
 }
 
-\newcommand{\normaltitlefont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\normaltitlefontsize}{\normaltitlefontsize}\selectfont}
-\newcommand{\normaltitleextrainfofont}{\fontseries{m}\fontshape{n}\fontsize{\normaltitleextrainfofontsize}{\normaltitleextrainfofontsize}\selectfont}
+\newcommand{\normaltitlefont}{\roundboldfont\fontsize{\normaltitlefontsize}{\normaltitlefontsize}\selectfont}
+\newcommand{\normaltitleextrainfofont}{\roundnormalfont\fontseries{m}\fontshape{n}\fontsize{\normaltitleextrainfofontsize}{\normaltitleextrainfofontsize}\selectfont}
 
-\newcommand{\bigtitlefont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\bigtitlefontsize}{\bigtitlefontsize}\selectfont}
-\newcommand{\bigtitlextrainfofont}{\fontseries{m}\fontshape{n}\fontsize{\bigtitleextrainfofontsize}{\bigtitleextrainfofontsize}\selectfont}
+\newcommand{\bigtitlefont}{\roundboldfont\fontsize{\bigtitlefontsize}{\bigtitlefontsize}\selectfont}
+\newcommand{\bigtitlextrainfofont}{\roundnormalfont\fontshape{n}\fontsize{\bigtitleextrainfofontsize}{\bigtitleextrainfofontsize}\selectfont}
 
-\newcommand{\chapternumberfont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\chapternumberfontsize}{\chapternumberfontsize}\selectfont}
-\newcommand{\chapternamefont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\chapternamefontsize}{\chapternamefontsize}\selectfont}
-\newcommand{\sectionfont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\sectionfontsize}{\sectionlineskip}\selectfont}
-\newcommand{\subsectionfont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\subsectionfontsize}{\subsectionlineskip}\selectfont}
-\newcommand{\subsubsectionfont}{\fontseries{m}\if@smallcaps\fontshape{sc}\fi\fontsize{\subsubsectionfontsize}{\subsubsectionlineskip}\selectfont}
+\newcommand{\chapternumberfont}{\roundboldfont\fontsize{\chapternumberfontsize}{\chapternumberfontsize}\selectfont}
+\newcommand{\chapternamefont}{\roundboldfont\fontsize{\chapternamefontsize}{\chapternamefontsize}\selectfont}
+\newcommand{\sectionfont}{\roundboldfont\fontsize{\sectionfontsize}{\sectionlineskip}\selectfont}
+\newcommand{\subsectionfont}{\roundboldfont\fontsize{\subsectionfontsize}{\subsectionlineskip}\selectfont}
+\newcommand{\subsubsectionfont}{\roundboldfont\fontsize{\subsubsectionfontsize}{\subsubsectionlineskip}\selectfont}
 
 \setcounter{secnumdepth}{4}
 \newcounter{chapter}
@@ -792,9 +785,9 @@
 \newcommand\contentsname{Contents}
 
 % Make it easy to change fonts in TOC.
-\newcommand\cftcontentsfont{\normalfont\if@smallcaps\fontshape{sc}\fi\selectfont\huge}
-\newcommand\cftpartfont{\normalfont\if@smallcaps\fontshape{sc}\fi\large}
-\newcommand\cftchapterfont{\normalfont\if@smallcaps\fontshape{sc}\fi\selectfont\large}
+\newcommand\cftcontentsfont{\normalfont\selectfont\huge}
+\newcommand\cftpartfont{\normalfont\large}
+\newcommand\cftchapterfont{\normalfont\selectfont\large}
 \newcommand\cftsectionfont{\normalfont\normalsize}
 \newcommand\cftsubsectionfont{\normalfont\footnotesize}
 \newcommand\cftsubsubsectionfont{\normalfont\footnotesize}
@@ -837,7 +830,7 @@
     \begingroup
       \parindent \z@ \rightskip \@pnumwidth
       \parfillskip -\@pnumwidth
-      \leavevmode \cftsectionfont % Edit 
+      \leavevmode \cftsectionfont % Edit
       \advance\leftskip\@tempdima
       \hskip -\leftskip
       #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
@@ -1006,4 +999,3 @@ outer sep=0pt]{};
 }
 
 \ProcessOptions
-
