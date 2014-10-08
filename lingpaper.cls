@@ -125,8 +125,8 @@
 
 \newcommand{\normaltext}{\fontseries{m}\fontshape{n}\normalsize}
 
-\newcommand{\@runningheaderfontsize}{\fontsize{\@nfs}{\@nfsskip}\selectfont}
-\newcommand{\@pagenumfontsize}{\@realfootnotesize}
+\newcommand{\@runningheaderfontsize}{\fontsize{\@nfs}{\@nfsskip}\selectfont\rm}
+\newcommand{\@pagenumfontsize}{\@realfootnotesize\rm}
 
 \newif\if@parskip
 \DeclareOption{parskip}{\@parskiptrue}
