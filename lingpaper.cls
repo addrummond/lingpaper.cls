@@ -274,10 +274,19 @@
   \setlength\columnsep{0.5in}%
   \pdfpagewidth\@paperwidth%
   \pdfpageheight\@paperheight}
-%\newcommand\@modifyafourforhandout{%
-%  \setlength\oddsidemargin{-5.4mm}
-%  \setlength\evensidemargin{-15.4mm}
-%  \setlength\textwidth{180mm}}
+\newcommand\@modifyafourforhandout{%
+  \renewcommand\@paperwidth{297mm}%
+  \renewcommand\@paperheight{210mm}%
+  \setlength\paperwidth{297mm}%
+  \setlength\paperheight{210mm}%
+  \setlength\oddsidemargin{0in}%
+  \setlength\evensidemargin{0in}%
+  \setlength\topmargin{-1in}%
+  \setlength\textheight{168mm}%
+  \setlength\textwidth{246mm}%
+  \setlength\columnsep{0.5in}%
+  \pdfpagewidth\@paperwidth%
+  \pdfpageheight\@paperheight}
 
 \newcommand\@hscale{1.5pt}
 \newcommand\@modifyfontsizesforhandout{%
